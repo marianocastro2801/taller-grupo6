@@ -1,4 +1,4 @@
-# Taller de tecnologias de produccion de software - Aplicación de ejemplo
+# Taller de tecnologias de produccion de software - Aplicacion de Vacunas
 
 Aplicación de Vacunas de la catedra TTPS de la Facultad de Informática de la U.N.L.P.
 
