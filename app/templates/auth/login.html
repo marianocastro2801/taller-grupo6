@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% from 'macros/macros_otros.html' import notifications %}
+{% block title %}Login{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+
+{{notifications()}}
+
+<div class="text-center">
+  <h1 class="display-4">Iniciar Sesión
+    <p class="lead">Ingrese sus Credenciales</p>
+    <div class="login-page">
+      <div class="form login">
+        <form class="login-form" action="{{ url_for('auth.authenticate') }}" method="POST">
+          <input name="email" type="text" placeholder="Correo" required />
+          <input type="password" name="password" placeholder="Contraseña" required />
+          <button type="submit">Iniciar Sesion</button>
+        </form>
+      </div>
+    </div>
+  </h1>
+</div>
+{% endblock %}

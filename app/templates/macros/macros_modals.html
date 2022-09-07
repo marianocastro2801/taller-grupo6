@@ -1,0 +1,147 @@
+{% macro set_modals_meeting_point(points) %}
+    {% for point in points %}
+        {{ view_modal_meeting_point(point) }}
+        {{ delete_modal_meeting_point(point) }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro view_modal_meeting_point(point) %}
+    <div class="modal fade text-black" id="viewModal{{ point.id }}" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Detalle punto de encuentro</h5>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <th>Nombre</th>
+                            <td>{{ point.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th>Direccion</th>
+                            <td>{{ point.direccion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Coordenadas</th>
+                            <td>{{ point.coordenadas }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estado</th>
+                            <td>{{ "Activo" if point.estado == 1 else "Inactivo" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Telefono</th>
+                            <td>{{ point.telefono }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ point.email }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro delete_modal_meeting_point(point) %}
+    <div class="modal fade text-black" id="deleteModal{{ point.id }}" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar punto de encuentro</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Esta seguro de eliminar el punto de encuentro:</p>
+                    <div class="modal-body d-flex justify-content-center">
+                    <p><b>{{ point.nombre }}</b></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="{{ url_for('points.meeting_point_delete', meeting_point_id=point.id) }}" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro set_modals_users(users) %}
+    {% for user in users %}
+        {{ view_modal_user(user) }}
+        {{ delete_modal_user(user) }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro view_modal_user(user) %}
+    <!-- View Modal-->
+    <div class="modal fade text-black" id="viewModal{{ user.id }}" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Detalle Usuario</h5>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tr>
+                <th>Nombre</th>
+                <td>{{ user.nombre }}</td>
+              </tr>
+              <tr>
+                <th>Apellido</th>
+                <td>{{ user.apellido }}</td>
+              </tr>
+              <tr>
+                <th>Nombre de usuario</th>
+                <td>{{ user.usrname }}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+              </tr>
+              <tr>
+                <th>Contraseña</th>
+                <td>{{ user.password }}</td>
+              </tr>
+              <tr>
+                <th>Estado</th>
+                <td>{% if user.activo == 1 %} Activo {% else %} Inactivo {% endif %}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endmacro %}
+
+{% macro delete_modal_user(user) %}
+    <!-- Delete Modal--> 
+    <div class="modal fade text-black" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Usuario</h5>
+          </div>
+          <div class="modal-body">
+            <p>Esta seguro de eliminar el usuario <b>{{ user.nombre }} {{ user.apellido }}</b></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <a href="{{ url_for('users.user_delete', user_id=user.id) }}" class="btn btn-danger">Eliminar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endmacro %}
+

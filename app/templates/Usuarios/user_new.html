@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+{% from 'macros/macros_otros.html' import notifications %}
+{% block title %}Usuarios{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{{notifications()}}
+
+    <div class="">
+      <div class="container text-center">
+        <h1 class="display-4">Módulo de Usuarios</h1>
+        <p>{{message}}</p>
+      </div>
+      <form method="post" action="{{ url_for('users.user_save') }}" id="form_registro">
+        <input type="hidden" id="mode" name="mode" value="{{mode}}">
+        <input type="hidden" id="user_id" name="user_id" value="{{user.id}}">
+        <input type="hidden" id="roles" name="roles" value="">
+        <div class="container form">
+          <!-- <div class="well"> -->
+            
+            <div class="form-group row">
+              <label for="nombre" class="col-sm-2 col-form-label text-black">Nombre:</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control required" id="nombre" name="nombre" value="{{user.nombre}}">
+              </div>
+
+              <label for="apellido" class="col-sm-2 col-form-label text-black">Apellido:</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control required" id="apellido" name="apellido" value="{{user.apellido}}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="email" class="col-sm-2 col-form-label text-black">E-mail:</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control required email" id="email" name="email" value="{{user.email}}">
+              </div>
+              
+              <label for="usrname" class="col-sm-2 col-form-label text-black">Nombre de Usuario:</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control required" id="usrname" name="usrname" value="{{user.usrname}}">
+              </div>
+            </div>
+
+            {% if mode == 'create' %}
+            <div class="form-group row">
+              <label for="password" class="col-sm-2 col-form-label text-black">Contraseña:</label>
+              <div class="col-sm-4">
+                <input type="password" class="form-control required password" id="password" name="password" autocomplete="off" value="">
+              </div>
+
+              <label for="passwordConfirm" class="col-sm-2 col-form-label text-black">Confirmar Contraseña:</label>
+              <div class="col-sm-4">
+                <input type="password" class="form-control required password" name="passwordConfirm" id="passwordConfirm" autocomplete="off" value="">
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="form-group row boton-izq">
+              <button type="button" class="btn btn-primary"  data-toggle="modal"
+              data-target="#rolesModal">Seleccionar Roles</button>
+            </div>
+
+          <!-- </div> -->
+          <div class="botones botones-center">
+            <a class="btn btn-danger" href="{{ url_for('users.user_index') }}">Cancelar</a>
+            <button type="reset" class="btn btn-warning">
+              {% if mode == 'create' %}
+              Limpiar campos
+              {% else %}
+              Restaurar campos
+              {% endif %}
+            </button>
+            <button type="submit" class="btn btn-success">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div> 
+
+    <!-- Modal de Roles -->
+    <div class="modal fade" id="rolesModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Marque los roles del Usuario nuevo</h5>
+        </div>
+        <div class="modal-body">
+          
+          {% for rol in roles %}  
+            
+            <div id="divRoles" class="form-check">
+              <label class="form-check-label text-black" for="{{rol.id}}">
+                {{rol.nombre}}
+              </label>
+              <input class="check-form" type="checkbox" value="{{rol.nombre}}" id="{{rol.id}}">
+            </div>           
+            
+          {% endfor %}
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="aceptar" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      
+      $('#aceptar').click(function() {
+        var selected = [];
+        $('#divRoles input:checked').each(function() {
+          selected.push($(this).attr('id'));
+        });
+
+        $('#roles').val(selected.toString());
+      });
+        
+    });
+  </script>
+ 
+
+{% endblock %}

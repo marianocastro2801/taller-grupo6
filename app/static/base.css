@@ -1,0 +1,334 @@
+.form {
+    margin-top:3em;
+    margin-bottom:1em;
+}
+
+.row {
+    margin-top:1.5em;
+}
+
+.noTop {
+    margin-top: auto !important;
+}
+
+.noBottom {
+    margin-bottom: auto !important;
+}
+
+.botones {
+    margin-top:1.5em;
+    display: flex;
+}
+
+.botones button, a {
+    margin-left: 0.5em;
+}
+
+.botones-center {
+  justify-content: center;
+}
+
+.botones-izq {
+  justify-content: left;
+}
+
+.botones-der {
+  justify-content: flex-end;
+}
+
+.boton-izq {
+    display: flex;
+    justify-content: left;
+}
+
+.boton-izq button {
+    width: auto;
+}
+
+.crud-buttoms {
+  border-bottom-color: transparent !important;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 2px;
+  width: 30px;
+}
+
+.crud-buttoms i {
+  color: black;
+}
+
+.crud-buttoms:hover {
+  background:transparent;
+  border-radius: 0%;
+  border-color: transparent;
+  border-bottom-color: black;
+}
+
+.btn-edit:active, :focus, .btn-details:active, :focus {
+  background:transparent;
+  border-color: #0a58ca;
+  box-shadow: 0 0 0 .25rem rgba(49,132,253,.5);
+}
+.btn-off:active, :focus, .btn-delete:active, :focus {
+  background:transparent;
+  border-color: #a52834;
+  box-shadow: 0 0 0 .25rem rgba(225,83,97,.5);
+}
+.btn-on:active, :focus {
+  background:transparent;
+  border-color: #13653f;
+  box-shadow: 0 0 0 .25rem rgba(60,153,110,.5);
+}
+/*
+.crud-buttoms:hover, :active, :focus {
+  background:transparent !important;
+}
+*/
+
+#footer {
+    margin-top: 2em;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 12px
+}
+
+#navBar {
+    background-color: black !important;
+}
+
+#navBar-item {
+    color: white;
+}
+
+.jumbotron {
+    min-height:80vh;
+    display:flex;
+    flex-direction:column; 
+}
+
+#divLogo {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.profile {
+  position: relative;
+  min-width: 40%;
+  background: #FFFFFF;
+  padding: 60px;
+  margin: 30px auto 30px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#v-pills-tab{
+  margin:5em auto 0px;
+}
+
+/* para el fondo de color*/
+html {
+    min-height: 100%;
+    position: relative;
+  }
+  body {
+    margin: 0;
+    margin-bottom: 40px;
+    background-color: white;
+    
+    transition: all 0.4s;
+  }
+  footer {
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 12px
+  }
+  .container{
+    min-height: calc(100vh -100px - 300px);
+  }
+  
+    /* inicio de sesion */
+  
+    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+  
+  .login {
+    position: relative;
+    max-width: 360px;
+    background: #FFFFFF;
+    padding: 45px;
+    margin: 0 auto 100px;
+  }
+
+  .login button {
+    text-transform: uppercase;
+    background: #4CAF50;
+    width: 100%;
+  }
+
+  .login button:hover, .login button:active, .login button:focus {
+    background: #43A047;
+  }
+
+  .form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  
+  .form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  .form button, .form a {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    border: 0;
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  
+  .form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  .form .register-form {
+    display: none;
+  }
+  
+  .container {
+    position: relative;
+    margin: 0 auto;
+  }
+  .container:before, .container:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .container .info {
+    margin: 50px auto;
+    text-align: center;
+  }
+  .container .info h1 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #1a1a1a;
+  }
+  .container .info span {
+    color: #4d4d4d;
+    font-size: 12px;
+  }
+  .container .info span a {
+    color: #000000;
+    text-decoration: none;
+  }
+  .container .info span .fa {
+    color: #EF3B3A;
+  }
+
+  /*PALETAS (footer y navar deben ser mismos colores)
+  Modo: blanco - negro. DB id: 4 */
+
+body.theme-4{
+  background-color: #eee;
+  color: #212121;
+}
+
+.theme-4 footer{
+  background-color:#212121;
+  color: #eee;
+}
+
+.theme-4 .navbar {
+  background-color:#212121;
+  color: #eee;
+}
+
+.theme-4 .home-text {
+  color: #212121;
+}
+
+.theme-4 .mobile-item {
+  color: #eeeeee;
+}
+
+.theme-4 span{
+  color: #eeeeee;
+}
+
+/*PALETAS
+  Modo bokita jrs: AZUL alicia - AMARILLO melon. DB id: 5 */
+
+
+body.theme-5{
+  background-color: rgb(230, 238, 120);
+  color: black;
+}
+
+.theme-5 footer{
+    background-color: rgb(129, 212, 250);
+  color: white;
+}
+
+.theme-5 footer span{
+  color: black;
+}
+
+.theme-5 .navbar {
+  background-color: rgb(129, 212, 250);
+  color: black;
+}
+
+
+/*paleta color avellana */
+
+body.theme-6{
+  background-color: rgb(128, 185, 223);
+  color: black;
+}
+
+.theme-6 footer{
+    background-color: rgb(164, 223, 124);
+  color: black;
+}
+
+.theme-6 .navbar {
+  background-color: rgb(164, 223, 124);
+  color: black;
+
+}
+
+nav.navbar {
+  background-color: black;
+}

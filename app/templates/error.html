@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Error{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="display-4">{{ error_name }}</h1>
+    <p class="display-6"><b>Error!</b> {{ error_description }}</p>
+    <a class="btn btn-primary" href="{{ url_for('home.view') }}">Ir al menu</a>
+</div>
+{% endblock %}

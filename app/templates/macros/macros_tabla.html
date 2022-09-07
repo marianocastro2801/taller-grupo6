@@ -1,0 +1,61 @@
+{% macro heading_row(headings) %}
+    <tr>
+        {% for header in headings %}
+            <th scope="col">{{ header }}</th>
+        {% endfor %}
+    </tr>
+{% endmacro %}
+
+{% macro button_details(id) %}
+    <button type="button" class="btn btn-details crud-buttoms" data-toggle="modal"
+            data-target="#viewModal{{ id }}" data-toggle="tooltip" data-placement="top"
+            title="Detalles">
+        <i class="fas fa-info" style="color: #0277bd"></i></button>
+{% endmacro %}
+
+{% macro button_edit(url) %}
+    <a class="btn btn-edit crud-buttoms"
+       href="{{ url }}"
+       data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fas fa-edit" style="color: #ff6f00"></i>
+    </a>
+{% endmacro %}
+
+{% macro button_activate_deactivate(id, estado) %}
+    {% if estado == 1 %}
+        <button type="button" class="btn btn-off crud-buttoms" data-toggle="modal"
+                data-target="#activateModal{{ id }}" data-toggle="tooltip" data-placement="top"
+                title="Desactivar">
+    {% else %}
+        <button type="button" class="btn btn-on crud-buttoms" data-toggle="modal"
+                data-target="#activateModal{{ id }}" data-toggle="tooltip" data-placement="top"
+                title="Activar">
+    {% endif %}
+<i class="fas fa-power-off"></i>
+</button>
+{% endmacro %}
+
+{% macro button_delete(id) %}
+    <button type="button" class="btn btn-delete crud-buttoms" data-toggle="modal"
+            data-target="#deleteModal{{ id }}" data-toggle="tooltip" data-placement="top"
+            title="Eliminar"><i class="fas fa-trash-alt" style="color: #f44336"></i></button>
+{% endmacro %}
+
+
+
+{% macro user_row(users) %}
+    {% for user in users %}
+        <tr>
+            <td class="col-2">{{ user.nombre }}</td>
+            <td class="col-2">{{ user.apellido }}</td>
+            <td class="col-3">{{ user.usrname }}</td>
+            <td class="col-3">{{ user.email }}</td>
+            <td class="col-2">
+                {{ button_details(user.id) }}
+                {{ button_edit(url_for('users.user_edit', user_id=user.id)) }}
+                {{ button_delete(user.id) }} 
+            </td>
+            <!--solo funciona el editar, arreglar el ver detalle y eliminar-->
+        </tr>
+    {% endfor %}
+{% endmacro %}
+

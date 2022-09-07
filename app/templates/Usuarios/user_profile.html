@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+{% if is_authenticated(session) %} 
+<div style="background:transparent !important" class="jumbotron jumbotron-fluid text-center">
+
+    <div class="container text-center mt-4">
+        <h1 class="display-4">Perfil de {{user.nombre}} {{user.apellido}}</h1>
+    </div>
+
+    <div class="profile">
+
+        <div class="container">
+            <div class="row noTop align-items-center">
+                <div class="col-md">
+                    <p> Nombre: {{user.nombre}} </p>
+                </div>
+                <div class="col-md">
+                    <p> Apellido: {{user.apellido}} </p>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-md">
+                    <p class="noBottom"> Nombre de usuario: {{user.usrname}} </p>
+                </div>
+                <div class="col-md">
+                    <p class="noBottom"> Email: {{user.email}} </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="botones botones-center">
+        <a class="btn btn-edit" href="{{ url_for('users.user_edit', user_id=user.id) }}"
+        title="Editar"> <i class="fas fa-edit" style="color: #ff6f00"></i> Modificar Datos </a>
+
+    </div>
+
+</div> 
+
+
+{% endif %}    
+{% endblock %}
+
+<!--extender layout para cualquier vista. Luego colocar lo que uno desee mostrar dentro del block content-->

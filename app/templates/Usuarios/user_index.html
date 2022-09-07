@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% from 'macros/macros_buscador.html' import input_name, select_criteria, select_order, select_state, summit_clean_button %}
+{% from 'macros/macros_tabla.html' import heading_row, user_row, buttons_paginate %}
+{% from 'macros/macros_modals.html' import set_modals_users %}
+{% from 'macros/macros_otros.html' import button_go_home, notifications %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{notifications()}}
+
+    <div class="">
+        <div class="container text-center mt-4">
+            <h1 class="display-4">Usuarios</h1>
+        </div>
+        <div class="container">
+            <div class="mb-4">
+                <form action="{{ url_for('users.user_index') }}" method="GET">
+                    <div class="form-group row">
+                        {{ input_name() }}
+              
+                    </div>
+                    <div class="form-group row">
+                        
+                        {{ summit_clean_button('users.user_index') }}
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-dark">
+                    <thead>
+                    {{ heading_row(['Nombre', 'Apellido', 'Nombre de usuario', 'Email', 'Opciones']) }}
+                    </thead>
+                    <tbody class="table table-light">
+                        {{ user_row(users) }} 
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="botones botones-der">
+                {{ button_go_home() }}
+                {% if user_has_permission(session, 'user_new') %}
+                    <a class="btn btn-success" id="addUser" name="add_user" href="{{ url_for('users.user_new') }}"
+                       data-toggle="tooltip" data-placement="top" title="Añadir Usuario">
+                        + Añadir Usuario</a>
+                {% endif %}
+            </div>
+            {{ set_modals_users(users.items) }}
+        </div>
+    </div>
+
+{% endblock %}

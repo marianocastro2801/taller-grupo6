@@ -1,0 +1,91 @@
+{% macro input_name() %}
+{% set busqueda = request.args.get('search', '') %}
+<label for="nameSearcher" class="col-sm-2 col-form-label">Buscar por nombre:</label>
+<div class="col-sm-4">
+    {% if busqueda != '' %}
+    <input class="form-control" id="nameSearcher" name="search" value="{{ busqueda }}"
+        placeholder="Buscar por nombre" />
+    {% else %}
+    <input class="form-control" id="nameSearcher" name="search" placeholder="Buscar por nombre" />
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro select_criteria(conf, criterias) %}
+{% set criterio = request.args.get('sort', '') %}
+<label for="sortSelect" class="col-sm-2 col-form-label">Criterio:</label>
+<div class="col-sm-4">
+    <select class="form-select bg-white" id="sortSelect" name='sort'>
+        {% for criteria in criterias %}
+        {% if criterio == criteria.tipo %}
+        <option value='{{ criteria.tipo }}' selected> Filtrar
+            por: {{ criteria.descripcion }}</option>
+        {% elif conf.criterio == criteria and criterio == '' %}
+        <option value='{{ criteria.tipo }}' selected> Filtrar
+            por: {{ criteria.descripcion }}</option>
+        {% else %}
+        <option value='{{ criteria.tipo }}'>Filtrar
+            por: {{ criteria.descripcion }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
+</div>
+{% endmacro %}
+
+{% macro select_order(conf, orders) %}
+
+{% set orden = request.args.get('order', '') %}
+{% if orden == "asc" %}
+{% set orden = 1 %}
+{% elif orden == "desc" %}
+{% set orden = 0 %}
+{% else %}
+{% set orden = conf.orden %}
+{% endif %}
+
+<label for="orderSelect" class="col-sm-2 col-form-label">Orden:</label>
+<div class="col-sm-4">
+    <select class="form-select bg-white" id="orderSelect" name='order'>
+        {% for order in range(1,-1,-1) %}
+        {% if orden == order %}
+        <option value='{% if order %}asc{% else %}desc{% endif %}' selected>
+            {% if order %} Ascendente {% else %} Descendente {% endif %}
+        </option>
+        {% else %}
+        <option value='{% if order %}asc{% else %}desc{% endif %}'>
+            {% if order %} Ascendente {% else %} Descendente {% endif %}
+        </option>
+        {% endif %}
+        {% endfor %}
+    </select>
+
+</div>
+{% endmacro %}
+
+{% macro select_state() %}
+{% set estado = request.args.get('state', 1) %}
+<label for="stateSelect" class="col-sm-2 col-form-label">Estado:</label>
+<div class="col-sm-3">
+    <select class="form-select bg-white" id="stateSelect" name="state">
+        {% if estado == '0' %}
+        <option value='1'>Activo</option>
+        <option value='0' selected>Inactivo</option>
+        {% else %}
+        <option value='1' selected>Activo</option>
+        <option value='0'>Inactivo</option>
+        {% endif %}
+    </select>
+</div>
+{% endmacro %}
+
+{% macro summit_clean_button(url) %}
+
+<div class="btn-group col-sm-1" role="group" aria-label="Basic example">
+    <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="top" title="Buscar">
+        <i class="fas fa-search"></i>
+    </button>
+    <a class="btn btn-secondary" href="{{ url_for(url) }}" data-toggle="tooltip" data-placement="top" title="Limpiar">
+        <i class="fa fa-undo"></i>
+    </a>
+</div>
+{% endmacro %}

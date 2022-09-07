@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class=" text-center">
+
+        <div class="container" id="divLogo">
+            <img class="img-fluid" src="{{ url_for('static', filename='logo.png') }}" alt="logo" width="175"
+                 height="145">
+            <p class="lead"></p>
+        </div>
+        <div class="container">
+
+            
+            {% if user_has_permission(session,"user_index") %}
+                <a class="dropdown-item home-text" href="{{ url_for('users.user_index') }}">Gestionar Usuarios</a></li>
+                
+            {% endif %}
+            <a class="dropdown-item home-text" href="/">Vacunas</a></li>
+    
+        </div>
+
+    </div>
+{% endblock %}
+
+<!--etiqueta body: color green en stylos-->
+<!--extender layout para cualquier vista. Luego colocar lo que uno desee mostrar dentro del block content-->
