@@ -18,8 +18,11 @@
                 <a class="dropdown-item home-text" href="{{ url_for('users.user_index') }}">Gestionar Usuarios</a></li>
                 
             {% endif %}
-            <a class="dropdown-item home-text" href="/">Vacunas</a></li>
-    
+
+            {% if user_has_permission (session,"vaccine_index")%}            
+                <a class="dropdown-item home-text" href="{{ url_for('vaccines.vaccine_index') }}">Gestionar Vacunas</a></li>
+            {% endif %}
+
         </div>
 
     </div>

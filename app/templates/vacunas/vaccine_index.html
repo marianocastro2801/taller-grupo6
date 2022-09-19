@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% from 'macros/macros_buscador.html' import input_name, select_criteria, select_order, select_state, summit_clean_button %}
+{% from 'macros/macros_tabla.html' import heading_row, vaccine_row, buttons_paginate %}
+{% from 'macros/macros_modals.html' import set_modals_vaccines %}
+{% from 'macros/macros_otros.html' import button_go_home, notifications %}
+
+{% block title %}Vacunas{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{notifications()}}
+
+    <div class="">
+        <div class="container text-center mt-4">
+            <h1 class="display-4">Vacunas</h1>
+        </div>
+        <div class="container">
+            <div class="mb-4">
+                <form action="{{ url_for('vaccines.vaccine_index') }}" method="GET">
+                    <div class="form-group row">
+                        {{ input_name() }}
+                        {{ select_state() }}
+                        {{ summit_clean_button('vaccines.vaccine_index') }}
+                    </div>
+                    <div class="form-group row">
+                        
+                       
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-dark">
+                    <thead>
+                    {{ heading_row(['Nombre', 'Enfermedad', 'Tipo', 'Opciones']) }}
+                    </thead>
+                    <tbody class="table table-light">
+                        {{ vaccine_row(vaccines) }} 
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="botones botones-der">
+                {{ button_go_home() }}
+                {% if user_has_permission(session, 'user_new') %}
+                    <a class="btn btn-success" id="addUser" name="add_user" href="{{ url_for('vaccines.vaccine_new') }}"
+                       data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
+                        + Añadir Vacunas</a>
+
+                    <a class="btn btn-success" id="addUser" name="add_user" href="{{ url_for('vaccines.vaccine_new') }}"
+                       data-toggle="tooltip" data-placement="top" title="Comprar vacuna"> <!--hacer una nueva vista para comprar for vaccine in vaccines-->
+                         Comprar</a>
+                {% endif %}
+            </div>
+            {{ set_modals_vaccines(vaccines) }}
+        </div>
+    </div>
+
+{% endblock %}

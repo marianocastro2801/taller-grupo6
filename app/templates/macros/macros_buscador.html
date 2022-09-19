@@ -62,18 +62,18 @@
 </div>
 {% endmacro %}
 
-{% macro select_state() %}
-{% set estado = request.args.get('state', 1) %}
-<label for="stateSelect" class="col-sm-2 col-form-label">Estado:</label>
+{% macro select_state() %} <!--BUSCADORES MODIFICAR A QUE SEA POR TIPO Y NO ESTADO-->
+
+<label for="stateSelect" class="col-sm-2 col-form-label">Tipo:</label>
 <div class="col-sm-3">
     <select class="form-select bg-white" id="stateSelect" name="state">
-        {% if estado == '0' %}
-        <option value='1'>Activo</option>
-        <option value='0' selected>Inactivo</option>
-        {% else %}
-        <option value='1' selected>Activo</option>
-        <option value='0'>Inactivo</option>
-        {% endif %}
+     
+        <option value='2'>De Calendario</option>
+        <option value='1' selected>Pandemia</option>
+      
+        <option value='3'>otros.</option>
+
+     
     </select>
 </div>
 {% endmacro %}

@@ -54,8 +54,26 @@
                 {{ button_edit(url_for('users.user_edit', user_id=user.id)) }}
                 {{ button_delete(user.id) }} 
             </td>
-            <!--solo funciona el editar, arreglar el ver detalle y eliminar-->
-        </tr>
+         </tr>
     {% endfor %}
 {% endmacro %}
 
+
+{% macro vaccine_row(vaccines) %}
+    {% for vaccine in vaccines %}
+        
+        <tr>
+            <td class="col-2">{{ vaccine.nombre }}</td>
+            <td class="col-2">{{ vaccine.enfermedad }}</td>
+            <td class="col-2">{{ vaccine.tipo }}</td>
+        
+
+            <td class="col-2">
+                {{ button_details(vaccine.id) }}
+                {{ button_edit(url_for('vaccines.vaccine_edit', vaccine_id=vaccine.id)) }}
+                {{ button_delete(vaccine.id) }} 
+            </td>
+        </tr>
+
+    {% endfor %}
+{% endmacro %}

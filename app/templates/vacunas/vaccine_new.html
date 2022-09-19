@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% from 'macros/macros_otros.html' import notifications %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+ 
+{{notifications()}}
+
+<div class="">
+  <div class="container text-center">
+    <h1 class="display-4">Modulo de Vacunas</h1>
+    <p>{{message}}</p>
+  </div>
+  <form method="POST"
+    action="{{ url_for('vaccines.vaccine_save') if mode == 'create' else url_for('vaccines.vaccine_update') }}"
+    id="form-new-point">
+    <input type="hidden" id="vaccine_id" name="id" value="{{vaccine.id}}">
+
+    <div class="container form">
+      <!-- <div class="well"> -->
+
+      <div class="form-group row">
+        <label for="titulo" class="col-sm-2 col-form-label text-black">Nombre:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="nombre" name="nombre" value="{{vaccine.nombre}}"
+            placeholder="Ejemplo: BGH" required>
+        </div>
+
+        <label for="enfermedad" class="col-sm-2 col-form-label text-black">Enfermedad:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="enfermedad" name="enfermedad"
+            value="{{vaccine.enfermedad}}" placeholder="Ejemplo: covid" required>
+        </div>
+
+      </div>
+
+
+      <div class="form-group row">
+        <label for="laboratorio" class="col-sm-2 col-form-label text-black">Laboratorio:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="laboratorio" name="laboratorio"
+            value="{{ vaccine.laboratorio }}" placeholder="Ej: AstraZeneca-Oxford - Reino Unido" required> <!-- laboratorio, nombre comercial o desarrollador LO MISMO-->
+        </div>
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Tipo:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="tipo_id">
+            {% for type in types %}
+            {% if (mode == "edit" and vaccine.tipo_id == type.id) %}
+            <option value='{{type.id}}' selected> {{ type.nombre }} </option>
+            {% else %}
+            <option value='{{type.id}}'> {{ type.nombre }} </option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+
+      </div>
+
+        <!-- </div> -->
+        <div class="botones botones-center">
+          <a class="btn btn-danger" href="/vacunas/vaccine_index">Cancelar</a>
+          <button type="submit" class="btn btn-success">Guardar</button>
+          {% if mode == 'create' %}
+          <button type="reset" class="btn btn-warning" mode="create"> Limpiar campos </button>
+
+          {% endif %}
+
+
+        </div>
+      </div>
+  </form>
+</div>
+
+
+{% endblock%}

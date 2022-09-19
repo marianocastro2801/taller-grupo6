@@ -8,6 +8,7 @@ from app.helpers import auth as helper_auth
 from app.helpers import verifications as helper_verifications
 from flask_fontawesome import FontAwesome
 from .routes.users import users
+from .routes.vaccines import vaccines
 from .routes.auth import authentication
 from .routes.home import home
 
@@ -40,6 +41,8 @@ def create_app(environment="production"):
     # Usuarios
     app.register_blueprint(users)
 
+    # Vacunas
+    app.register_blueprint(vaccines)
 
     # Ruta para el Home
     app.register_blueprint(home)
