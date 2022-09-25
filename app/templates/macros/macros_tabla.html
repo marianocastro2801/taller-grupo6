@@ -77,3 +77,23 @@
 
     {% endfor %}
 {% endmacro %}
+
+
+{% macro shopping_row(shoppings) %}
+    {% for shopping in shoppings %}
+        
+        <tr>
+            <td class="col-2">{{ shopping.vacuna.nombre }}</td>
+            <td class="col-2">{{ shopping.vacuna.desarrollador.nombre_desarrollador }}</td>
+            <td class="col-2">{{ shopping.vacuna.lote.nombre_lote }}</td>
+            <td class="col-2">{{ shopping.cantidad_vacunas }}</td>
+
+            <td class="col-2">
+                <!--aqui van los botones de detalle y/o editar: para cambiar el estado de una compra-->
+                {{ button_details(shopping.id) }}
+                
+            </td>
+        </tr>
+
+    {% endfor %}
+{% endmacro %}

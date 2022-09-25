@@ -16,6 +16,8 @@ users.add_url_rule("/usuarios/user/<int:user_id>", "user_profile", user.profile)
 @users.route('/Usuarios/user_index')
 def user_index():
     
-    return user.index()
+    search = request.args.get('search', '')
+
+    return user.index(search)
 
 

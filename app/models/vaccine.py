@@ -1,3 +1,4 @@
+from enum import unique
 from sqlalchemy import Column, Integer, String, ForeignKey, text
 from sqlalchemy.dialects.mysql import TINYTEXT
 from sqlalchemy.orm import relationship
@@ -9,24 +10,35 @@ class Vaccine(db.Model):
     id = Column(Integer, primary_key=True)
     nombre = Column(String(50), unique=False, nullable=False)
     enfermedad = Column(String(50), unique=False, nullable=False)
-    laboratorio = Column(TINYTEXT, unique=False, nullable=False)
+    
+    desarrollador_id = Column(Integer, ForeignKey("vacuna_desarrollador.id"), nullable=False)
+    desarrollador = relationship("VaccineDeveloper")
 
     tipo_id = Column(Integer, ForeignKey("vacuna_tipos.id"), nullable=False)
     tipo = relationship("VaccineType")
 
-    def __init__(self, nombre, enfermedad, tipo_id, laboratorio
+    lote_id = Column(Integer, ForeignKey("vacuna_lotes.id"), nullable=False)
+    lote = relationship("VaccineLote")
+
+    cantidad = Column(Integer, unique=False, nullable=False)
+
+
+    def __init__(self, nombre, enfermedad, tipo_id, desarrollador_id
     ):
         self.nombre = nombre
         self.enfermedad = enfermedad
         self.tipo_id= tipo_id
-        self.laboratorio= laboratorio
+        self.desarrollador_id = desarrollador_id
+        self.lote_id = None
+        self.cantidad = 0
        
 
     def __repr__(self):
-        return "<Vaccine(nombre='%s', enfermedad='%s', laboratorio='%s', )>" % (
+        return "<Vaccine(nombre='%s', enfermedad='%s', )>" % (
             self.nombre,
             self.enfermedad,
-            self.laboratorio,
+
+  
         )
 
     def save(self):
@@ -61,3 +73,9 @@ class Vaccine(db.Model):
     def delete(vaccine_id):
         Vaccine.query.filter(Vaccine.id == vaccine_id).delete()
         db.session.commit()
+
+    @staticmethod
+    def get_filtered(search, type_id):
+        return Vaccine.query.filter(Vaccine.nombre.ilike(f'%{search}%'),
+                                         (Vaccine.tipo_id == type_id))
+          

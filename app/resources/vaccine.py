@@ -5,16 +5,22 @@ from app.helpers.verifications import user_has_permission
 from app.models.user import User
 from app.models.vaccine import Vaccine
 from app.models.vaccine_type import VaccineType
+from app.models.vaccine_lote import VaccineLote
+from app.models.vaccine_developer import VaccineDeveloper
 from app.models.rol import Rol
 import re
 
 
-def index():
+def index(search, type_id):
     if not authenticated(session):
         return redirect(url_for("auth.login"))
 
 
-    vaccines = Vaccine.get_all_vaccines()
+    #vaccines = Vaccine.get_all_vaccines()
+    vaccines = Vaccine.get_filtered(search,type_id
+    )
+
+
     return render_template(
         "Vacunas/vaccine_index.html",
         vaccines=vaccines,
@@ -29,14 +35,16 @@ def new():
 
     vaccines = User.get_all_users()
     types = VaccineType.get_all_types()
+    developers = VaccineDeveloper.get_all_desarrolladores()
   
     return render_template(
         "vacunas/vaccine_new.html",
         vaccine=None,
-        message="Registrar nueva vacuna",
+        message="Registrar Vacuna Nueva",
         mode="create",
         vaccines=vaccines,
         types=types,
+        developers = developers,
 
     )
 
@@ -63,9 +71,10 @@ def edit(vaccine_id):
 
     vaccine = Vaccine.get_by_id(vaccine_id)
     types = VaccineType.get_all_types()
+    developers = VaccineDeveloper.get_all_desarrolladores()
 
     return render_template("vacunas/vaccine_new.html", vaccine=vaccine,
-        message="Editar vacuna", mode="edit", types=types
+        message="Editar vacuna", mode="edit", types=types, developers= developers,
 
     )
     

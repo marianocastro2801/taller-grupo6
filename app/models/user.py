@@ -66,7 +66,10 @@ class User(db.Model):
     @staticmethod
     def get_all_users():
         return User.query.all()
-
+        
+    @staticmethod
+    def get_filtered(search):
+        return User.query.filter(User.nombre.ilike(f'%{search}%'))
 
     def get_relevant_data(self):
         rols = set()
@@ -129,9 +132,6 @@ class User(db.Model):
         self.roles.clear()
         for idRol in roles:
             self.roles.append(Rol.get_by_id(idRol))
-
-    
-    
     
     
     

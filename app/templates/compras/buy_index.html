@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% from 'macros/macros_buscador.html' import input_name_vaccine, select_criteria, select_order, select_type, summit_clean_button %}
+{% from 'macros/macros_tabla.html' import heading_row, shopping_row, buttons_paginate %}
+{% from 'macros/macros_modals.html' import set_modals_shoppings %}
+{% from 'macros/macros_otros.html' import button_go_home, notifications %}
+
+{% block title %}Vacunas{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{notifications()}}
+
+    <div class="">
+        <div class="container text-center mt-4">
+            <h1 class="display-4">Compras de vacunas</h1>
+        </div>
+        <div class="container">
+            <div class="mb-4">
+                <form action="{{ url_for('shoppings.shopping_index') }}" method="GET">
+                    <div class="form-group row">
+                        {{ input_name_vaccine() }}
+                        {{ summit_clean_button('shoppings.shopping_index') }}
+                    </div>
+                    <div class="form-group row">
+                        
+                       
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-dark">
+                    <thead>
+                    {{ heading_row(['Vacuna', 'Laboratorio desarrollador', 'Lote' , 'Cantidad ','Opciones']) }}
+                    </thead>
+                    <tbody class="table table-light">
+                        {{ shopping_row(shoppings) }} 
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="botones botones-der">
+                {{ button_go_home() }}
+                {% if user_has_permission(session, 'user_new') %}
+                    <a class="btn btn-success" id="addShopping" name="add_shopping" href="{{ url_for('shoppings.shopping_new') }}"
+                       data-toggle="tooltip" data-placement="top" title="Realizar nueva compra"> <!--modificar los permisis vaccine_new-->
+                        + Realizar Compra</a>
+
+                {% endif %}
+            </div>
+            {{ set_modals_shoppings(shoppings) }}
+        </div>
+    </div>
+
+{% endblock %}

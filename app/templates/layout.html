@@ -52,6 +52,9 @@
     {% if user_has_permission (session,"vaccine_index") %}
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a>
     {% endif %}
+    {% if user_has_permission (session,"vaccine_index") %}
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('shoppings.shopping_index') }}">Compras</a>
+    {% endif %}
     <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarTogglerSmallMenu"
       aria-controls="navbarTogglerSmallMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

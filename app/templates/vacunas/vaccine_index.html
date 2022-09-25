@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
-{% from 'macros/macros_buscador.html' import input_name, select_criteria, select_order, select_state, summit_clean_button %}
-{% from 'macros/macros_tabla.html' import heading_row, vaccine_row, buttons_paginate %}
+{% from 'macros/macros_buscador.html' import input_name, select_type, summit_clean_button %}
+{% from 'macros/macros_tabla.html' import heading_row, vaccine_row %}
 {% from 'macros/macros_modals.html' import set_modals_vaccines %}
 {% from 'macros/macros_otros.html' import button_go_home, notifications %}
 
@@ -23,7 +23,7 @@
                 <form action="{{ url_for('vaccines.vaccine_index') }}" method="GET">
                     <div class="form-group row">
                         {{ input_name() }}
-                        {{ select_state() }}
+                        {{ select_type() }}
                         {{ summit_clean_button('vaccines.vaccine_index') }}
                     </div>
                     <div class="form-group row">
@@ -48,13 +48,13 @@
             <div class="botones botones-der">
                 {{ button_go_home() }}
                 {% if user_has_permission(session, 'user_new') %}
-                    <a class="btn btn-success" id="addUser" name="add_user" href="{{ url_for('vaccines.vaccine_new') }}"
+                    <a class="btn btn-success" id="addVaccine" name="add_vaccine" href="{{ url_for('vaccines.vaccine_new') }}"
                        data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
                         + Añadir Vacunas</a>
 
-                    <a class="btn btn-success" id="addUser" name="add_user" href="{{ url_for('vaccines.vaccine_new') }}"
-                       data-toggle="tooltip" data-placement="top" title="Comprar vacuna"> <!--hacer una nueva vista para comprar for vaccine in vaccines-->
-                         Comprar</a>
+                    <a class="btn btn-primary" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index') }}"
+                       data-toggle="tooltip" data-placement="top" title="ver compras realizadas"> 
+                         Ver compras</a> 
                 {% endif %}
             </div>
             {{ set_modals_vaccines(vaccines) }}

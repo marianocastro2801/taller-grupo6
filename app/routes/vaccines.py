@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from contextlib import nullcontext
 from email.policy import default
 from flask import Blueprint, request
 from app.resources import vaccine
@@ -19,7 +21,10 @@ def vaccine_edit(vaccine_id):
 @vaccines.route('/vacunas/vaccine_index')
 def vaccine_index():
     
-    return vaccine.index()
+    type_id = request.args.get('type_id', '1')
+    search = request.args.get('search', '')
+
+    return vaccine.index(search, type_id)
 
 
 

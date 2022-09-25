@@ -20,8 +20,12 @@
             {% endif %}
 
             {% if user_has_permission (session,"vaccine_index")%}            
-                <a class="dropdown-item home-text" href="{{ url_for('vaccines.vaccine_index') }}">Gestionar Vacunas</a></li>
+                <a class="dropdown-item home-text" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a></li>
             {% endif %}
+
+            {% if user_has_permission (session,"vaccine_index")%}            
+            <a class="dropdown-item home-text" href="{{ url_for('shoppings.shopping_index') }}">Ver Compras Realizadas</a></li>
+        {% endif %}
 
         </div>
 

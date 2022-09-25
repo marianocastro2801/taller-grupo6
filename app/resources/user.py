@@ -7,14 +7,16 @@ from app.models.rol import Rol
 import re
 
 
-def index():
+def index(search):
     if not authenticated(session):
         return redirect(url_for("auth.login"))
 
     if not user_has_permission(session,"user_index"):
         abort(401)
 
-    users = User.get_all_users()
+    #users = User.get_all_users()
+    users = User.get_filtered(search
+    )
     return render_template(
         "Usuarios/user_index.html",
         users=users,

@@ -1,4 +1,5 @@
 from os import environ
+from app.models.shopping import Shopping
 from flask import Flask, render_template, request
 from flask_session import Session
 from config import config
@@ -9,6 +10,7 @@ from app.helpers import verifications as helper_verifications
 from flask_fontawesome import FontAwesome
 from .routes.users import users
 from .routes.vaccines import vaccines
+from .routes.compras import shoppings
 from .routes.auth import authentication
 from .routes.home import home
 
@@ -43,6 +45,9 @@ def create_app(environment="production"):
 
     # Vacunas
     app.register_blueprint(vaccines)
+
+    # Compras de vacunas
+    app.register_blueprint(shoppings)
 
     # Ruta para el Home
     app.register_blueprint(home)

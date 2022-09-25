@@ -104,14 +104,19 @@
                 <td>{{ vaccine.tipo }}</td>
               </tr>
               <tr>
-                <th>Laboratorio (que lo fabrica)</th>
-                <td>{{ vaccine.laboratorio }}</td>
+                <th>Laboratorio Desarrollador</th>
+                <td>{{ vaccine.desarrollador.nombre_desarrollador }}</td>
               </tr>
               <tr>
                 <th>Cantidad</th>
-                <td>inicialemnte en 0, viene de tabla vacuna_lotes:(id,nombre y cantidad) ?</td>
+                <td>{{ vaccine.cantidad }}</td> 
               </tr>
-
+              {% if vaccine.lote_id != None %} <!--solo muestra el lote si registra una compra, por mientras solo tiene inicialmente None-->
+                <tr>
+                  <th>Lote</th>
+                  <td>{{ vaccine.lote.nombre_lote }}</td> 
+                </tr>
+              {% endif %}
             </table>
           </div>
           <div class="modal-footer">
@@ -138,6 +143,64 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             <a href="{{ url_for('vaccines.vaccine_delete', vaccine_id=vaccine.id) }}" class="btn btn-danger">Eliminar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endmacro %}
+
+
+
+<!--Compras de vacunas-->
+
+{% macro set_modals_shoppings(shoppings) %}
+    {% for shopping in shoppings %}
+        {{ view_modal_shopping(shopping) }}
+ 
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro view_modal_shopping(shopping) %}
+    <!-- View Modal-->
+    <div class="modal fade text-black" id="viewModal{{ shopping.id }}" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Detalles de Compra</h5>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tr>
+                <th>Vacuna</th>
+                <td>{{ shopping.vacuna.nombre }}</td>
+              </tr>
+              <tr>
+                <th>Laboratorio Desarrollador</th>
+                <td>{{ shopping.vacuna.desarrollador.nombre_desarrollador }}</td>
+              </tr>
+              <tr>
+                <th>Cantidad</th>
+                <td>{{ shopping.cantidad_vacunas }}</td> 
+              </tr>
+                <tr>
+                  <th>Lote</th>
+                  <td>{{ shopping.vacuna.lote.nombre_lote }}</td> 
+                </tr>
+                <tr>
+                  <th>Fecha de compra</th>
+                  <td>{{ shopping.fecha_compra }}</td> 
+                </tr>
+                <tr>
+                  <th>Estado de compra</th>
+                  <td> son 3 </td> 
+                </tr>
+
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           </div>
         </div>
       </div>
