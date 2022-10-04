@@ -36,7 +36,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Nombre', 'Enfermedad', 'Tipo', 'Opciones']) }}
+                    {{ heading_row(['Nombre Comercial', 'Enfermedad', 'Tipo', 'Opciones']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ vaccine_row(vaccines) }} 
@@ -44,18 +44,21 @@
                     </tbody>
                 </table>
             </div>
-
+            <h1>
             <div class="botones botones-der">
                 {{ button_go_home() }}
-                {% if user_has_permission(session, 'user_new') %}
+                {% if user_has_permission(session, 'vaccine_new') %}
                     <a class="btn btn-success" id="addVaccine" name="add_vaccine" href="{{ url_for('vaccines.vaccine_new') }}"
                        data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
                         + Añadir Vacunas</a>
+                {% endif%}
+                {% if user_has_permission(session, 'shopping_new') %}
+                <a class="btn btn-primary" id="addVaccine" name="add_vaccine" href="{{ url_for('shoppings.shopping_new') }}"
+                   data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
+                    + Realizar Compra</a>
+                {% endif%}
 
-                    <a class="btn btn-primary" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index') }}"
-                       data-toggle="tooltip" data-placement="top" title="ver compras realizadas"> 
-                         Ver compras</a> 
-                {% endif %}
+            </h1>
             </div>
             {{ set_modals_vaccines(vaccines) }}
         </div>

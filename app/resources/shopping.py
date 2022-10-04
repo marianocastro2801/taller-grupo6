@@ -1,3 +1,5 @@
+from app.models import vaccine
+from app.models.vaccine_type import VaccineType
 from flask import redirect, render_template, request, url_for, abort, session, flash
 from sqlalchemy.sql.expression import true
 from app.helpers.auth import authenticated
@@ -13,34 +15,54 @@ import datetime
 
 
 
-def index():
+
+
+def index(vaccine_id):
+    if not authenticated(session):
+        return redirect(url_for("auth.login"))
+    if not user_has_permission(session, "vaccine_index"):
+        abort(401)
+    
+    shoppings = Shopping.get_shoppings_by_vaccine(vaccine_id)
+    
+    vaccines = Vaccine.get_all_vaccines()
+    lotes = VaccineLote.get_all_lotes()
+    developers = VaccineDeveloper.get_all_desarrolladores()
+
+
+    return render_template(
+        "compras/shopping_index.html",
+        shoppings=shoppings,
+        vaccine_id=vaccine_id,
+        vaccines = vaccines,
+        lotes = lotes,
+        developers=developers,
+   
+    )
+
+def info(shopping_id):
     if not authenticated(session):
         return redirect(url_for("auth.login"))
 
+    if not user_has_permission(session,"vaccine_index"):
+        abort(401)
 
-    shoppings = Shopping.get_all_shoppings()
-    return render_template(
-        "compras/buy_index.html",
-        shoppings=shoppings,
-    )
+    shopping = Shopping.get_by_id(shopping_id)
+    cantPuntos = Shopping.get_cant_stock(shopping)
+    if shopping != None:
+        return render_template("compras/shopping_index.html",  #shopping_info.html
+            shopping = shopping,
+            cantPuntos = Shopping.get_cant_stock(shopping)
+        )
+    else:
+        return redirect(url_for("home"))
 
-#def index(vacuna_id):
-#    if not authenticated(session):
-#        return redirect(url_for("auth.login"))
-#    if not user_has_permission(session, "vaccine_index"):
-#        abort(401)
 
-#    compras = Shopping.get_shoppings_by_vaccine(vacuna_id)
-#    return render_template(
-#        "compras/buy_index.html",
-#        compras=compras,
-#        vacuna_id=vacuna_id,
-#    )
 
 def new():
     if not authenticated(session):
         return redirect(url_for("auth.login"))
-    if not user_has_permission(session, "vaccine_index"):  #deberia ser: shopping_create : agregar permisos
+    if not user_has_permission(session, "vaccine_index"):  
         abort(401)
 
     shoppings = Shopping.get_all_shoppings()
@@ -49,15 +71,14 @@ def new():
     developers = VaccineDeveloper.get_all_desarrolladores()
 
     return render_template(
-        "compras/buy_new.html",
-        shopping=None,
+        "compras/shopping_new.html",
+        shopping= None,
+        shoppings=shoppings,
         message="Registrar Nueva Compra",
         mode="create",
-        shoppings = shoppings,
         vaccines=vaccines,
         lotes = lotes,
-        developers = developers,
-
+        developers= developers,
 
     )
 
@@ -72,7 +93,7 @@ def save():
 
     Shopping(**new_shopping).save()
     flash("Éxito en la operación")
-    return redirect(url_for("shoppings.buy_index"))
+    return redirect(url_for("vaccines.vaccine_index"))
 
 
 def edit(shopping_id):
@@ -81,13 +102,16 @@ def edit(shopping_id):
     if not user_has_permission(session, "vaccine_index"): #seria: shopping_.... : agregar permisos. POOR AHORA SOLO INDEX
         abort(401)
 
-    shopping = Shopping.get_by_id(shopping_id)
-# necesitaria los estados de la compra de otra tabla   
+    shopping= Shopping.get_by_id(shopping_id)
+    vaccines = Vaccine.get_all_vaccines()
+    lotes = VaccineLote.get_all_lotes()
+    developers = VaccineDeveloper.get_all_desarrolladores()
 
     return render_template("compras/shopping_new.html",
-        message="Editar compra", mode="edit"
-
+         message="Editar compra", 
+         mode="edit",
     )
+
     
 
 def update():
@@ -101,4 +125,4 @@ def update():
     Shopping.update(**new_shopping)
 
     flash("Éxito en la operación")
-    return redirect(url_for("shoppings.buy_index"))
+    return redirect(url_for("shoppings.shopping_index"))

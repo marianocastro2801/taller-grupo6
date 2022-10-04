@@ -92,31 +92,25 @@
           <div class="modal-body">
             <table class="table">
               <tr>
-                <th>Nombre</th>
-                <td>{{ vaccine.nombre }}</td>
+                <th>Nombre Comercial</th>
+                <td>{{ vaccine.nombre_comercial }}</td>
+              </tr>
+              <tr>
+                <th>Nombre Registro</th>
+                <td>{{ vaccine.nombre_registro }}</td>
               </tr>
               <tr>
                 <th>Enfermedad</th>
                 <td>{{ vaccine.enfermedad }}</td>
               </tr>
               <tr>
-                <th>Tipo</th>
+                <th>Tipo Vacuna</th>
                 <td>{{ vaccine.tipo }}</td>
               </tr>
               <tr>
                 <th>Laboratorio Desarrollador</th>
                 <td>{{ vaccine.desarrollador.nombre_desarrollador }}</td>
               </tr>
-              <tr>
-                <th>Cantidad</th>
-                <td>{{ vaccine.cantidad }}</td> 
-              </tr>
-              {% if vaccine.lote_id != None %} <!--solo muestra el lote si registra una compra, por mientras solo tiene inicialmente None-->
-                <tr>
-                  <th>Lote</th>
-                  <td>{{ vaccine.lote.nombre_lote }}</td> 
-                </tr>
-              {% endif %}
             </table>
           </div>
           <div class="modal-footer">
@@ -174,19 +168,23 @@
             <table class="table">
               <tr>
                 <th>Vacuna</th>
-                <td>{{ shopping.vacuna.nombre }}</td>
+                <td>{{ shopping.vacuna.nombre_comercial }}</td>
               </tr>
               <tr>
                 <th>Laboratorio Desarrollador</th>
-                <td>{{ shopping.vacuna.desarrollador.nombre_desarrollador }}</td>
+                <td>{{ shopping.desarrollador.nombre_desarrollador }}</td> 
               </tr>
               <tr>
                 <th>Cantidad</th>
-                <td>{{ shopping.cantidad_vacunas }}</td> 
+                <td>{{ shopping.cantidad_vacunas }}</td>  
               </tr>
                 <tr>
                   <th>Lote</th>
-                  <td>{{ shopping.vacuna.lote.nombre_lote }}</td> 
+                  <td>{{ shopping.lote.nombre_lote }}</td> 
+                </tr>
+                <tr>
+                  <th>Fecha vcto Lote</th>
+                  <td>{{ shopping.lote.fecha_vencimiento }}</td> <!--el lote no es de la vacuna, es de la compra!!!.-->
                 </tr>
                 <tr>
                   <th>Fecha de compra</th>
@@ -195,6 +193,10 @@
                 <tr>
                   <th>Estado de compra</th>
                   <td> son 3 </td> 
+                </tr>
+                <tr>
+                  <th>Stock total por Lote </th>
+                  <td>{{ total }}</td> 
                 </tr>
 
             </table>

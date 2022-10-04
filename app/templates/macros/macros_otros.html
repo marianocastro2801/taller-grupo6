@@ -3,6 +3,12 @@
     data-placement="top" title="Regresar">Regresar
 </a>
 {% endmacro %}
+ 
+{% macro button_go_vaccine() %}
+<a class="btn btn-secondary" id="goBack" name="go-back" href="{{ url_for('vaccines.vaccine_index') }}" data-toggle="tooltip"
+    data-placement="top" title="Regresar">Regresar
+</a>
+{% endmacro %}
 
 {% macro notifications() %}
 {% with messages = get_flashed_messages() %}

@@ -1,4 +1,5 @@
 from os import environ
+from flask import Flask, Blueprint
 from app.models.shopping import Shopping
 from flask import Flask, render_template, request
 from flask_session import Session
@@ -10,9 +11,10 @@ from app.helpers import verifications as helper_verifications
 from flask_fontawesome import FontAwesome
 from .routes.users import users
 from .routes.vaccines import vaccines
-from .routes.compras import shoppings
+from .routes.shopping import shoppings
 from .routes.auth import authentication
 from .routes.home import home
+from .api.persona import persona_api
 
 
 def create_app(environment="production"):
@@ -51,6 +53,11 @@ def create_app(environment="production"):
 
     # Ruta para el Home
     app.register_blueprint(home)
+
+    # Rutas de API-REST   
+    api = Blueprint("api", __name__, url_prefix="/api")
+    api.register_blueprint(persona_api) 
+
 
     # Handlers
     app.register_error_handler(404, handler.not_found_error)
