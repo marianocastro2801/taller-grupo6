@@ -24,7 +24,7 @@
                     <div class="form-group row">
                         {{ input_name() }}
                         {{ select_type() }}
-                        {{ summit_clean_button('vaccines.vaccine_index') }}
+                        {{ summit_clean_button('vaccines.vaccine_index') }} 
                     </div>
                     <div class="form-group row">
                         
@@ -36,7 +36,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Nombre Comercial', 'Enfermedad', 'Tipo', 'Opciones']) }}
+                    {{ heading_row(['Vacuna desarrollada', 'Enfermedad', 'Tipo', 'Opciones']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ vaccine_row(vaccines) }} 
@@ -53,9 +53,9 @@
                         + Añadir Vacunas</a>
                 {% endif%}
                 {% if user_has_permission(session, 'shopping_new') %}
-                <a class="btn btn-primary" id="addVaccine" name="add_vaccine" href="{{ url_for('shoppings.shopping_new') }}"
+                <a class="btn btn-primary" id="addVaccine" name="add_vaccine" href="{{ url_for('shoppings.shopping_index') }}"
                    data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
-                    + Realizar Compra</a>
+                    Compras Realizadas</a>
                 {% endif%}
 
             </h1>

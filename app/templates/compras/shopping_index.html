@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% from 'macros/macros_buscador.html' import input_name_vaccine, select_criteria, select_order, select_type, summit_clean_button %}
+{% from 'macros/macros_buscador.html' import input_name, select_criteria, select_order, summit_clean_button %}
 {% from 'macros/macros_tabla.html' import heading_row, shopping_row, buttons_paginate %}
 {% from 'macros/macros_modals.html' import set_modals_shoppings %}
 {% from 'macros/macros_otros.html' import button_go_vaccine, notifications %}
@@ -17,15 +17,44 @@
 
    <div class="">
       <div class="container text-center">
-      <h1 class="display-4">Compras de Vacunas</h1>
+      <h1 class="display-4">Compras de Vacuna: </h1>
       <p>{{message}}</p>
    </div>
         <div class="container">
+            <div class="mb-4">
+                <form action="{{ url_for('shoppings.shopping_index') }}" method="GET">
+                    <div class="form-group row">
+                        
+                        {% set enfermedad_id = request.args.get('enfermedad_id', '2') %}
+                        <label for="stateSelect" class="col-sm-2 col-form-label">Vacuna:</label>
+                        <div class="col-sm-3">
+                            <select class="form-select bg-white" id="stateSelect" name="enfermedad_id">
+                              {% for enfermedad in enfermedades %}
+                                
+                                <option value='{{ enfermedad.id }}'selected>{{enfermedad.nombre}} </option>
+                                {% if enfermedad.id == enfermedad_id %}
+                                <option value=''>{{enfermedad.nombre}} </option>
+                                {% endif %}
+                             
+                               {% endfor %}
+                            </select>
+                        </div>
+                        {{ summit_clean_button('shoppings.shopping_index') }} 
+                    </div>
+                    <div class="form-group row">
+                        
+                    </div>
+                </form>
+            </div>
+
+
+
+
            
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Vacuna', 'Laboratorio desarrollador', 'Lote' , 'Cantidad ','Opciones']) }}
+                    {{ heading_row(['Vacuna Desarrollada', 'Laboratorio desarrollador', 'Lote' , 'Cantidad ','Opciones']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ shopping_row(shoppings) }} 
@@ -34,8 +63,17 @@
                 </table>
             </div>
             <h1>
-            <div class="botones botones-der">
+               
+            <div class="botones botones-center">
                 {{ button_go_vaccine() }}
+
+                Stock NACIONAL: {{ tot }}
+
+                {% if user_has_permission (session,"shopping_new") %}
+                <a class="btn btn-success" id="addShopping" name="add_shopping" href="{{ url_for('shoppings.shopping_new') }}"
+                       data-toggle="tooltip" data-placement="top" title="Añadir nueva compra"> 
+                        + Registrar Compra</a>
+                {% endif %}
                                                                                      
             </div>
         </h1> 

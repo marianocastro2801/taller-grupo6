@@ -24,7 +24,7 @@
             {% endif %}
 
             {% if user_has_permission (session,"shopping_new")%}            
-            <a class="dropdown-item home-text" href="{{ url_for('shoppings.shopping_new') }}">Comprar Vacunas</a></li>
+            <a class="dropdown-item home-text" href="{{ url_for('shoppings.shopping_new') }}">Compras Realizadas</a></li>
             {% endif %}
             
             {% if user_has_permission (session,"shopping_new")%} <!--agregar permiso nuevo: distribution_new-->            

@@ -17,13 +17,12 @@
 
     <form method="POST" action="{{ url_for('shoppings.shopping_save') if mode == 'create' else url_for('shoppings.shopping_update') }}"
     id="form-new-point">
-    <input type="hidden" id="shopping_id" name="id" value="{{shopping.id}}">  
-
+    <input type="hidden" id="shopping_id" name="id" value="{{shopping.id}}">    
     <div class="container form">
       <!-- <div class="well"> -->
 
       <div class="form-group row">
-        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna:</label>
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna Desarrollada:</label>
         <div class="col-sm-3">
           <select class="form-select w-100 bg-light" id="stateSelect" name="vacuna_id">
             {% for vaccine in vaccines %}
@@ -75,13 +74,17 @@
 
       </div>
 
-      <div class="form-group row">
-        <label for="titulo" class="col-sm-2 col-form-label text-black">Nombre (campo a sacar o cambiar):</label> <!--agregar el campo nombre comercial-->
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="nombre" name="nombre" value="{{shopping.nombre}}"
-            placeholder="Ejemplo: Antigripal" required>
-        </div>
-
+      <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna contra:</label>
+      <div class="col-sm-3">
+        <select class="form-select w-100 bg-light" id="stateSelect" name="enfermedad_id">
+          {% for enfermedad in enfermedades %}
+          {% if (mode == "edit" and vaccine.enfermedad_id == enfermedad.id) %}
+          <option value='{{enfermedad.id}}' selected> {{ enfermedad.nombre }} </option>
+          {% else %}
+          <option value='{{enfermedad.id}}'> {{ enfermedad.nombre }} </option>
+          {% endif %}
+          {% endfor %}
+        </select>
       </div>
       
 

@@ -12,7 +12,7 @@ class Vaccine(db.Model):
 
     nombre_registro = Column(TINYTEXT, unique=False, nullable=False)
 
-    enfermedad = Column(TINYTEXT, unique=False, nullable=False)
+    caracteristicas = Column(TINYTEXT, unique=False, nullable=False)
     
     desarrollador_id = Column(Integer, ForeignKey("vacuna_desarrollador.id"), nullable=False)
     desarrollador = relationship("VaccineDeveloper")
@@ -20,27 +20,29 @@ class Vaccine(db.Model):
     tipo_id = Column(Integer, ForeignKey("vacuna_tipos.id"), nullable=False)
     tipo = relationship("VaccineType")
 
+    enfermedad_id = Column(Integer, ForeignKey("vacuna_enfermedad.id"), nullable=False)
+    enfermedad = relationship("VaccineEnfermedad")
 
     cantidad = Column(Integer, unique=False, nullable=False)
 
 
-    def __init__(self, nombre_comercial, nombre_registro, enfermedad, tipo_id, desarrollador_id,
+    def __init__(self, nombre_comercial, nombre_registro, caracteristicas, tipo_id, desarrollador_id, enfermedad_id
     ):
         self.nombre_comercial = nombre_comercial
         self.nombre_registro = nombre_registro
-        self.enfermedad = enfermedad
+        self.caracteristicas = caracteristicas
         self.tipo_id= tipo_id
         self.desarrollador_id = desarrollador_id
+        self.enfermedad_id = enfermedad_id
         self.cantidad = 0
        
 
     def __repr__(self):
-        return "<Vaccine(nombre_comercial='%s', nombre_registro='%s', enfermedad='%s', )>" % (
+        return "<Vaccine(nombre_comercial='%s', nombre_registro='%s', caracteristicas='%s', )>" % (
             self.nombre_comercial,
             self.nombre_registro,
-            self.enfermedad,
+            self.caracteristicas
 
-  
         )
 
     def save(self):

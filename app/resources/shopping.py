@@ -1,4 +1,6 @@
 from app.models import vaccine
+from app.models import vaccine_lote
+from app.models import shopping
 from app.models.vaccine_type import VaccineType
 from flask import redirect, render_template, request, url_for, abort, session, flash
 from sqlalchemy.sql.expression import true
@@ -9,6 +11,7 @@ from app.models.shopping import Shopping
 from app.models.vaccine import Vaccine
 from app.models.vaccine_lote import VaccineLote
 from app.models.vaccine_developer import VaccineDeveloper
+from app.models.vaccine_enfermedad import VaccineEnfermedad
 from app.models.rol import Rol
 import re
 import datetime
@@ -17,46 +20,39 @@ import datetime
 
 
 
-def index(vaccine_id):
+def index(enfermedad_id):
     if not authenticated(session):
         return redirect(url_for("auth.login"))
     if not user_has_permission(session, "vaccine_index"):
         abort(401)
-    
-    shoppings = Shopping.get_shoppings_by_vaccine(vaccine_id)
-    
+ 
+#    shoppings  = Shopping.get_all_shoppings() 
+    shoppings = Shopping.get_filtered(enfermedad_id)
+
+    tot = sumar_cantidades(shoppings)   
     vaccines = Vaccine.get_all_vaccines()
     lotes = VaccineLote.get_all_lotes()
     developers = VaccineDeveloper.get_all_desarrolladores()
+    enfermedades = VaccineEnfermedad.get_all_enfermedades()
 
 
     return render_template(
         "compras/shopping_index.html",
         shoppings=shoppings,
-        vaccine_id=vaccine_id,
         vaccines = vaccines,
         lotes = lotes,
         developers=developers,
+        tot = tot,
+        enfermedades = enfermedades,
    
     )
 
-def info(shopping_id):
-    if not authenticated(session):
-        return redirect(url_for("auth.login"))
+def sumar_cantidades (shoppings):
+    suma = 0
+    for numero in shoppings:
 
-    if not user_has_permission(session,"vaccine_index"):
-        abort(401)
-
-    shopping = Shopping.get_by_id(shopping_id)
-    cantPuntos = Shopping.get_cant_stock(shopping)
-    if shopping != None:
-        return render_template("compras/shopping_index.html",  #shopping_info.html
-            shopping = shopping,
-            cantPuntos = Shopping.get_cant_stock(shopping)
-        )
-    else:
-        return redirect(url_for("home"))
-
+        suma+= numero.cantidad_vacunas
+    return suma
 
 
 def new():
@@ -69,6 +65,7 @@ def new():
     vaccines = Vaccine.get_all_vaccines()
     lotes = VaccineLote.get_all_lotes()
     developers = VaccineDeveloper.get_all_desarrolladores()
+    enfermedades = VaccineEnfermedad.get_all_enfermedades()
 
     return render_template(
         "compras/shopping_new.html",
@@ -79,7 +76,7 @@ def new():
         vaccines=vaccines,
         lotes = lotes,
         developers= developers,
-
+        enfermedades=enfermedades,
     )
 
 def save():

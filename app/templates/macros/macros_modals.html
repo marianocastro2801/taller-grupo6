@@ -87,7 +87,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Detalles de Vacuna</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Detalles de Vacuna Desarrollada</h5>
           </div>
           <div class="modal-body">
             <table class="table">
@@ -100,10 +100,21 @@
                 <td>{{ vaccine.nombre_registro }}</td>
               </tr>
               <tr>
-                <th>Enfermedad</th>
-                <td>{{ vaccine.enfermedad }}</td>
+                <th>Vacuna (contra)</th>
+                <td>{{ vaccine.enfermedad.nombre }}</td>
+              </tr>
+              {% if vaccine.enfermedad.fecha_inicio != None %}
+              <tr>
+                <th>Vacunacion Desde </th>
+                <td>{{ vaccine.enfermedad.fecha_inicio }}</td>
               </tr>
               <tr>
+                <th>Vacunacion Hasta </th>
+                <td>{{ vaccine.enfermedad.fecha_fin }}</td>
+              </tr> 
+              
+              {% endif %}
+               <tr> 
                 <th>Tipo Vacuna</th>
                 <td>{{ vaccine.tipo }}</td>
               </tr>
@@ -167,8 +178,12 @@
           <div class="modal-body">
             <table class="table">
               <tr>
-                <th>Vacuna</th>
+                <th>Vacuna Desarrollada</th>
                 <td>{{ shopping.vacuna.nombre_comercial }}</td>
+              </tr>
+              <tr>
+                <th>Vacuna contra </th>
+                <td>{{ shopping.enfermedad.nombre }}</td> 
               </tr>
               <tr>
                 <th>Laboratorio Desarrollador</th>
@@ -191,12 +206,8 @@
                   <td>{{ shopping.fecha_compra }}</td> 
                 </tr>
                 <tr>
-                  <th>Estado de compra</th>
-                  <td> son 3 </td> 
-                </tr>
-                <tr>
-                  <th>Stock total por Lote </th>
-                  <td>{{ total }}</td> 
+                  <th>Caracteristicas</th>
+                  <td>{{ shopping.vacuna.caracteristicas }}</td> 
                 </tr>
 
             </table>

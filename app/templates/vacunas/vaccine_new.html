@@ -28,10 +28,10 @@
             placeholder="Ejemplo: Spuntnik V" required>
         </div>
 
-        <label for="enfermedad" class="col-sm-2 col-form-label text-black">Enfermedad:</label>
+        <label for="enfermedad" class="col-sm-2 col-form-label text-black">Caracteristicas:</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="enfermedad" name="enfermedad"
-            value="{{vaccine.enfermedad}}" placeholder="Ejemplo: Covid-19" required>
+          <input type="text" class="form-control" id="caracteristicas" name="caracteristicas"
+            value="{{vaccine.caracteristicas}}" placeholder="Describa las caracteristicas" required>
         </div>
 
       </div>
@@ -70,6 +70,19 @@
             <option value='{{type.id}}' selected> {{ type.nombre }} </option>
             {% else %}
             <option value='{{type.id}}'> {{ type.nombre }} </option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="enfermedad_id">
+            {% for enfermedad in enfermedades %}
+            {% if (mode == "edit" and vaccine.enfermedad_id == enfermedad.id) %}
+            <option value='{{enfermedad.id}}' selected> {{ enfermedad.nombre }} </option>
+            {% else %}
+            <option value='{{enfermedad.id}}'> {{ enfermedad.nombre }} </option>
             {% endif %}
             {% endfor %}
           </select>

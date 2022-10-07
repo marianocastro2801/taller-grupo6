@@ -66,7 +66,7 @@
         
         <tr>
             <td class="col-2">{{ vaccine.nombre_comercial }}</td>
-            <td class="col-2">{{ vaccine.enfermedad }}</td>
+            <td class="col-2">{{ vaccine.enfermedad.nombre }}</td>
             <td class="col-2">{{ vaccine.tipo }}</td>
         
 
@@ -79,9 +79,6 @@
                 <a class="btn btn-primary" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index', vaccine_id=vaccine.id) }}"> 
                     <img class="img-fluid" src="{{ url_for('static', filename='carro.png') }}" alt="logo" width="27" height="20" title="Compras"> </a> 
                 {% endif %} 
-            
-                <a class="btn btn-info" type="button" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index', vaccine_id=vaccine.id) }}"> 
-                 Stock </a>  
 
             </td>
         </tr>
@@ -103,6 +100,8 @@
                 <!--aqui van los botones de detalle y/o editar: para cambiar el estado de una compra-->
                 {{ button_details(shopping.id) }}
                 {{ button_edit(url_for('shoppings.shopping_edit', shopping_id=shopping.id)) }}
+                <a class="btn btn-info" type="button" id="indexShopping" name="index_shopping" href=""> 
+                    Ver Stock </a>  
 
             </td>
         </tr>

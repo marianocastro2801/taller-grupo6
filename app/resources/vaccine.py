@@ -8,6 +8,7 @@ from app.models.vaccine import Vaccine
 from app.models.vaccine_type import VaccineType
 from app.models.vaccine_lote import VaccineLote
 from app.models.vaccine_developer import VaccineDeveloper
+from app.models.vaccine_enfermedad import VaccineEnfermedad
 from app.models.rol import Rol
 import re
 
@@ -40,7 +41,8 @@ def new():
     lotes = VaccineLote.get_all_lotes()
     types = VaccineType.get_all_types()
     developers = VaccineDeveloper.get_all_desarrolladores()
-  
+    enfermedades = VaccineEnfermedad.get_all_enfermedades()
+
     return render_template(
         "vacunas/vaccine_new.html",
         vaccine=None,
@@ -50,6 +52,7 @@ def new():
         types=types,
         developers = developers,
         lotes= lotes,
+        enfermedades = enfermedades,
 
     )
 
