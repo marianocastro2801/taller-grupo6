@@ -82,7 +82,7 @@ def new():
 def save():
     if not authenticated(session):
         return redirect(url_for("auth.login"))
-    if not user_has_permission(session, "vaccine_index"):  #seria: vaccine_create : agregar permisos
+    if not user_has_permission(session, "shopping_new"):  
         abort(401)
 
     new_shopping = request.form.copy()
@@ -90,7 +90,7 @@ def save():
 
     Shopping(**new_shopping).save()
     flash("Éxito en la operación")
-    return redirect(url_for("vaccines.vaccine_index"))
+    return redirect(url_for("shoppings.shopping_index"))
 
 
 def edit(shopping_id):

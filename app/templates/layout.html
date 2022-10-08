@@ -53,10 +53,13 @@
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a>
     {% endif %}
     {% if user_has_permission (session,"shopping_new") %}
-    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('shoppings.shopping_new') }}">Comprar</a>
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('shoppings.shopping_index') }}">Compras Realizadas</a>
     {% endif %}
-    {% if user_has_permission (session,"shopping_new") %}
-    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('shoppings.shopping_new') }}">Distribuir</a>
+    {% if user_has_permission (session,"shopping_new") %} <!--agregar despues el new o index(operador)-->
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="/">Distribuciones Vacunas</a>
+    {% endif %}
+    {% if user_has_permission (session,"shopping_new") %} <!--agregar despues el permiso new o index (vacunador)-->
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="/">Vacunaciones</a>
     {% endif %}
     <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarTogglerSmallMenu"
       aria-controls="navbarTogglerSmallMenu" aria-expanded="false" aria-label="Toggle navigation">

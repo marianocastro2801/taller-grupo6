@@ -8,4 +8,5 @@ import app.models.vaccine_developer
 import app.models.shopping
 import app.models.stock
 import app.models.vaccine_enfermedad
+import app.models.provincias
 
