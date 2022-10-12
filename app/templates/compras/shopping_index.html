@@ -30,9 +30,16 @@
                         <div class="col-sm-3">
                             <select class="form-select bg-white" id="stateSelect" name="enfermedad_id">
                               {% for enfermedad in enfermedades %}
-                                 
+   <!--                             
+                              {% if enfermedad_id == "1" %}
+                              <option value='2'>Antigripal</option>
+                              <option value='1' selected>Covid-19</option>
+                              <option value='3'>Triple Vacteriana</option>
+                              {% endif %} -->
+                           
                                 <option value='{{enfermedad.id }}'selected> {{ enfermedad.nombre }}</option>
 
+                               
 
                                {% endfor %}
                             </select>
@@ -52,7 +59,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Vacuna Desarrollada', 'Laboratorio desarrollador', 'Lote' , 'Cantidad ','Opciones']) }}
+                    {{ heading_row(['Vacuna Desarrollada', 'Laboratorio Desarrollador', 'Lote' , 'Cantidad Dosis ','Opciones']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ shopping_row(shoppings) }} 

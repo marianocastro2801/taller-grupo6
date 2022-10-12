@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% from 'macros/macros_buscador.html' import input_name, select_type, summit_clean_button %}
-{% from 'macros/macros_tabla.html' import heading_row, vaccine_row %}
+{% from 'macros/macros_tabla.html' import heading_row, distributtion_row %}
 {% from 'macros/macros_modals.html' import set_modals_vaccines %}
 {% from 'macros/macros_otros.html' import button_go_home, notifications %}
 
@@ -16,15 +16,13 @@
 
     <div class="">
         <div class="container text-center mt-4">
-            <h1 class="display-4">Vacunas</h1>
+            <h1 class="display-4">Distribuciones de Vacunas</h1>
         </div>
         <div class="container">
             <div class="mb-4">
                 <form action="{{ url_for('vaccines.vaccine_index') }}" method="GET">
                     <div class="form-group row">
-                        {{ input_name() }}
-                        {{ select_type() }}
-                        {{ summit_clean_button('vaccines.vaccine_index') }} 
+
                     </div>
                     <div class="form-group row">
                         
@@ -36,10 +34,10 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Vacuna Desarrollada', 'Vacuna para', 'Tipo', 'Opciones']) }}
+                    {{ heading_row(['Vacuna desarrollada', 'Cantidad', 'Provincia']) }}
                     </thead>
                     <tbody class="table table-light">
-                        {{ vaccine_row(vaccines) }} 
+                        {{ distributtion_row(distributtiones) }} 
 
                     </tbody>
                 </table>
@@ -48,19 +46,14 @@
             <div class="botones botones-der">
                 {{ button_go_home() }}
                 {% if user_has_permission(session, 'vaccine_new') %}
-                    <a class="btn btn-success" id="addVaccine" name="add_vaccine" href="{{ url_for('vaccines.vaccine_new') }}"
-                       data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
-                        + Añadir Vacunas</a>
-                {% endif%}
-                {% if user_has_permission(session, 'shopping_new') %}
-                <a class="btn btn-primary" id="addVaccine" name="add_vaccine" href="{{ url_for('shoppings.shopping_index') }}"
-                   data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
-                    Compras Realizadas</a>
+                    <a class="btn btn-success" id="addDistributtion" name="add_distributtion" href="/"
+                       data-toggle="tooltip" data-placement="top" title="Realizar Nueva Distribucion"> <!--modificar los permisis vaccine_new-->
+                        + Añadir Distribucion</a>
                 {% endif%}
 
             </h1>
             </div>
-            {{ set_modals_vaccines(vaccines) }}
+
         </div>
     </div>
 

@@ -100,8 +100,16 @@
                 <td>{{ vaccine.nombre_registro }}</td>
               </tr>
               <tr>
-                <th>Vacuna (contra)</th>
+                <th>Laboratorio Desarrollador</th>
+                <td>{{ vaccine.desarrollador.nombre_desarrollador }}</td>
+              </tr>
+              <tr>
+                <th>Vacuna (para)</th>
                 <td>{{ vaccine.enfermedad.nombre }}</td>
+              <tr> 
+                <th>Tipo Vacuna</th>
+                <td>{{ vaccine.tipo }}</td>
+              </tr>
               </tr>
               {% if vaccine.enfermedad.fecha_inicio != None %}
               <tr>
@@ -114,14 +122,7 @@
               </tr> 
               
               {% endif %}
-               <tr> 
-                <th>Tipo Vacuna</th>
-                <td>{{ vaccine.tipo }}</td>
-              </tr>
-              <tr>
-                <th>Laboratorio Desarrollador</th>
-                <td>{{ vaccine.desarrollador.nombre_desarrollador }}</td>
-              </tr>
+
             </table>
           </div>
           <div class="modal-footer">
@@ -182,7 +183,7 @@
                 <td>{{ shopping.vacuna.nombre_comercial }}</td>
               </tr>
               <tr>
-                <th>Vacuna contra </th>
+                <th>Vacuna para </th>
                 <td>{{ shopping.enfermedad.nombre }}</td> 
               </tr>
               <tr>
@@ -190,7 +191,7 @@
                 <td>{{ shopping.desarrollador.nombre_desarrollador }}</td> 
               </tr>
               <tr>
-                <th>Cantidad</th>
+                <th>Cantidad Dosis</th>
                 <td>{{ shopping.cantidad_vacunas }}</td>  
               </tr>
                 <tr>

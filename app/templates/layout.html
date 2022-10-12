@@ -39,7 +39,7 @@
 <body>
 
   <!--SECTION NAVAR-->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar">
     <!--LOGO DEL SISTEMA-->
     <a id="navBar-item" class="navbar-brand" href="/" data-toggle="tooltip" data-placement="bottom" title="Logo">
       <img class="img-fluid" src="{{ url_for('static', filename='logo1.png') }}" alt="logo" width="35" height="29">
@@ -56,7 +56,7 @@
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('shoppings.shopping_index') }}">Compras Realizadas</a>
     {% endif %}
     {% if user_has_permission (session,"shopping_new") %} <!--agregar despues el new o index(operador)-->
-    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="/">Distribuciones Vacunas</a>
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones Vacunas</a>
     {% endif %}
     {% if user_has_permission (session,"shopping_new") %} <!--agregar despues el permiso new o index (vacunador)-->
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="/">Vacunaciones</a>
@@ -96,7 +96,7 @@
       <li class="nav-item dropdown" style="margin-right: 3em;">
         <a class="nav-link dropdown-toggle pe-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
           aria-expanded="false">
-          <span class="">{{ session.get("user")["information"].first_name + ' ' +
+          <span class="text-white">{{ session.get("user")["information"].first_name + ' ' +
             session.get("user")["information"].last_name}}</span> <img class="img-fluid"
             src="{{ url_for('static', filename='perfil.png') }}" alt="logo" width="35" height="29">
         </a>

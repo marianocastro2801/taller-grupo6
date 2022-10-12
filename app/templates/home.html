@@ -28,7 +28,7 @@
             {% endif %}
             
             {% if user_has_permission (session,"shopping_new")%} <!--agregar permiso nuevo: distribution_new-->            
-            <a class="dropdown-item home-text" href="/">Distribuciones de Vacunas</a></li>
+            <a class="dropdown-item home-text" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones de Vacunas</a></li>
             {% endif %}
             {% if user_has_permission (session,"shopping_new")%} <!--agregar permiso nuevo: register_vacunacion-->            
             <a class="dropdown-item home-text" href="/">Vacunaciones</a></li>
