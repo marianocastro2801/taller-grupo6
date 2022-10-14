@@ -1,3 +1,4 @@
+from xmlrpc.client import boolean
 from app.models import vaccine
 from app.models import vaccine_lote
 from app.models import shopping
@@ -26,7 +27,8 @@ def index(enfermedad_id):
     if not user_has_permission(session, "vaccine_index"):
         abort(401)
  
-#    shoppings  = Shopping.get_all_shoppings() 
+    vacuna = VaccineEnfermedad.get_by_id(enfermedad_id)
+    vacuna = vacuna.nombre
     shoppings = Shopping.get_filtered(enfermedad_id)
 
     tot = sumar_cantidades(shoppings)   
@@ -44,16 +46,18 @@ def index(enfermedad_id):
         developers=developers,
         tot = tot,
         enfermedades = enfermedades,
+        vacuna = vacuna,
    
     )
 
 def sumar_cantidades (shoppings):
     suma = 0
+    
+    #solo voy a contabilizar aquellas compras que tengan estado = Entregado
     for numero in shoppings:
-
-        suma+= numero.cantidad_vacunas
+        if (numero.estado_id == 3):
+            suma+= numero.cantidad_vacunas
     return suma
-
 
 def new():
     if not authenticated(session):
@@ -93,22 +97,6 @@ def save():
     return redirect(url_for("shoppings.shopping_index"))
 
 
-def edit(shopping_id):
-    if not authenticated(session):
-        return redirect(url_for("auth.login"))
-    if not user_has_permission(session, "vaccine_index"): #seria: shopping_.... : agregar permisos. POOR AHORA SOLO INDEX
-        abort(401)
-
-    shopping= Shopping.get_by_id(shopping_id)
-    vaccines = Vaccine.get_all_vaccines()
-    lotes = VaccineLote.get_all_lotes()
-    developers = VaccineDeveloper.get_all_desarrolladores()
-
-    return render_template("compras/shopping_new.html",
-         message="Editar compra", 
-         mode="edit",
-    )
-
     
 
 def update():
@@ -123,3 +111,27 @@ def update():
 
     flash("Éxito en la operación")
     return redirect(url_for("shoppings.shopping_index"))
+
+
+def toggle_activation():
+    if not authenticated(session):
+        return redirect(url_for("auth.login"))
+
+    if not user_has_permission(session,"shopping_index"): #permiso para cambiar estado
+        abort(401)
+        
+    id = request.form["shopping_id"]
+    shopping = Shopping.get_by_id(id)
+#   enfermedad = VaccineEnfermedad.get_by_id()
+
+    if (shopping.estado_id == 1):   #pagar funciona
+       shopping.pagar()
+
+    else:
+       shopping.entregar()      #entregar funciona
+    
+    flash("Éxito en la operación")
+
+    return redirect(url_for("shoppings.shopping_index"))
+    #return index(request.form["enfermedad"])
+    # intenetar que se redireccione a la misma enfermedad

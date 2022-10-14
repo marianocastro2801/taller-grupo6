@@ -75,11 +75,10 @@
                 {{ button_edit(url_for('vaccines.vaccine_edit', vaccine_id=vaccine.id)) }}
                 {{ button_delete(vaccine.id) }} 
                 <!--COMPRAS-SHOPPINGS-->
-                {% if user_has_permission(session, 'shopping_new') %}
-                <a class="btn btn-primary" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index', vaccine_id=vaccine.id) }}"> 
-                    <img class="img-fluid" src="{{ url_for('static', filename='carro.png') }}" alt="logo" width="27" height="20" title="Compras"> </a> 
-                {% endif %} 
-
+                <a>  <button class="btn btn-primary" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index', vaccine_id=vaccine.id) }}">                                      
+                    <img class="img-fluid" src="{{ url_for('static', filename='carro.png') }}" alt="logo" width="27" height="20" title="Compras"> </button>  
+                </a>                
+              
             </td>
         </tr>
 
@@ -97,12 +96,22 @@
             <td class="col-2">{{ shopping.cantidad_vacunas}}</td>
           
             <td class="col-2">
-                <!--aqui van los botones de detalle y/o editar: para cambiar el estado de una compra-->
+                <!--ver detalles-->
                 {{ button_details(shopping.id) }}
-                {{ button_edit(url_for('shoppings.shopping_edit', shopping_id=shopping.id)) }}
-                <a class="btn btn-info" type="button" id="indexShopping" name="index_shopping" href=""> 
-                    Ver Stock </a>  
+                <!--estados de una compra pendiente, pagado, entregado
+               
+                {% if shopping.estado.id == 1 %}
+                    <a><button type="submit" class="btn btn-info" name="estado_id" >Pagar</button> </a>
+                
+                {% elif shopping.estado.id == 2 %}
+                  <a> <button type="button" class="btn btn-primary" value="3" >Entregar</button> </a> 
+                  
+                {% endif %} -->
 
+                {{ button_activate_deactivate(shopping.id, shopping.estado.id) }}
+
+
+                            
             </td>
         </tr>
 
@@ -114,10 +123,49 @@
     {% for distributtion in distributtiones %}
         
         <tr>
-            <td class="col-2">{{ distributtion.vacuna.nombre_comercial }}</td>
+            <td class="col-2">{{ distributtion.vacuna.enfermedad.nombre }}</td>
             <td class="col-2">{{ distributtion.cantidad }}</td>
             <td class="col-2">{{ distributtion.provincia.nombre_provincia }}</td>
         
+
+        </tr>
+
+    {% endfor %}
+{% endmacro %}
+
+
+
+
+{% macro button_activate_deactivate(id, estado) %}
+   
+    {% if estado == 1 %}    
+    <a> <button type="button" class="btn btn-info" data-toggle="modal"
+        data-target="#activateModal{{ id }}" data-toggle="tooltip" data-placement="top"
+        title="Pagar" >Pagar</button> </a> 
+  
+    {% elif estado == 2 %}  
+    <a> <button type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#activateModal{{ id }}" data-toggle="tooltip" data-placement="top"
+        title="Entregar" >Entregar</button> </a> 
+      
+    {% endif %}    
+
+{% endmacro %}
+
+
+
+{% macro patology_row(patologys) %}
+    {% for patology in patologys %}
+        
+        <tr>
+            <td class="col-2">{{ patology.nombre }}</td>
+            {% if patology.fecha_inicio != None %}
+            <td class="col-1">{{ patology.fecha_inicio }}</td>
+            <td class="col-1">{{ patology.fecha_fin }}</td> 
+            {% else %}
+            <td class="col-1"></td>
+            <td class="col-1"></td> 
+            {% endif %}
 
         </tr>
 

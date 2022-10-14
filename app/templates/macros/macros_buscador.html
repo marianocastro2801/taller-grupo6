@@ -1,12 +1,12 @@
 {% macro input_name() %}
 {% set busqueda = request.args.get('search', '') %}
-<label for="nameSearcher" class="col-sm-2 col-form-label">Buscar por nombre:</label>
+<label for="nameSearcher" class="col-sm-2 col-form-label">Buscar por Nombre:</label>
 <div class="col-sm-4">
     {% if busqueda != '' %}
     <input class="form-control" id="nameSearcher" name="search" value="{{ busqueda }}"
         placeholder="Buscar por nombre" />
     {% else %}
-    <input class="form-control" id="nameSearcher" name="search" placeholder="Buscar por nombre" />
+    <input class="form-control" id="nameSearcher" name="search" placeholder="Buscar por Nombre" />
     {% endif %}
 </div>
 {% endmacro %}

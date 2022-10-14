@@ -50,17 +50,18 @@
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('users.user_index') }}">Usuarios</a>
     {% endif %}
     {% if user_has_permission (session,"vaccine_index") %}
-    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a>
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas Desarrolladas</a>
     {% endif %}
     {% if user_has_permission (session,"shopping_new") %}
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('shoppings.shopping_index') }}">Compras Realizadas</a>
     {% endif %}
-    {% if user_has_permission (session,"shopping_new") %} <!--agregar despues el new o index(operador)-->
-    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones Vacunas</a>
+    {% if user_has_permission (session,"distributtion_index") %} 
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones</a>
     {% endif %}
-    {% if user_has_permission (session,"shopping_new") %} <!--agregar despues el permiso new o index (vacunador)-->
+    {% if user_has_permission (session,"vacunattion_index") %} 
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="/">Vacunaciones</a>
     {% endif %}
+
     <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarTogglerSmallMenu"
       aria-controls="navbarTogglerSmallMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -83,9 +84,14 @@
         {% endif %}
         {% if user_has_permission (session,"vaccine_index")%}
         <li class="nav-item">
-          <a class="dropdown-item mobile-item" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a>
+          <a class="dropdown-item mobile-item" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas Desarrolladas</a>
         </li>
-        {% endif %}  
+        {% endif %}
+        {% if user_has_permission (session,"patology_index")%} 
+        <li class="nav-item">
+          <a class="dropdown-item mobile-item" href="/patologias/patologias_index">Patologias</a>
+        </li>
+        {% endif %}   
         <li class="nav-item">
           <a class="dropdown-item mobile-item" href="{{ url_for('auth.logout') }}">Cerrar sesion</a>
         </li>
@@ -105,9 +111,11 @@
           {% if user_has_permission (session,"user_index")%}
           <li><a class="dropdown-item" href="{{ url_for('users.user_index') }}">Usuarios</a></li>
           {% endif %}
-          {% if user_has_permission (session,"vaccine_index")%}
-          <li><a class="dropdown-item" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a></li>
-          {% endif %}
+          {% if user_has_permission (session,"patology_index")%} 
+          <li class="nav-item">
+            <a class="dropdown-item mobile-item" href="/patologias/patologias_index">Patologias</a>
+          </li>
+          {% endif %} 
           <li>
             <hr class="dropdown-divider">
           </li>

@@ -80,12 +80,13 @@ def edit(vaccine_id):
     vaccine = Vaccine.get_by_id(vaccine_id)
     types = VaccineType.get_all_types()
     developers = VaccineDeveloper.get_all_desarrolladores()
+    enfermedades = VaccineEnfermedad.get_all_enfermedades()
 
     shoppings = Shopping.get_shoppings_by_vaccine(vaccine_id)
     if is_list_empty(shoppings):
 
         return render_template("vacunas/vaccine_new.html", vaccine=vaccine,
-        message="Editar vacuna", mode="edit", types=types, developers= developers,)
+        message="Editar vacuna", mode="edit", types=types, developers= developers, enfermedades=enfermedades)
     else: 
 
         flash("No puede editar una vacuna que posea compras")
