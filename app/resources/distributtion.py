@@ -1,3 +1,6 @@
+from asyncio.windows_events import NULL
+from queue import Empty
+from app.models.vaccine_enfermedad import VaccineEnfermedad
 from flask import redirect, render_template, request, url_for, abort, session, flash
 from sqlalchemy.sql.expression import true
 from app.helpers.auth import authenticated
@@ -33,7 +36,7 @@ def new():
     if not user_has_permission(session, "distributtion_new"):  
         abort(401)
 
-    vaccines = Vaccine.get_all_vaccines()
+    enfermedades = VaccineEnfermedad.get_all_enfermedades()
    #shoppings = Shopping.get_filtered(enfermedad_id)
     distributtiones = Distributtion.get_all_distributtiones()
     provincias = Province.get_all_provincias()   
@@ -43,7 +46,7 @@ def new():
         distributtion=None,
         message="Realizar Nueva Distribucion",
         mode="create",
-        vaccines=vaccines,
+        enfermedades= enfermedades,
         distributtiones= distributtiones,
         provincias = provincias,
 
@@ -57,7 +60,7 @@ def save():
         abort(401)
 
     new_distributtion = request.form.copy()
-    new_distributtion.pop("id", None)
+    new_distributtion.pop("id", None) 
 
     Distributtion(**new_distributtion).save()
     flash("Éxito en la operación")

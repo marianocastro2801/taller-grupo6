@@ -1,7 +1,7 @@
 from asyncio.windows_events import NULL
 from contextlib import nullcontext
 from email.policy import default
-from flask import Blueprint, request
+from flask import Blueprint, request, session, render_template
 from app.resources import patology
 
 

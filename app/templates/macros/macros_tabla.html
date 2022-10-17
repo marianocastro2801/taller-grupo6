@@ -65,19 +65,15 @@
     {% for vaccine in vaccines %}
         
         <tr>
-            <td class="col-2">{{ vaccine.nombre_comercial }}</td>
-            <td class="col-2">{{ vaccine.enfermedad.nombre }}</td>
-            <td class="col-2">{{ vaccine.tipo }}</td>
+            <td class="col-2 text-center">{{ vaccine.nombre_comercial }}</td>
+            <td class="col-2 text-center">{{ vaccine.enfermedad.nombre }}</td>
+            <td class="col-2 text-center">{{ vaccine.tipo }}</td>
         
 
-            <td class="col-2">
+            <td class="col-2 text text-center">
                 {{ button_details(vaccine.id) }}
                 {{ button_edit(url_for('vaccines.vaccine_edit', vaccine_id=vaccine.id)) }}
-                {{ button_delete(vaccine.id) }} 
-                <!--COMPRAS-SHOPPINGS-->
-                <a>  <button class="btn btn-primary" id="indexShopping" name="index_shopping" href="{{ url_for('shoppings.shopping_index', vaccine_id=vaccine.id) }}">                                      
-                    <img class="img-fluid" src="{{ url_for('static', filename='carro.png') }}" alt="logo" width="27" height="20" title="Compras"> </button>  
-                </a>                
+                {{ button_delete(vaccine.id) }}              
               
             </td>
         </tr>
@@ -123,7 +119,7 @@
     {% for distributtion in distributtiones %}
         
         <tr>
-            <td class="col-2">{{ distributtion.vacuna.enfermedad.nombre }}</td>
+            <td class="col-2">{{ distributtion.enfermedad.nombre }}</td>
             <td class="col-2">{{ distributtion.cantidad }}</td>
             <td class="col-2">{{ distributtion.provincia.nombre_provincia }}</td>
         
@@ -166,6 +162,21 @@
             <td class="col-1"></td>
             <td class="col-1"></td> 
             {% endif %}
+
+        </tr>
+
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro vacunattion_row(vacunattiones) %}
+    {% for vacunattion in vacunattiones %}
+        
+        <tr>
+            <td class="col-2">{{ vacunattion.paciente.dni }}</td>
+            <td class="col-2">{{ vacunattion.enfermedad.nombre }}</td>
+            <td class="col-2">{{ vacunattion.fecha_vacunacion }}</td>
+        
 
         </tr>
 

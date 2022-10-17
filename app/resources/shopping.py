@@ -48,7 +48,7 @@ def index(enfermedad_id):
         enfermedades = enfermedades,
         vacuna = vacuna,
    
-    )
+    ) 
 
 def sumar_cantidades (shoppings):
     suma = 0
@@ -122,7 +122,6 @@ def toggle_activation():
         
     id = request.form["shopping_id"]
     shopping = Shopping.get_by_id(id)
-#   enfermedad = VaccineEnfermedad.get_by_id()
 
     if (shopping.estado_id == 1):   #pagar funciona
        shopping.pagar()
@@ -131,7 +130,8 @@ def toggle_activation():
        shopping.entregar()      #entregar funciona
     
     flash("Éxito en la operación")
-
-    return redirect(url_for("shoppings.shopping_index"))
-    #return index(request.form["enfermedad"])
+   
+    #return redirect(url_for("shoppings.shopping_index"))
+    return index([shopping.enfermedad_id])
     # intenetar que se redireccione a la misma enfermedad
+    # FUNCIONAAAA! :=)

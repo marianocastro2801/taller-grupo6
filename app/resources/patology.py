@@ -24,7 +24,7 @@ def index():
 
     return render_template(
         "patologias/patologias_index.html",
-        patologys=patologys,
+        patologys=patologys,   
     )
 
 def save():
@@ -33,11 +33,10 @@ def save():
     if not user_has_permission(session, "patology_index"):
         abort(401)
 
-    VaccineEnfermedad(**request.form).save()
-
-
-    flash("Exito en la operacion")
-  
+    v= VaccineEnfermedad(**request.form)
+    v.save()
     
-    return redirect(url_for("patologys.patologia_index"))
+  
+    flash("Exito en la operacion")
+    return index() 
     

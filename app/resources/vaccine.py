@@ -70,7 +70,6 @@ def save():
     flash("Éxito en la operación")
     return redirect(url_for("vaccines.vaccine_index"))
 
-
 def edit(vaccine_id):
     if not authenticated(session):
         return redirect(url_for("auth.login"))
@@ -89,7 +88,7 @@ def edit(vaccine_id):
         message="Editar vacuna", mode="edit", types=types, developers= developers, enfermedades=enfermedades)
     else: 
 
-        flash("No puede editar una vacuna que posea compras")
+        flash("No puede editar la vacuna, posee compras!")
         return redirect(url_for("vaccines.vaccine_index"))
     
     
@@ -122,7 +121,7 @@ def delete(vaccine_id):
         flash("Éxito en la operación")
         return redirect(url_for("vaccines.vaccine_index")) 
     else: 
-        flash("No puede eliminar una vacuna que posea compras")
+        flash("No puede eliminar la vacuna, posee compras!")
         return redirect(url_for("vaccines.vaccine_index"))
     
     # function to check whether the list is empty or not
