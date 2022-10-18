@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/maximi42/grupo6-ttps.com/taller-grupo6
+    - /bin/rsync -av app/$DEPLOYPATH
