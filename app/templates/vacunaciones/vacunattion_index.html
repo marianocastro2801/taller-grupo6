@@ -22,7 +22,7 @@
             <div class="mb-4">
                 <form action="{{ url_for('vacunattiones.vacunattion_index') }}" method="GET">
                     <div class="form-group row">
-                        {% set enfermedad_id = request.args.get('enfermedad_id', '2') %}
+                        
                         <label for="stateSelect" class="col-sm-2 col-form-label">Buscar Vacunaciones:</label> 
                         <div class="col-sm-3">
                             <select class="form-select bg-white" id="stateSelect" name="enfermedad_id">
@@ -42,7 +42,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Paciente', 'Vacuna', 'Fecha Vacunacion']) }}
+                    {{ heading_row(['Paciente DNI', 'Vacuna', 'Fecha Vacunacion']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ vacunattion_row(vacunattiones) }} 
@@ -51,6 +51,7 @@
                 </table>
             </div>
             <h1>
+            {% if user_has_permission (session,"show_stock") %}    
             <div class="botones botones-der">
                 {% if tot == None %}
                 Stock PROVINCIAL: 0
@@ -58,6 +59,7 @@
                 Stock Provincial: {{ tot }}
                 {%endif %}
 
+            {% endif %}
 
 
                 {{ button_go_home() }}

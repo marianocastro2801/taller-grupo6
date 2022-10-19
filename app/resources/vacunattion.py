@@ -1,3 +1,4 @@
+from app.models.provincias import Province
 from app.models.shopping import Shopping
 from flask import redirect, render_template, request, url_for, abort, session, flash
 from sqlalchemy.sql.expression import true
@@ -22,12 +23,15 @@ def index(enfermedad_id):
     if not user_has_permission(session, "vacunattion_index"):  
         abort(401)
 
+    #vacunattiones = Vacunattion.get_vacunattiones_by_provincia(provincia_id)
     distributtiones = Distributtion.get_filtered(enfermedad_id) #de una enferemdad_id
     enfermedades = VaccineEnfermedad.get_all_enfermedades()
     tot = sumar_cantidades(distributtiones)
-    vacunattiones = Vacunattion.get_all_vacunaciones()
+    #vacunattiones = Vacunattion.get_all_vacunaciones()
+    vacunattiones = Vacunattion.get_vacunattiones_by_enfermedad(enfermedad_id)
     vacuna = VaccineEnfermedad.get_by_id(enfermedad_id)
     vacuna = vacuna.nombre
+    provincias = Province.get_all_provincias()
 
     return render_template(
         "vacunaciones/vacunattion_index.html",
@@ -36,6 +40,7 @@ def index(enfermedad_id):
         distributtiones = distributtiones,
         enfermedades= enfermedades,
         vacuna= vacuna,
+        provincias= provincias,
     )
 
 
@@ -55,6 +60,7 @@ def new():
 
     pacientes = Patient.get_all_pacientes()
     enfermedades = VaccineEnfermedad.get_all_enfermedades()
+    provincias = Province.get_all_provincias()
 
     return render_template(
         "vacunaciones/vacunattion_new.html",
@@ -63,6 +69,7 @@ def new():
         mode="create",
         pacientes=pacientes,
         enfermedades = enfermedades,
+        provincias= provincias,
 
     )
 
@@ -73,7 +80,7 @@ def save():
         abort(401)
 
     new_vacunattion = request.form.copy()
-    new_vacunattion.pop("id", None)
+    new_vacunattion.pop("id", None)   
 
     Vacunattion(**new_vacunattion).save()
     flash("Éxito en la operación")

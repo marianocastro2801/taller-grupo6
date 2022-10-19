@@ -11,8 +11,7 @@ vacunattiones.add_url_rule("/vacunaciones/vacunattion_new", "vacunattion_new", v
 vacunattiones.add_url_rule("/vacunaciones/vacunattion_save", "vacunattion_save", vacunattion.save, methods=["POST"])
 
 
-
-@vacunattiones.route('/vacunaciones/vacunattion_index')
+#@vacunattiones.route('/vacunaciones/vacunattion_index/<int:provincia_id>')
 @vacunattiones.route('/vacunaciones/vacunattion_index')
 def vacunattion_index():
 

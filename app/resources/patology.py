@@ -36,7 +36,8 @@ def save():
     v= VaccineEnfermedad(**request.form)
     v.save()
     
-  
-    flash("Exito en la operacion")
-    return index() 
+    return redirect(url_for("patologys.patologia_index"))
+
+    
+    #return redirect('/patologias/patologias_index')
     

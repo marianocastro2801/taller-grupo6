@@ -55,6 +55,17 @@
           <input type="date" class="form-control" id="fecha_vacunacion" name="fecha_vacunacion" required>
         </div>
 
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Provincia</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="provincia_id">
+            {% for provincia in provincias %}
+
+            <option value='{{provincia.id}}'> {{ provincia.nombre_provincia }} </option>
+           
+            {% endfor %}
+          </select>
+        </div>
+
     </div>
   
         <h1>

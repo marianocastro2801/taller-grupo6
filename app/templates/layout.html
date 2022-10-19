@@ -58,8 +58,9 @@
     {% if user_has_permission (session,"distributtion_index") %} 
     <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones</a>
     {% endif %}
-    {% if user_has_permission (session,"vacunattion_index") %} 
-    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('vacunattiones.vacunattion_index') }}">Vacunaciones</a>
+
+    {% if user_has_permission (session,"patology_index") %} 
+    <a  class="nav-link nav-opcion d-none d-md-block text-white" href="{{ url_for('patologys.patologia_index') }}">Patologias</a>
     {% endif %}
 
     <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarTogglerSmallMenu"

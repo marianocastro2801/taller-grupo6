@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% from 'macros/macros_tabla.html' import heading_row, patology_row  %}
-
+{% from 'macros/macros_otros.html' import button_go_home, notifications %}
 
 {% block title %}Patologias{% endblock %}
 
@@ -63,8 +63,9 @@
             </div>
 
             <div class="botones botones-der">
-                
+                {{ button_go_home() }}
             </div>
+            <br>
     </div>
 </div>
 {% endblock %}

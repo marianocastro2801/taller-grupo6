@@ -32,7 +32,13 @@
             {% endif %}
             {% if user_has_permission (session,"vacunattion_index")%}             
             <a class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_index') }}">Vacunaciones</a></li>
-            {% endif %}
+            {% endif %} 
+
+                        
+
+
+            
+
             {% if user_has_permission (session,"patology_index")%}             
             <a class="dropdown-item home-text" href="/patologias/patologias_index">Patologias</a></li>
             {% endif %}
@@ -48,3 +54,5 @@
 
 <!--etiqueta body: color green en stylos-->
 <!--extender layout para cualquier vista. Luego colocar lo que uno desee mostrar dentro del block content-->
+
+ 

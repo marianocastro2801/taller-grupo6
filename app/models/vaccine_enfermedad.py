@@ -10,7 +10,7 @@ class VaccineEnfermedad(db.Model):
     __tablename__ = "vacuna_enfermedad"
     id = Column(Integer, primary_key=True)
     nombre = Column(TINYTEXT, unique=True, nullable=False)
-    #vacunas = relationship("Vaccine", back_populates="enfermedad")
+    vacunas = relationship("Vaccine", back_populates="enfermedad")
     fecha_inicio = Column(Date, unique=False, nullable=False)
     fecha_fin = Column(Date, unique=False, nullable=False)
     
@@ -28,6 +28,11 @@ class VaccineEnfermedad(db.Model):
         else: self.fecha_fin= fecha_fin
         
 
+    def __repr__(self):
+        return "<VaccineEnfermedad(nombre='%s', )>" % (
+            self.nombre,
+
+        )
     def save(self):
         db.session.add(self)
         db.session.commit()

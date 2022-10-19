@@ -14,13 +14,17 @@ class Vacunattion(db.Model):
     enfermedad_id = Column(Integer, ForeignKey("vacuna_enfermedad.id"), nullable=False)
     enfermedad = relationship("VaccineEnfermedad")
 
+    provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
+    provincia = relationship("Province")
+
         
 
-    def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id
+    def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id, provincia_id
     ):
         self.fecha_vacunacion= fecha_vacunacion
         self.paciente_id=paciente_id
         self.enfermedad_id = enfermedad_id
+        self.provincia_id = provincia_id
 
     def __repr__(self):
         return (
@@ -40,4 +44,12 @@ class Vacunattion(db.Model):
     @staticmethod
     def get_by_id(id):
         return Vacunattion.query.get(id)
+
+    @classmethod
+    def get_vacunattiones_by_provincia(self, provincia_id):
+        return Vacunattion.query.filter(self.provincia_id == provincia_id).all()
+
+    @classmethod
+    def get_vacunattiones_by_enfermedad(self, enfermedad_id):
+        return Vacunattion.query.filter(self.enfermedad_id == enfermedad_id).all()
 
