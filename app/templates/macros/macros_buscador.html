@@ -26,9 +26,9 @@
 
 
 
-{% macro select_type() %} <!--BUSCADORES MODIFICAR A QUE SEA POR TIPO Y NO ESTADO-->
-{% set type_id = request.args.get('type_id', '1') %}
-<label for="stateSelect" class="col-sm-2 col-form-label">Tipo:</label>
+{% macro select_type() %} 
+{% set type_id = request.args.get('type_id', '2') %}
+<label for="stateSelect" class="col-sm-2 col-form-label">Tipo Vacuna:</label>
 <div class="col-sm-3">
     <select class="form-select bg-white" id="stateSelect" name="type_id">
         {% if type_id == "1" %}

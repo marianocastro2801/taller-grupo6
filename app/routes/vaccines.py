@@ -21,7 +21,7 @@ def vaccine_edit(vaccine_id):
 @vaccines.route('/vacunas/vaccine_index')
 def vaccine_index():
     
-    type_id = request.args.get('type_id', '1')
+    type_id = request.args.get('type_id', '2')
     search = request.args.get('search', '')
 
     return vaccine.index(search, type_id)

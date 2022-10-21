@@ -8,8 +8,11 @@ from app.db import db
 class Vaccine(db.Model):
     __tablename__ = "vacunas"
     id = Column(Integer, primary_key=True)
-    nombre = Column(String(50), unique=False, nullable=False)
-    enfermedad = Column(String(50), unique=False, nullable=False)
+    nombre_comercial = Column(String(50), unique=False, nullable=False)
+
+    nombre_registro = Column(TINYTEXT, unique=False, nullable=False)
+
+    caracteristicas = Column(TINYTEXT, unique=False, nullable=False)
     
     desarrollador_id = Column(Integer, ForeignKey("vacuna_desarrollador.id"), nullable=False)
     desarrollador = relationship("VaccineDeveloper")
@@ -17,28 +20,29 @@ class Vaccine(db.Model):
     tipo_id = Column(Integer, ForeignKey("vacuna_tipos.id"), nullable=False)
     tipo = relationship("VaccineType")
 
-    lote_id = Column(Integer, ForeignKey("vacuna_lotes.id"), nullable=False)
-    lote = relationship("VaccineLote")
+    enfermedad_id = Column(Integer, ForeignKey("vacuna_enfermedad.id"), nullable=False)
+    enfermedad = relationship("VaccineEnfermedad")
 
     cantidad = Column(Integer, unique=False, nullable=False)
 
 
-    def __init__(self, nombre, enfermedad, tipo_id, desarrollador_id
+    def __init__(self, nombre_comercial, nombre_registro, caracteristicas, tipo_id, desarrollador_id, enfermedad_id
     ):
-        self.nombre = nombre
-        self.enfermedad = enfermedad
+        self.nombre_comercial = nombre_comercial
+        self.nombre_registro = nombre_registro
+        self.caracteristicas = caracteristicas
         self.tipo_id= tipo_id
         self.desarrollador_id = desarrollador_id
-        self.lote_id = None
+        self.enfermedad_id = enfermedad_id
         self.cantidad = 0
        
 
     def __repr__(self):
-        return "<Vaccine(nombre='%s', enfermedad='%s', )>" % (
-            self.nombre,
-            self.enfermedad,
+        return "<Vaccine(nombre_comercial='%s', nombre_registro='%s', caracteristicas='%s', )>" % (
+            self.nombre_comercial,
+            self.nombre_registro,
+            self.caracteristicas
 
-  
         )
 
     def save(self):
@@ -66,7 +70,7 @@ class Vaccine(db.Model):
     def update(**kwargs):
         vaccine = Vaccine.get_by_id(kwargs["id"])
         for key, value in kwargs.items():
-            setattr(vaccine, key, value)
+            setattr(vaccine, key, value) 
         db.session.commit()
         
     @staticmethod
@@ -76,6 +80,13 @@ class Vaccine(db.Model):
 
     @staticmethod
     def get_filtered(search, type_id):
-        return Vaccine.query.filter(Vaccine.nombre.ilike(f'%{search}%'),
-                                         (Vaccine.tipo_id == type_id))
+        return Vaccine.query.filter(Vaccine.nombre_comercial.ilike(f'%{search}%'), (Vaccine.tipo_id == type_id))
           
+
+#   @classmethod
+#   def get_vaccine_by_nombre_comercial(self, nombre_comercial):
+#       return Vaccine.query.filter(self.nombre_comercial == nombre_comercial).first()
+
+#   @classmethod
+#   def nombre_comercial_esta_disponible(self, nombre_comercial):
+#       return (self.get_vaccine_by_nombre_comercial(nombre_comercial)) == None
