@@ -24,3 +24,4 @@ shoppings.add_url_rule("/compras/shopping_update", "shopping_update", shopping.u
 def shopping_edit(shopping_id):
     return shopping.edit(shopping_id)
 
+shoppings.add_url_rule("/compras/shopping_toggle_activation", "shopping_state", shopping.toggle_activation, methods=["POST"]) 

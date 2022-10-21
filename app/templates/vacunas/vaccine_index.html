@@ -16,7 +16,7 @@
 
     <div class="">
         <div class="container text-center mt-4">
-            <h1 class="display-4">Vacunas</h1>
+            <h1 class="display-4">Vacunas Desarrolladas</h1>
         </div>
         <div class="container">
             <div class="mb-4">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered table-dark">
+                <table class="table table-bordered table-dark text-center">
                     <thead>
                     {{ heading_row(['Vacuna Desarrollada', 'Vacuna para', 'Tipo', 'Opciones']) }}
                     </thead>
@@ -49,18 +49,21 @@
                 {{ button_go_home() }}
                 {% if user_has_permission(session, 'vaccine_new') %}
                     <a class="btn btn-success" id="addVaccine" name="add_vaccine" href="{{ url_for('vaccines.vaccine_new') }}"
-                       data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
-                        + Añadir Vacunas</a>
+                       data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> 
+                        + Vacuna Desarrollada</a>
                 {% endif%}
                 {% if user_has_permission(session, 'shopping_new') %}
                 <a class="btn btn-primary" id="addVaccine" name="add_vaccine" href="{{ url_for('shoppings.shopping_index') }}"
-                   data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> <!--modificar los permisis vaccine_new-->
+                   data-toggle="tooltip" data-placement="top" title="Añadir nueva vacuna"> 
                     Compras Realizadas</a>
                 {% endif%}
 
             </h1>
             </div>
+
             {{ set_modals_vaccines(vaccines) }}
+            <br>
+                    
         </div>
     </div>
 

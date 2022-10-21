@@ -34,7 +34,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Vacuna desarrollada', 'Cantidad', 'Provincia']) }}
+                    {{ heading_row(['Vacuna', 'Cantidad', 'Provincia']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ distributtion_row(distributtiones) }} 
@@ -46,13 +46,14 @@
             <div class="botones botones-der">
                 {{ button_go_home() }}
                 {% if user_has_permission(session, 'vaccine_new') %}
-                    <a class="btn btn-success" id="addDistributtion" name="add_distributtion" href="/"
+                    <a class="btn btn-success" id="addDistributtion" name="add_distributtion" href="{{ url_for('distributtiones.distributtion_new') }}"
                        data-toggle="tooltip" data-placement="top" title="Realizar Nueva Distribucion"> <!--modificar los permisis vaccine_new-->
                         + Añadir Distribucion</a>
                 {% endif%}
 
             </h1>
-            </div>
+            <br>
+            </div> 
 
         </div>
     </div>

@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% from 'macros/macros_tabla.html' import heading_row, patology_row  %}
+{% from 'macros/macros_otros.html' import button_go_home, notifications %}
+
+{% block title %}Patologias{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="">
+    <div class="container text-center mt-4">
+        <h1 class="display-4">Patologías</h1>
+        <p> </p>
+    </div>
+    <div class="container">
+      
+           <form method="POST" action="{{ url_for('patologys.patologia_save') }}">
+            
+            <div class="input-group">
+            <label for="nombre" class="col-sm-2 col-form-label text-black">Patologia:</label> 
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de la Patologia" required>
+            </div>
+            </div>
+            <br>
+
+            <div class="input-group">
+      
+                 <label for="fecha_inicio" class="col-sm-2 col-form-label text-black">Fecha Inicio (opcional):</label> 
+                    <div class="col-sm-4">
+                      <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                    </div>
+                    <label for="fecha_fin" class="col-sm-2 col-form-label text-black">Fecha Fin (opcional): </label> 
+                     <div class="col-sm-4">
+                      <input type="date" class="form-control" id="fecha_fin" name="fecha_fin">
+                     </div>    
+                   
+           </div>
+           <br>
+                       
+                
+                <div class="col text-center">
+                    <button type="submit" class="btn btn-success"> + Añadir Patologia</button>
+                    <button type="reset" class="btn btn-warning"> Limpiar campo </button>
+                </div>
+            </form>
+            <br>
+      
+            <div class="table-responsive">
+                <table class="table table-bordered table-dark text-center">
+                    <thead>
+                        {{ heading_row(['Nombre Patologia', 'Fecha Inicio' , 'Fecha Fin']) }}
+                    </thead>
+                    <tbody class="table table-light">
+                        {{ patology_row(patologys) }} 
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="botones botones-der">
+                {{ button_go_home() }}
+            </div>
+            <br>
+    </div>
+</div>
+{% endblock %}

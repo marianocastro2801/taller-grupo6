@@ -20,19 +20,32 @@
             {% endif %}
 
             {% if user_has_permission (session,"vaccine_index")%}            
-                <a class="dropdown-item home-text" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas</a></li>
+                <a class="dropdown-item home-text" href="{{ url_for('vaccines.vaccine_index') }}">Vacunas Desarrolladas</a></li>
             {% endif %}
 
             {% if user_has_permission (session,"shopping_new")%}            
             <a class="dropdown-item home-text" href="{{ url_for('shoppings.shopping_index') }}">Compras Realizadas</a></li>
             {% endif %}
             
-            {% if user_has_permission (session,"shopping_new")%} <!--agregar permiso nuevo: distribution_new-->            
-            <a class="dropdown-item home-text" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones de Vacunas</a></li>
+            {% if user_has_permission (session,"distributtion_index")%}             
+            <a class="dropdown-item home-text" href="{{ url_for('distributtiones.distributtion_index') }}">Distribuciones Vacunas</a></li>
             {% endif %}
-            {% if user_has_permission (session,"shopping_new")%} <!--agregar permiso nuevo: register_vacunacion-->            
-            <a class="dropdown-item home-text" href="/">Vacunaciones</a></li>
+            {% if user_has_permission (session,"vacunattion_index")%}             
+            <a class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_index') }}">Vacunaciones</a></li>
+            {% endif %} 
+
+                        
+
+
+            
+
+            {% if user_has_permission (session,"patology_index")%}             
+            <a class="dropdown-item home-text" href="/patologias/patologias_index">Patologias</a></li>
             {% endif %}
+            {% if user_has_permission (session,"vacunattion_new") %} 
+            <a  class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_new') }}">Registrar Vacunacion</a>
+            {% endif %}
+            
 
         </div>
 
@@ -41,3 +54,5 @@
 
 <!--etiqueta body: color green en stylos-->
 <!--extender layout para cualquier vista. Luego colocar lo que uno desee mostrar dentro del block content-->
+
+ 

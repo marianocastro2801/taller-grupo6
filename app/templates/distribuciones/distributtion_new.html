@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% from 'macros/macros_otros.html' import notifications %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+ 
+{{notifications()}}
+
+<div class="">
+  <div class="container text-center">
+    <h1 class="display-4">Modulo de Distribuciones</h1>
+    <p>{{message}}</p>
+  </div>
+  <form method="POST"
+    action="{{ url_for('distributtiones.distributtion_save') }}"
+    id="form-new-point">
+    <input type="hidden" id="distributtion_id" name="id" value="{{distributtion.id}}">
+
+    <div class="container form">
+      <!-- <div class="well"> -->
+
+      <div class="form-group row">
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna contra:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="enfermedad_id">
+            {% for enfermedad in enfermedades %}
+
+            <option value='{{enfermedad.id}}'> {{ enfermedad.nombre }} </option>
+            
+            {% endfor %}
+          </select>
+          </div>
+          
+        <label for="enfermedad" class="col-sm-2 col-form-label text-black">Cantidad:</label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control" id="cantidad" name="cantidad"
+            value="{{distributtion.cantidad}}" placeholder="Cantidad" required>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Provincia:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="provincia_id">
+            {% for provincia in provincias %}
+
+            <option value='{{provincia.id}}'> {{ provincia.nombre_provincia }} </option>
+   
+            {% endfor %}
+          </select>
+        </div>
+
+        
+      </div>
+
+  
+        <h1>
+      
+        <!-- </div> -->
+        <div class="botones botones-center">
+          <a class="btn btn-danger" href="/distribuciones/distributtion_index">Cancelar</a>
+          {% if mode == 'create' %}
+          <button type="reset" class="btn btn-warning" mode="create"> Limpiar campos </button>
+          {% endif %}
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </h1>
+
+        </div>
+      </div>
+  </form>
+</div>
+
+
+{% endblock%}

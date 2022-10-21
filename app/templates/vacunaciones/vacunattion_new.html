@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% from 'macros/macros_otros.html' import notifications %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+ 
+{{notifications()}}
+
+<div class="">
+  <div class="container text-center">
+    <h1 class="display-4">Vacunaciones</h1>
+    <p>{{message}}</p>
+  </div>
+  <form method="POST"
+    action="{{ url_for('vacunattiones.vacunattion_save')}}"
+    id="form-new-point">
+    <input type="hidden" id="vacunattion_id" name="id" value="{{vacunattion.id}}">
+
+    <div class="container form">
+      <!-- <div class="well"> -->
+        
+      <div class="form-group row">
+
+        <label for="laboratorio" class="col-sm-2 col-form-label text-black">Paciente:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="paciente_id"> <!--variable: es como esta en el models-->
+
+            {% for paciente in pacientes %}
+        
+            <option value='{{paciente.id}}'> {{ paciente.dni }} </option>
+           
+            {% endfor %} 
+          </select>
+        </div>
+
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna contra:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="enfermedad_id">
+            {% for enfermedad in enfermedades %}
+
+            <option value='{{enfermedad.id}}'> {{ enfermedad.nombre }} </option>
+           
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+            
+        <label for="fecha_inicio" class="col-sm-2 col-form-label text-black">Fecha Vacunación:</label> 
+        <div class="col-sm-4">
+          <input type="date" class="form-control" id="fecha_vacunacion" name="fecha_vacunacion" required>
+        </div>
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Provincia</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="provincia_id">
+            {% for provincia in provincias %}
+
+            <option value='{{provincia.id}}'> {{ provincia.nombre_provincia }} </option>
+           
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="stateSelect" class="col-sm-2 col-form-label">Numero Dosis:</label>
+          <div class="col-sm-3">
+            <select class="form-select bg-white" id="stateSelect" name="numero_dosis">
+        
+              <option value='1' selected> Primera Dosis </option>
+            
+                  <option value='2'> Segunda Dosis</option>
+              
+          
+                      <option value='3'> Tercera Dosis </option>
+                
+                      <option value='4'> Cuarta Dosis </option>
+          
+            </select>
+          </div>
+
+
+        </div>
+
+    </div>
+  
+        <h1>
+      
+        <!-- </div> -->
+        <div class="botones botones-center">
+          <a class="btn btn-danger" href="/vacunaciones/vacunattion_index">Cancelar</a>
+          {% if mode == 'create' %}
+          <button type="reset" class="btn btn-warning" mode="create"> Limpiar campos </button>
+          {% endif %}
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </h1>
+
+        </div>
+      </div>
+  </form>
+</div>
+
+
+{% endblock%}
+
+
+
+
+
+
+aqui va el new de la vcunacion 
+paciente o dni 
+fecha de vacunacion date
+enfermedad o patologia 
+cantidad dosis

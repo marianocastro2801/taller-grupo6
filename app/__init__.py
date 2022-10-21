@@ -12,6 +12,8 @@ from .routes.users import users
 from .routes.vaccines import vaccines
 from .routes.shopping import shoppings
 from .routes.distributtiones import distributtiones
+from .routes.patology import patologys
+from .routes.vacunattiones import vacunattiones
 from .routes.auth import authentication
 from .routes.home import home
 from .api.persona import persona_api
@@ -53,6 +55,12 @@ def create_app(environment="production"):
 
     # Distribuciones
     app.register_blueprint(distributtiones)
+    
+    # Patologias/vacunas para
+    app.register_blueprint(patologys)
+
+    # Vacunaciones
+    app.register_blueprint(vacunattiones)
 
     # Ruta para el Home
     app.register_blueprint(home)

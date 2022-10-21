@@ -1,12 +1,12 @@
 {% macro input_name() %}
 {% set busqueda = request.args.get('search', '') %}
-<label for="nameSearcher" class="col-sm-2 col-form-label">Buscar por nombre:</label>
+<label for="nameSearcher" class="col-sm-2 col-form-label">Buscar por Nombre:</label>
 <div class="col-sm-4">
     {% if busqueda != '' %}
     <input class="form-control" id="nameSearcher" name="search" value="{{ busqueda }}"
         placeholder="Buscar por nombre" />
     {% else %}
-    <input class="form-control" id="nameSearcher" name="search" placeholder="Buscar por nombre" />
+    <input class="form-control" id="nameSearcher" name="search" placeholder="Buscar por Nombre" />
     {% endif %}
 </div>
 {% endmacro %}
@@ -32,19 +32,19 @@
 <div class="col-sm-3">
     <select class="form-select bg-white" id="stateSelect" name="type_id">
         {% if type_id == "1" %}
-        <option value='2'>De Calendario</option>
+        <option value='2'>Calendario</option>
         <option value='1' selected>Pandemia</option>
-        <option value='3'>Para Patologías Estacionales</option>
+        <option value='3'>Patologías Estacionales</option>
 
         {% elif type_id == "2" %}
-            <option value='2' selected>De Calendario </option>
+            <option value='2' selected>Calendario </option>
             <option value='1'>Pandemia</option>
-            <option value='3'>Para Patologías Estacionales</option>
+            <option value='3'>Patologías Estacionales</option>
 
         {% elif type_id == "3" %}
-            <option value='2'>De Calendario </option>
+            <option value='2'>Calendario </option>
             <option value='1'>Pandemia</option>
-            <option value='3' selected>Para Patologías Estacionales</option>
+            <option value='3' selected>Patologías Estacionales</option>
         
             {% endif %}
   
