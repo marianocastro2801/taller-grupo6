@@ -162,6 +162,7 @@
 {% macro set_modals_shoppings(shoppings) %}
     {% for shopping in shoppings %}
         {{ view_modal_shopping(shopping) }}
+        {{ cambiar_estado_shopping(shopping) }}
  
     {% endfor %}
 {% endmacro %}
@@ -207,6 +208,10 @@
                   <td>{{ shopping.fecha_compra }}</td> 
                 </tr>
                 <tr>
+                  <th>Estado Compra</th>
+                  <td> {{ shopping.estado.nombre }} </td> 
+                </tr>
+                <tr>
                   <th>Caracteristicas</th>
                   <td>{{ shopping.vacuna.caracteristicas }}</td> 
                 </tr>
@@ -220,3 +225,51 @@
       </div>
     </div>
 {% endmacro %}
+
+
+
+
+
+
+{% macro cambiar_estado_shopping(shopping) %}
+    <!-- Activation Modal-->
+    <div class="modal fade text-black" id="activateModal{{ shopping.id }}" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                            Estado actual:  {{shopping.estado.nombre }}
+                        
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de que desea pasar el Estado de la Compra a:
+                        
+                      {% if shopping.estado.id == 1%} 
+                         <b>Pagado </b>?</p>
+                      {%endif %}
+
+                      {%if shopping.estado.id == 2%} 
+                         <b>Entregado </b>?</p>
+                      
+                      {% endif%}
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form method="post" action="{{ url_for('shoppings.shopping_state') }}">
+                        <input type="hidden" id="shopping_id" name="shopping_id" value="{{ shopping.id }}">
+                        {% if shopping.estado.id == 1 %}
+                            <button type="submit" class="btn btn-info">Pagar </button>
+                        {% elif shopping.estado.id == 2 %}
+                            <button type="submit" class="btn btn-primary">Entregar</button>
+                       
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro%}

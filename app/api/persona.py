@@ -10,7 +10,7 @@ from app.schemas.persona import persona_schema
 persona_api = Blueprint("personas", __name__, url_prefix="/personas")
 
 
-@persona_api.get("/")
+@persona_api.get("https://api.claudioraverta.com/personas")
 def index():
 
     json = 1

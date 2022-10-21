@@ -25,8 +25,3 @@ def vaccine_index():
     search = request.args.get('search', '')
 
     return vaccine.index(search, type_id)
-
-
-
-
-

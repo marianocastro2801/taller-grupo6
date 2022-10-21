@@ -30,6 +30,10 @@ class Shopping(db.Model):
     enfermedad_id = Column(Integer, ForeignKey("vacuna_enfermedad.id"), nullable=False)
     enfermedad = relationship("VaccineEnfermedad")
 
+    
+    estado_id = Column(Integer, ForeignKey("compra_estados.id"), nullable=False)
+    estado = relationship("ShoppingState")
+
     def __init__(self, vacuna_id, cantidad_vacunas, lote_id, desarrollador_id, enfermedad_id
     ):
         self.fecha_compra = datetime.today()
@@ -40,6 +44,7 @@ class Shopping(db.Model):
         self.desarrollador_id = desarrollador_id
         self.stock_id= None 
         self.stock_nacional = 0
+        self.estado_id = 1
         
 
     def save(self):
@@ -87,3 +92,14 @@ class Shopping(db.Model):
     def get_filtered(enfermedad_id):
    
         return Shopping.query.filter(Shopping.enfermedad_id == enfermedad_id) 
+
+
+    def pagar(self):
+        self.estado_id = "2"
+        db.session.commit()
+
+    def entregar(self):
+        self.estado_id = "3"
+        db.session.commit()
+
+    

@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Boolean, delete, insert, update, text
+from sqlalchemy import Column, Integer, String, Boolean, delete, insert, update, text, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db import db
 from app.models.rol_user import rol_user
@@ -17,6 +17,10 @@ class User(db.Model):
     activo = Column(Boolean, unique=False, nullable=False)
     roles = relationship("Rol", secondary=rol_user, back_populates="usuarios")
     baja = Column(Boolean, unique=False, nullable=False)
+    provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
+    provincia = relationship("Province")
+
+
 
     def __init__(
             self, email=None, usrname=None, password=None, nombre=None, apellido=None
@@ -29,6 +33,7 @@ class User(db.Model):
         self.activo = 1
         self.baja = 0
         self.roles = []
+        self.provincia_id=None 
 
     def __repr__(self):
         return "<User(email='%s', usrname='%s', nombre='%s', apellido='%s', )>" % (
