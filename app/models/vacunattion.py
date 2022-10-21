@@ -17,14 +17,19 @@ class Vacunattion(db.Model):
     provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
     provincia = relationship("Province")
 
-        
+    numero_dosis= Column(Integer, unique=False, nullable=False)
 
-    def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id, provincia_id
+    regla_id = Column(Integer, ForeignKey("vacunacion_reglas.id"), nullable=False)
+    regla = relationship("VacunattionRegla")    
+
+    def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id, provincia_id, numero_dosis
     ):
         self.fecha_vacunacion= fecha_vacunacion
         self.paciente_id=paciente_id
         self.enfermedad_id = enfermedad_id
         self.provincia_id = provincia_id
+        self.numero_dosis = numero_dosis
+        self.regla_id= None
 
     def __repr__(self):
         return (
