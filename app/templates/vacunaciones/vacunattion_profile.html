@@ -12,7 +12,7 @@
 <div style="background:transparent !important" class="jumbotron jumbotron-fluid text-center">
 
     <div class="container text-center mt-4">
-        <h1 class="display-4">Vacunacion de: {{vacunattion.paciente.nombre}} {{vacunattion.paciente.apellido}}</h1>
+        <h1 class="display-4">Vacunacion de: <b> {{vacunattion.paciente.nombre}} {{vacunattion.paciente.apellido}} </b></h1>
     </div>
 
     <div class="profile">
@@ -21,7 +21,7 @@
             <div class="row noTop align-items-center">
 
                 <div class="col-md">
-                    <p><b> Nombre y Apellido Paciente: </b>{{vacunattion.paciente.nombre}} {{vacunattion.paciente.apellido}}</p>
+                    <p><b> Nombre y Apellido PACIENTE: </b>{{vacunattion.paciente.nombre}} {{vacunattion.paciente.apellido}}</p>
                 </div>
                 <div class="col-md">
                     <p><b> DNI Paciente:</b> {{vacunattion.paciente.dni}}  </p>
@@ -41,13 +41,28 @@
             
             <div class="row align-items-center">
                 <div class="col-md">
-                    <p class="noBottom"> <b>Numero de Dosis: </b> {{vacunattion.numero_dosis}} </p>
+                    <p class="noBottom"> <b>Numero de Dosis: </b> 
+                        {% if vacunattion.numero_dosis == 5 %}
+                        
+                        Unica Dosis </p>
+                        {% endif %}
                 </div>
                 <div class="col-md">
                     <p> <b>Provincia: </b> {{vacunattion.provincia.nombre_provincia}} </p>
                 </div>
 
             </div>
+            
+            <div class="row align-items-center">
+                <div class="col-md">
+                    <p class="noBottom"> <b>Fecha Nacimiento: </b>{{vacunattion.paciente.fecha_nacimiento}} </p>
+                </div>
+    
+            </div>
+
+
+
+
         </div>
 
     </div>

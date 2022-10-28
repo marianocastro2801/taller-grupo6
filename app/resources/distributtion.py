@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from queue import Empty
 from app.models.vaccine_enfermedad import VaccineEnfermedad
 from flask import redirect, render_template, request, url_for, abort, session, flash
