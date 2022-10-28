@@ -2,10 +2,10 @@
 
 {% from 'macros/macros_buscador.html' import input_name, select_type, summit_clean_button %}
 {% from 'macros/macros_tabla.html' import heading_row, vacunattion_row %}
-{% from 'macros/macros_modals.html' import set_modals_vaccines %}
+{% from 'macros/macros_modals.html' import set_modals_vacunattiones %}
 {% from 'macros/macros_otros.html' import button_go_home, notifications %}
 
-{% block title %}Vacunas{% endblock %}
+{% block title %}Vacunaciones{% endblock %}
 
 {% block head %}
     {{ super() }}
@@ -16,7 +16,7 @@
 
     <div class="">
         <div class="container text-center mt-4">
-            <h1 class="display-4">Vacunaciones:  ({{vacuna}})</h1>
+            <h1 class="display-4">Vacunaciones: <b> ({{vacuna}}) </b></h1>
         </div>
         <div class="container">
             <div class="mb-4">
@@ -29,7 +29,7 @@
                               {% for enfermedad in enfermedades %}
    
                            
-                                <option value='{{enfermedad.id }}'selected> {{ enfermedad.nombre }}</option>
+                                <option value='{{enfermedad.id }}'> {{ enfermedad.nombre }}</option>
 
                                {% endfor %}
                             </select>
@@ -42,7 +42,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-dark">
                     <thead>
-                    {{ heading_row(['Paciente DNI', 'Vacuna', 'Fecha Vacunacion']) }}
+                    {{ heading_row(['DNI Paciente', 'Vacuna', 'Fecha Vacunacion','Opciones']) }}
                     </thead>
                     <tbody class="table table-light">
                         {{ vacunattion_row(vacunattiones) }} 

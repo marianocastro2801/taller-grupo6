@@ -32,7 +32,8 @@ class Vacunattion(db.Model):
         self.regla_id= None
 
     def __repr__(self):
-        return (
+        return "<Vacunattion(fecha_vacunacion='%s', )>" % (
+            
             self.fecha_vacunacion,
 
         )

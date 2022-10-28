@@ -93,7 +93,7 @@ def save():
     new_shopping.pop("id", None)
 
     Shopping(**new_shopping).save()
-    flash("Éxito en la operación")
+    flash("Se ha registrado la compra exitosamente")
     return redirect(url_for("shoppings.shopping_index"))
 
 

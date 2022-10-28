@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% from 'macros/macros_otros.html' import button_go_home, notifications %}
+
+{% block title %}Vacunacion{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+{% if is_authenticated(session) %} 
+<div style="background:transparent !important" class="jumbotron jumbotron-fluid text-center">
+
+    <div class="container text-center mt-4">
+        <h1 class="display-4">Vacunacion de: {{vacunattion.paciente.nombre}} {{vacunattion.paciente.apellido}}</h1>
+    </div>
+
+    <div class="profile">
+
+        <div class="container">
+            <div class="row noTop align-items-center">
+
+                <div class="col-md">
+                    <p><b> Nombre y Apellido Paciente: </b>{{vacunattion.paciente.nombre}} {{vacunattion.paciente.apellido}}</p>
+                </div>
+                <div class="col-md">
+                    <p><b> DNI Paciente:</b> {{vacunattion.paciente.dni}}  </p>
+                </div>
+  
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-md">
+                    <p class="noBottom"> <b>Fecha Vacunacion: </b>{{vacunattion.fecha_vacunacion}} </p>
+                </div>
+                <div class="col-md">
+                    <p class="noBottom"> <b>Vacuna: </b> {{vacunattion.enfermedad.nombre}} </p>
+                </div>
+            </div>
+
+            
+            <div class="row align-items-center">
+                <div class="col-md">
+                    <p class="noBottom"> <b>Numero de Dosis: </b> {{vacunattion.numero_dosis}} </p>
+                </div>
+                <div class="col-md">
+                    <p> <b>Provincia: </b> {{vacunattion.provincia.nombre_provincia}} </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="botones botones-center">
+        {{ button_go_home() }}
+
+    </div>
+
+</div> 
+
+
+{% endif %}    
+{% endblock %}
+
+<!--extender layout para cualquier vista. Luego colocar lo que uno desee mostrar dentro del block content-->

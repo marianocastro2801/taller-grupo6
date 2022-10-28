@@ -67,7 +67,7 @@ def save():
     new_vaccine.pop("id", None)
 
     Vaccine(**new_vaccine).save()
-    flash("Éxito en la operación")
+    flash("Vacuna desarrollada Registrada Exitosamente!")
     return redirect(url_for("vaccines.vaccine_index"))
 
 def edit(vaccine_id):
@@ -104,7 +104,7 @@ def update():
 
     Vaccine.update(**new_vaccine)
 
-    flash("Éxito en la operación")
+    flash("Se ha editado la vacuna Exitosamente")
     return redirect(url_for("vaccines.vaccine_index"))
     
 
@@ -118,7 +118,7 @@ def delete(vaccine_id):
     
     if is_list_empty(shoppings):
         Vaccine.delete(vaccine_id)
-        flash("Éxito en la operación")
+        flash("Se ha eliminado la vacuna exitosamente")
         return redirect(url_for("vaccines.vaccine_index")) 
     else: 
         flash("No puede eliminar la vacuna, posee compras!")

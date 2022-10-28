@@ -9,6 +9,8 @@ class Patient(db.Model):
     __tablename__ = "pacientes"
     id = Column(Integer, primary_key=True)
     dni = Column(String(50), unique=False, nullable=False)
+    nombre = Column(String(50), unique=True, nullable=False)
+    apellido = Column(String(50), unique=True, nullable=False)
 
     fecha_nacimiento = Column(Date, unique=False, nullable=False)
 
