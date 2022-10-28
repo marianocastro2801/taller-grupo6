@@ -1,5 +1,3 @@
-from asyncio.windows_events import NULL
-from contextlib import nullcontext
 from email.policy import default
 from flask import Blueprint, request
 from app.resources import vacunattion
@@ -18,3 +16,6 @@ def vacunattion_index():
     enfermedad_id = request.args.get('enfermedad_id', '2')
 
     return vacunattion.index(enfermedad_id)
+
+
+vacunattiones.add_url_rule("/vacunaciones/vacunacion/<int:vacunattion_id>", "vacunattion_profile", vacunattion.profile)

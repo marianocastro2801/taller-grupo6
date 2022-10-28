@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from queue import Empty
 from app.models.vaccine_enfermedad import VaccineEnfermedad
 from flask import redirect, render_template, request, url_for, abort, session, flash
@@ -62,8 +61,33 @@ def save():
     new_distributtion = request.form.copy()
     new_distributtion.pop("id", None) 
 
+#antes de distribuir debo ver si alcanza el stock nacional
+    d = new_distributtion.pop("enfermedad_id")
+    c = new_distributtion.pop("cantidad")
+    shoppings = Shopping.get_filtered(d)
+    tot = sumar_cantidades(shoppings) 
+#tot es el stock y c cantidad a distribuir
+   
+
+    if tot < int(c) :
+    
+        flash("No hay Stock disponible para la distribucion en estos momentos.")
+        return redirect(url_for("distributtiones.distributtion_index"))
+    
+    new_distributtion = request.form.copy()
+    new_distributtion.pop("id", None) 
     Distributtion(**new_distributtion).save()
-    flash("Éxito en la operación")
+    flash("Distribucion Registrada Exitosamente")
     return redirect(url_for("distributtiones.distributtion_index"))
+
+
+def sumar_cantidades (shoppings):
+    suma = 0
+    
+    #solo voy a contabilizar aquellas compras que tengan estado = Entregado
+    for numero in shoppings:
+        if (numero.estado_id == 3):
+            suma+= numero.cantidad_vacunas
+    return suma 
 
 

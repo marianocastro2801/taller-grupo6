@@ -88,7 +88,7 @@
         <tr>
             <td class="col-2">{{ shopping.vacuna.nombre_comercial }}</td>
             <td class="col-2">{{ shopping.desarrollador.nombre_desarrollador }}</td>  <!--con eso asiento que se puede comprar de cualquier laboratorio esa vacuna-->
-            <td class="col-2">{{ shopping.lote.nombre_lote }}</td>  <!--con esto asiento que se usa el mismo lote para todas las compras-->           
+            <td class="col-2">{{ shopping.lote.nombre_lote }}</td>          
             <td class="col-2">{{ shopping.cantidad_vacunas}}</td>
           
             <td class="col-2">
@@ -171,7 +171,13 @@
             <td class="col-2">{{ vacunattion.paciente.dni }}</td>
             <td class="col-2">{{ vacunattion.enfermedad.nombre }}</td>
             <td class="col-2">{{ vacunattion.fecha_vacunacion }}</td>
-        
+            
+            <td class="col-1"> 
+
+                <a class="dropdown-item mobile-item" href="{{ url_for('vacunattiones.vacunattion_profile', vacunattion_id = vacunattion.id) }}"><button type="button" class="btn btn-warning">Detalle </button></a>
+
+            </td>
+
 
         </tr>
 

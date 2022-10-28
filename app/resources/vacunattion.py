@@ -1,6 +1,8 @@
 from app.models.provincias import Province
 from app.models.shopping import Shopping
 from flask import redirect, render_template, request, url_for, abort, session, flash
+from datetime import date, time, datetime
+from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql.expression import true
 from app.helpers.auth import authenticated
 from app.helpers.verifications import user_has_permission
@@ -80,8 +82,87 @@ def save():
         abort(401)
 
     new_vacunattion = request.form.copy()
-    new_vacunattion.pop("id", None)   
+    new_vacunattion.pop("id", None)
 
-    Vacunattion(**new_vacunattion).save()
-    flash("Éxito en la operación")
-    return redirect(url_for("vacunattiones.vacunattion_index"))
+#validar las vacunaciones antes de guardar
+    e = new_vacunattion.pop("enfermedad_id")
+    f = new_vacunattion.pop("fecha_vacunacion")
+
+    fecha1 = date(2010, 1, 1)
+    fecha2 = date(2010, 12, 31)
+    
+#IMPEDIR VACUNACION SI NO HAY STOCK 
+#----------------------------------------------------------------------------
+    if e == "19": #pandemia 2010
+        if format(f) < str(fecha1) or format(f) > str(fecha2):
+            flash("La vacunacion de la pandemia 2010 ya finalizo, corresponde al año 2010") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        else:
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("La vacunacion se registro exitosamente") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+#-------------------------------------------------------------------------------
+    fecha1 = date(2020, 1, 1)
+    fecha2 = date(2023, 12, 31)
+
+    if e == "1": #Covid 19
+        if format(f) < str(fecha1) or format(f) > str(fecha2):
+            flash("La vacunacion de Covid-19 ya finalizo, finalizo la pandemia") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        else:
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("La vacunacion se registro exitosamente") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+#-------------------------------------------------------------------------------   
+    fecha1 = date(2022, 1, 1)
+    fecha2 = date(2022, 12, 31)
+    
+    if e == "2": #Antigripal
+        if format(f) < str(fecha1) or format(f) > str(fecha2):
+            flash("La vacunacion Antigripal ya finalizo, corresponde al año 2022") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        else:
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("La vacunacion se registro exitosamente") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+
+#--------------------------------------------------------------------------------
+    paciente_id = new_vacunattion.pop("paciente_id")
+    unicaDosis = new_vacunattion.pop("numero_dosis")
+    paciente = Patient.get_by_id(paciente_id)
+
+    dentro_de_anio = paciente.fecha_nacimiento + relativedelta(years=1)
+
+    if e == "9" and unicaDosis == '5': #Hepatitis A
+
+        if format(f) > str(dentro_de_anio):
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("Se ha registrado la vacunacion exitosamente") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        else: 
+            flash("Debe esperar 12 meses desde su nacimiento")                 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+    else:
+        flash("La vacuna Hepatitis-A corresponde Unica Dosis") 
+        return redirect(url_for("vacunattiones.vacunattion_index"))
+    
+#    Vacunattion(**new_vacunattion).save()
+#    flash("Éxito en la operación")
+#    return redirect(url_for("vacunattiones.vacunattion_index"))
+
+
+def profile(vacunattion_id):
+    if not authenticated(session):
+        return redirect(url_for("auth.login"))
+    
+    vacunattion = Vacunattion.get_by_id(vacunattion_id)
+   
+    return render_template("vacunaciones/vacunattion_profile.html", vacunattion = vacunattion)

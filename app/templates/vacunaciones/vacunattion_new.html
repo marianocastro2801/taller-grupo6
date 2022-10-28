@@ -29,7 +29,7 @@
 
             {% for paciente in pacientes %}
         
-            <option value='{{paciente.id}}'> {{ paciente.dni }} </option>
+            <option value='{{paciente.id}}'> {{ paciente.nombre }} {{paciente.apellido }} </option>
            
             {% endfor %} 
           </select>
@@ -72,13 +72,10 @@
             <select class="form-select bg-white" id="stateSelect" name="numero_dosis">
         
               <option value='1' selected> Primera Dosis </option>
-            
-                  <option value='2'> Segunda Dosis</option>
-              
-          
+                      <option value='2'> Segunda Dosis</option>
                       <option value='3'> Tercera Dosis </option>
-                
                       <option value='4'> Cuarta Dosis </option>
+                      <option value='5'> (Unica Dosis) </option>
           
             </select>
           </div>
@@ -93,9 +90,9 @@
         <!-- </div> -->
         <div class="botones botones-center">
           <a class="btn btn-danger" href="/vacunaciones/vacunattion_index">Cancelar</a>
-          {% if mode == 'create' %}
+      
           <button type="reset" class="btn btn-warning" mode="create"> Limpiar campos </button>
-          {% endif %}
+    
           <button type="submit" class="btn btn-success">Guardar</button>
         </h1>
 
