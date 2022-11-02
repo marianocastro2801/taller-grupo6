@@ -34,9 +34,6 @@
             <a class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_index') }}">Vacunaciones</a></li>
             {% endif %} 
 
-                        
-
-
             
 
             {% if user_has_permission (session,"patology_index")%}             
@@ -44,8 +41,11 @@
             {% endif %}
             {% if user_has_permission (session,"vacunattion_new") %} 
             <a  class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_new') }}">Registrar Vacunacion</a>
+            <img SRC="static/carnet.png" width="900" height="500" alt="Nature" class="responsive">
+                <br>
             {% endif %}
             
+          
 
         </div>
 

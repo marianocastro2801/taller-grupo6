@@ -30,7 +30,7 @@
                         <div class="col-sm-3">
                             <select class="form-select bg-white" id="stateSelect" name="enfermedad_id">
                               {% for enfermedad in enfermedades %}
-                                    <option value='{{enfermedad.id }}'>{{ enfermedad.nombre }}               
+                                <option value='{{enfermedad.id }}'selected> {{ enfermedad.nombre}}
                                {% endfor %}
                             </select>
                         </div>

@@ -33,11 +33,26 @@ def save():
     if not user_has_permission(session, "patology_index"):
         abort(401)
 
-    v= VaccineEnfermedad(**request.form)
-    v.save()
-    
-    return redirect(url_for("patologys.patologia_index"))
+    #v= VaccineEnfermedad(**request.form)
+    e= request.form.copy()
+    e.pop("id", None)
 
+    a= e.pop("nombre")
+    f= e.pop("fecha_inicio")
+
+  #  VaccineEnfermedad(**e).save()
+   # flash("La patologia se registro exitosamente") 
     
-    #return redirect('/patologias/patologias_index')
+    patos = VaccineEnfermedad.get_all_enfermedades()
+    for p in patos:
+        if (a == p.nombre):
+               
+            return redirect('/patologias/patologias_index')
+
+
+    e= request.form.copy()
+    e.pop("id", None)
+    VaccineEnfermedad(**e).save()
+    return redirect('/patologias/patologias_index')
+           
     

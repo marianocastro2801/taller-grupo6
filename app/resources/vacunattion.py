@@ -30,15 +30,21 @@ def index(enfermedad_id):
     enfermedades = VaccineEnfermedad.get_all_enfermedades()
     tot = sumar_cantidades(distributtiones)
     #vacunattiones = Vacunattion.get_all_vacunaciones()
-    vacunattiones = Vacunattion.get_vacunattiones_by_enfermedad(enfermedad_id)
+    
     vacuna = VaccineEnfermedad.get_by_id(enfermedad_id)
     vacuna = vacuna.nombre
     provincias = Province.get_all_provincias()
 
+    #CADA VEZ QUE HAGO UNA VACUNACION DEBO DISMINUIR (antes de mandar tot calclulo cuantas vacunaciones tiene y las resto) 
+
+    
+    vacunattiones = Vacunattion.get_vacunattiones_by_enfermedad(enfermedad_id)
+    cant = len(vacunattiones)
+
     return render_template(
         "vacunaciones/vacunattion_index.html",
         vacunattiones= vacunattiones,
-        tot = tot,
+        tot = tot - cant,
         distributtiones = distributtiones,
         enfermedades= enfermedades,
         vacuna= vacuna,
@@ -88,10 +94,24 @@ def save():
     e = new_vacunattion.pop("enfermedad_id")
     f = new_vacunattion.pop("fecha_vacunacion")
 
+
+
     fecha1 = date(2010, 1, 1)
     fecha2 = date(2010, 12, 31)
     
 #IMPEDIR VACUNACION SI NO HAY STOCK 
+    distributtiones = Distributtion.get_filtered(e)
+    vacunattiones = Vacunattion.get_vacunattiones_by_enfermedad(e)
+    tot = sumar_cantidades(distributtiones) - len(vacunattiones)
+    
+    if (tot == 0):
+        flash("No hay stock para realizar la vacunacion de esa vacuna")
+        return redirect(url_for("vacunattiones.vacunattion_index"))
+    
+
+
+
+
 #----------------------------------------------------------------------------
     if e == "19": #pandemia 2010
         if format(f) < str(fecha1) or format(f) > str(fecha2):
@@ -109,7 +129,7 @@ def save():
 
     if e == "1": #Covid 19
         if format(f) < str(fecha1) or format(f) > str(fecha2):
-            flash("La vacunacion de Covid-19 ya finalizo, finalizo la pandemia") 
+            flash("La vacunacion de Covid-19 finalizó") 
             return redirect(url_for("vacunattiones.vacunattion_index"))
         else:
             new_vacunattion = request.form.copy()
@@ -151,7 +171,7 @@ def save():
             flash("Debe esperar 12 meses desde su nacimiento")                 
             return redirect(url_for("vacunattiones.vacunattion_index"))
     else:
-        flash("La vacuna Hepatitis-A corresponde Unica Dosis") 
+        flash("La vacuna Hepatitis-A corresponde: Unica Dosis") 
         return redirect(url_for("vacunattiones.vacunattion_index"))
     
 #    Vacunattion(**new_vacunattion).save()
