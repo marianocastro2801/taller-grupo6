@@ -59,10 +59,16 @@
                 {%else %}
                 Stock NACIONAL: {{ tot }}
                 {%endif %}
+              
                 {% if user_has_permission (session,"shopping_new") %}
                 <a class="btn btn-success" id="addShopping" name="add_shopping" href="{{ url_for('shoppings.shopping_new') }}"
                        data-toggle="tooltip" data-placement="top" title="Añadir nueva compra"> 
                         + Registrar Compra</a>
+                {% endif %}
+
+                {% if vencidas != 0%}
+                <br>
+                    <H4>Dosis Vencidas = {{vencidas}}  </H4>
                 {% endif %}
                                                                                      
             </div>
