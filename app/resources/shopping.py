@@ -15,7 +15,7 @@ from app.models.vaccine_developer import VaccineDeveloper
 from app.models.vaccine_enfermedad import VaccineEnfermedad
 from app.models.rol import Rol
 import re
-import datetime
+from datetime import date, time, datetime
 
 
 
@@ -36,7 +36,7 @@ def index(enfermedad_id):
     lotes = VaccineLote.get_all_lotes()
     developers = VaccineDeveloper.get_all_desarrolladores()
     enfermedades = VaccineEnfermedad.get_all_enfermedades()
-
+    vencidas = sumar_vencidas(shoppings)
 
     return render_template(
         "compras/shopping_index.html",
@@ -47,17 +47,38 @@ def index(enfermedad_id):
         tot = tot,
         enfermedades = enfermedades,
         vacuna = vacuna,
+        vencidas = vencidas,
    
     ) 
 
 def sumar_cantidades (shoppings):
     suma = 0
-    
-    #solo voy a contabilizar aquellas compras que tengan estado = Entregado
-    for numero in shoppings:
+    a = date.today()
+    ven = 0 
+
+
+    #solo voy a contabilizar aquellas compras que tengan estado = Entregado y resto aquellas dosis que se han vencido
+    for numero in shoppings:  
         if (numero.estado_id == 3):
             suma+= numero.cantidad_vacunas
-    return suma
+            if (numero.lote.fecha_vencimiento < a ):
+                ven+= numero.cantidad_vacunas
+    return suma - ven
+
+def sumar_vencidas (shoppings):
+    suma = 0
+    a = date.today()
+    ven = 0 
+
+
+    #solo voy a contabilizar aquellas compras que tengan estado = Entregado y resto aquellas dosis que se han vencido
+    for numero in shoppings:  
+        if (numero.estado_id == 3):
+            suma+= numero.cantidad_vacunas
+            if (numero.lote.fecha_vencimiento < a ):
+                ven+= numero.cantidad_vacunas
+    return ven
+ 
 
 def new():
     if not authenticated(session):

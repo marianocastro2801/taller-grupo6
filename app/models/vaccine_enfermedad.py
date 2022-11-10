@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Date
 from sqlalchemy.dialects.mysql import TINYTEXT

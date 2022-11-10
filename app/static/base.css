@@ -333,3 +333,8 @@ body.theme-6{
 nav.navbar {
   background-color: #131313 ;
 }
+
+.responsive {
+  width: 100%;
+  height: auto;
+}
