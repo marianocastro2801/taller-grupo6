@@ -16,7 +16,7 @@ from .routes.patology import patologys
 from .routes.vacunattiones import vacunattiones
 from .routes.auth import authentication
 from .routes.home import home
-from .api.persona import persona_api
+# from .api.persona import persona_api
 
 
 def create_app(environment="production"):
@@ -66,8 +66,8 @@ def create_app(environment="production"):
     app.register_blueprint(home)
 
     # Rutas de API-REST   
-    api = Blueprint("api", __name__, url_prefix="/api")
-    api.register_blueprint(persona_api) 
+    # api = Blueprint("api", __name__, url_prefix="/api")
+    # api.register_blueprint(persona_api) 
 
 
     # Handlers
