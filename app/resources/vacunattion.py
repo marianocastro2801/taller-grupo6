@@ -107,10 +107,26 @@ def save():
     if (tot == 0):
         flash("No hay stock para realizar la vacunacion de esa vacuna")
         return redirect(url_for("vacunattiones.vacunattion_index"))
-    
 
-
-
+#----------------------------------------------------------------------------
+#BCG
+    unicaDosis = new_vacunattion.pop("numero_dosis")
+    paciente_id = new_vacunattion.pop("paciente_id")
+    paciente = Patient.get_by_id(paciente_id)
+    dentro_dos_meses = paciente.fecha_nacimiento + relativedelta(months=2)
+    if e == "11" and unicaDosis == '5': # EL USUARIO ELIGIO BCG y ES UNA UNICA DOSIS
+        if format(f) < str(dentro_dos_meses):
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("Se ha registrado la vacunacion exitosamente de BCG") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        elif unicaDosis == '5': 
+            flash("el paciente ya se vacuno o no cumple la condicion de los 2 meses recien nacido ")                 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+    else:
+            flash("La vacuna BCG corresponde: Unica Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
 
 #----------------------------------------------------------------------------
     if e == "19": #pandemia 2010
@@ -173,7 +189,11 @@ def save():
     else:
         flash("La vacuna Hepatitis-A corresponde: Unica Dosis") 
         return redirect(url_for("vacunattiones.vacunattion_index"))
-    
+
+#----------------------------------------------------------------------------    
+        
+#------------------------------------------------------------------------------
+
 #    Vacunattion(**new_vacunattion).save()
 #    flash("Éxito en la operación")
 #    return redirect(url_for("vacunattiones.vacunattion_index"))
