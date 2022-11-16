@@ -1,10 +1,6 @@
 # from lib2to3.refactor import get_all_fix_names
 # from flask import jsonify, Blueprint, request, abort
-<<<<<<< HEAD
-# from marshmallow import ValidationError
-=======
 # #from marshmallow import ValidationError
->>>>>>> master
 # import werkzeug
 # from app.schemas.persona import persona_schema
 # from sqlalchemy.exc import SQLAlchemyError

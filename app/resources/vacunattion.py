@@ -122,11 +122,43 @@ def save():
             flash("Se ha registrado la vacunacion exitosamente de BCG") 
             return redirect(url_for("vacunattiones.vacunattion_index"))
         elif unicaDosis == '5': 
-            flash("el paciente ya se vacuno o no cumple la condicion de los 2 meses recien nacido ")                 
+            flash("el paciente no cumple la condicion de los 2 meses recien nacido ")                 
             return redirect(url_for("vacunattiones.vacunattion_index"))
-    else:
+    elif e == "11": 
             flash("La vacuna BCG corresponde: Unica Dosis")
             return redirect(url_for("vacunattiones.vacunattion_index"))
+
+#----------------------------------------------------------------------------
+#ROTAVIRUS
+    dentro_dos_meses = paciente.fecha_nacimiento + relativedelta(months=2)
+    dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
+    # EL USUARIO ELIGIO ROTAVIRUS y SON 2 DOSIS
+    if e == '156':
+        if  unicaDosis == '1':
+            if format(f) <= str(dentro_dos_meses) :
+                new_vacunattion = request.form.copy()
+                new_vacunattion.pop("id", None) 
+                Vacunattion(**new_vacunattion).save()
+                flash("Se ha registrado la vacunacion exitosamente de ROTAVIRUS al paciente de 2 meses") 
+                return redirect(url_for("vacunattiones.vacunattion_index"))
+            elif unicaDosis == '1': 
+                    flash("el paciente no cumple la condicion de los 2 meses ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+        else:
+             if unicaDosis == '2':
+                if format(f) <= str(dentro_cuatro_meses) :
+                    new_vacunattion = request.form.copy()
+                    new_vacunattion.pop("id", None) 
+                    Vacunattion(**new_vacunattion).save()
+                    flash("Se ha registrado la vacunacion exitosamente de ROTAVIRUS al paciente de 4 meses") 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+                elif unicaDosis == '2': 
+                    flash("el paciente no cumple la condicion de los 4 meses ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))     
+        if unicaDosis != '1' and unicaDosis != '2':
+            flash("La vacuna Rotavirus corresponde a : Primera Dosis y  Segunda Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+            
 
 #----------------------------------------------------------------------------
     if e == "19": #pandemia 2010
@@ -139,6 +171,7 @@ def save():
             Vacunattion(**new_vacunattion).save()
             flash("La vacunacion se registro exitosamente") 
             return redirect(url_for("vacunattiones.vacunattion_index"))
+
 #-------------------------------------------------------------------------------
     fecha1 = date(2020, 1, 1)
     fecha2 = date(2023, 12, 31)
