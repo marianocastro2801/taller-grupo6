@@ -42,9 +42,13 @@
             <div class="row align-items-center">
                 <div class="col-md">
                     <p class="noBottom"> <b>Numero de Dosis: </b> 
-                        {% if vacunattion.numero_dosis == 5 %}
-                        
-                        Unica Dosis </p>
+                        {% if vacunattion.numero_dosis == 5  %}
+                            Unica Dosis
+                            {% elif vacunattion.numero_dosis == 1  %}
+                            Primera Dosis
+                            {% elif vacunattion.numero_dosis == 2  %}
+                            Segunda Dosis
+                    </p>
                         {% endif %}
                 </div>
                 <div class="col-md">
