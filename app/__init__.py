@@ -68,6 +68,7 @@ def create_app(environment="production"):
 
     # Rutas de API-REST   
     app.add_url_rule('/api/vacunaciones', 'mostrar_vacunaciones',vacunados.mostrar_vacunaciones, methods=['GET'])
+    # app.add_url_rule('/api/vacunaciones_por_vacuna_desarrolladora/<int:id>', 'mostrar_vacunaciones_por_vacuna_desarrolladora',vacunados.mostrar_vacunacion_por_vacuna_desarrollada, methods=['GET'])
     # api = Blueprint("api", __name__, url_prefix="/api")
     # api.register_blueprint(persona_api) 
 
