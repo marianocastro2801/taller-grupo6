@@ -32,9 +32,13 @@ class Vacunattion(db.Model):
         self.regla_id= None
 
     def __repr__(self):
-        return "<Vacunattion(fecha_vacunacion='%s', )>" % (
+        return "<Vacunattion(fecha_vacunacion='%s', paciente_id='%s', enfermedad_id='%s', provincia_id='%s', numero_dosis='%s' )>" % (
             
             self.fecha_vacunacion,
+            self.paciente_id,
+            self.enfermedad_id,
+            self.provincia_id,
+             self.numero_dosis,
 
         )
 
