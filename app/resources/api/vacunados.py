@@ -12,9 +12,9 @@ def mostrar_vacunaciones():
         vacunacion = {
           "fecha_vacunacion" : v.fecha_vacunacion,
           "numero_dosis" : v.numero_dosis,
-          "paciente" : v.paciente_id,
-          "enfermedad" : v.enfermedad.id,
-          "provincia" : v.provincia_id,
+          "paciente" : v.paciente.nombre,
+          "enfermedad" : v.enfermedad.nombre,
+          "provincia" : v.provincia.nombre_provincia,
         }
         lista_vacunados.append(vacunacion)
    resp= lista_vacunados 
