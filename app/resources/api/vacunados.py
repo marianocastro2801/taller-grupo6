@@ -22,3 +22,6 @@ def mostrar_vacunaciones():
    resp= lista_vacunados 
    return jsonify(resp), 200
 
+def crear_vacunaciones():
+  return "Crear Vacunados"
+
