@@ -18,9 +18,7 @@ class Vacunattion(db.Model):
     provincia = relationship("Province")
 
     numero_dosis= Column(Integer, unique=False, nullable=False)
-
-    regla_id = Column(Integer, ForeignKey("vacunacion_reglas.id"), nullable=False)
-    regla = relationship("VacunattionRegla")    
+   
 
     def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id, provincia_id, numero_dosis
     ):
@@ -29,7 +27,7 @@ class Vacunattion(db.Model):
         self.enfermedad_id = enfermedad_id
         self.provincia_id = provincia_id
         self.numero_dosis = numero_dosis
-        self.regla_id= None
+    
 
     def __repr__(self):
         return "<Vacunattion(fecha_vacunacion='%s', paciente_id='%s', enfermedad_id='%s', provincia_id='%s', numero_dosis='%s' )>" % (
