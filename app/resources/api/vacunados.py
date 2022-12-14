@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 from app.models.vacunattion import Vacunattion
 
 def mostrar_vacunaciones():
@@ -23,5 +23,9 @@ def mostrar_vacunaciones():
    return jsonify(resp), 200
 
 def crear_vacunaciones():
-  return "Crear Vacunados"
+  try:
+    print(request.json)
+    return jsonify({'mensaje': "SE registro el dato"})
+  except Exception as ex:
+    return jsonify({'mensaje': "Error"})
 
