@@ -131,6 +131,25 @@ def save():
             return redirect(url_for("vacunattiones.vacunattion_index"))
 
 #----------------------------------------------------------------------------
+#TRIPLE BACTERIANA
+    dentro_5_year = paciente.fecha_nacimiento + relativedelta(years=5)
+    # dentro_6_year = paciente.fecha_nacimiento + relativedelta(year=6)
+    if e == "3" and unicaDosis == '5': # EL USUARIO ELIGIO TRIPLE BACTERIANA y ES UNA UNICA DOSIS
+        if format(f) < str(dentro_5_year):
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("Se ha registrado la vacunacion exitosamente de TRIPLE BACTERIANA") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        elif unicaDosis == '5': 
+            flash("el paciente no cumple la condicion entre los 5 años y 6 años recien nacido ")                 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+    elif e == "3": 
+            flash("La vacuna TRIPLE BACTERIANA corresponde: Unica Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+
+
+#----------------------------------------------------------------------------
 #fiebre amarrilla
     dentro_18_meses = paciente.fecha_nacimiento + relativedelta(months=18)
     if e == "18" and unicaDosis == '1': # EL USUARIO ELIGIO fiebre amarrilla 
