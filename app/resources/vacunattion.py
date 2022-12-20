@@ -19,7 +19,6 @@ from app.models.rol import Rol
 import re
 from tkinter import *
 from tkinter import messagebox as MessageBox
-import psycopg2
 from datetime import date
 
 def index(enfermedad_id):
