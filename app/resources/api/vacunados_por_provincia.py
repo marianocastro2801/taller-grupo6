@@ -11,7 +11,7 @@ def mostrar_vacunacion_por_provincia(id):
                     "enfermedad" : vacuna.enfermedad.nombre,
                     "numero_dosis" : vacuna.numero_dosis,
                     "nombre del paciente" : vacuna.paciente.nombre,
-                    "apellido del paciente" : vacuna.paciente.apellido , 
+                    "apellido del paciente" : vacuna.paciente.apellido, 
                     "provincia" : vacuna.provincia.nombre_provincia
                 }
                 lista.append(v)
