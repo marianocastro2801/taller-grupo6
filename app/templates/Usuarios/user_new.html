@@ -19,41 +19,43 @@
         <input type="hidden" id="roles" name="roles" value="">
         <div class="container form">
           <!-- <div class="well"> -->
-            
             <div class="form-group row">
-              <label for="nombre" class="col-sm-2 col-form-label text-black">Nombre:</label>
+              <label for="label" class="col-sm-4 col-form-label text-black izq">Los campos con * son obligatorios</label>
+            </div>        
+            <div class="form-group row">
+              <label for="nombre" class="col-sm-2 col-form-label text-black">*Nombre:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control required" id="nombre" name="nombre" value="{{user.nombre}}">
+                <input type="text" class="form-control required" id="nombre" name="nombre" placeholder="escriba un nombre" value="{{user.nombre}}" required>
               </div>
 
-              <label for="apellido" class="col-sm-2 col-form-label text-black">Apellido:</label>
+              <label for="apellido" class="col-sm-2 col-form-label text-black">*Apellido:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control required" id="apellido" name="apellido" value="{{user.apellido}}">
+                <input type="text" class="form-control required" id="apellido" name="apellido" placeholder="escriba un apellido" value="{{user.apellido}}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="email" class="col-sm-2 col-form-label text-black">E-mail:</label>
+              <label for="email" class="col-sm-2 col-form-label text-black">*E-mail:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control required email" id="email" name="email" value="{{user.email}}">
+                <input type="email" class="form-control required email" id="email" placeholder="example@mail.com" name="email" value="{{user.email}}" required>
               </div>
-              
+
               <label for="usrname" class="col-sm-2 col-form-label text-black">Nombre de Usuario:</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control required" id="usrname" name="usrname" value="{{user.usrname}}">
+                <input type="text" class="form-control required" id="usrname" name="usrname" placeholder="escriba un nombre de usuario"value="{{user.usrname}}" required>
               </div>
             </div>
 
             {% if mode == 'create' %}
             <div class="form-group row">
-              <label for="password" class="col-sm-2 col-form-label text-black">Contraseña:</label>
+              <label for="password" class="col-sm-2 col-form-label text-black">*Contraseña:</label>
               <div class="col-sm-4">
-                <input type="password" class="form-control required password" id="password" name="password" autocomplete="off" value="">
+                <input type="password" class="form-control required password" id="password" placeholder="escriba una contraseña" name="password" autocomplete="off" value="" required>
               </div>
 
-              <label for="passwordConfirm" class="col-sm-2 col-form-label text-black">Confirmar Contraseña:</label>
+              <label for="passwordConfirm" class="col-sm-2 col-form-label text-black">*Confirmar Contraseña:</label>
               <div class="col-sm-4">
-                <input type="password" class="form-control required password" name="passwordConfirm" id="passwordConfirm" autocomplete="off" value="">
+                <input type="password" class="form-control required password" name="passwordConfirm" id="passwordConfirm" placeholder="repita la contraseña" autocomplete="off" value="" required>
               </div>
             </div>
             {% endif %}
@@ -66,7 +68,7 @@
           <!-- </div> -->
           <div class="botones botones-center">
             <a class="btn btn-danger" href="{{ url_for('users.user_index') }}">Cancelar</a>
-            <button type="reset" class="btn btn-warning">
+            <button type="reset" style="color: black;" class="btn btn-warning">
               {% if mode == 'create' %}
               Limpiar campos
               {% else %}
@@ -77,7 +79,7 @@
           </div>
         </div>
       </form>
-    </div> 
+    </div>
 
     <!-- Modal de Roles -->
     <div class="modal fade" id="rolesModal" tabindex="-1" role="dialog"
@@ -88,18 +90,18 @@
           <h5 class="modal-title" id="exampleModalLongTitle">Marque los roles del Usuario nuevo</h5>
         </div>
         <div class="modal-body">
-          
-          {% for rol in roles %}  
-            
+
+          {% for rol in roles %}
+
             <div id="divRoles" class="form-check">
               <label class="form-check-label text-black" for="{{rol.id}}">
                 {{rol.nombre}}
               </label>
               <input class="check-form" type="checkbox" value="{{rol.nombre}}" id="{{rol.id}}">
-            </div>           
-            
+            </div>
+
           {% endfor %}
-          
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -111,7 +113,7 @@
 
   <script>
     $(document).ready(function() {
-      
+
       $('#aceptar').click(function() {
         var selected = [];
         $('#divRoles input:checked').each(function() {
@@ -120,9 +122,9 @@
 
         $('#roles').val(selected.toString());
       });
-        
+
     });
   </script>
- 
+
 
 {% endblock %}

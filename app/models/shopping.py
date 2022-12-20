@@ -34,6 +34,8 @@ class Shopping(db.Model):
     estado_id = Column(Integer, ForeignKey("compra_estados.id"), nullable=False)
     estado = relationship("ShoppingState")
 
+#    cantidad_vencida = Column(Integer, unique=False, nullable=False)
+
     def __init__(self, vacuna_id, cantidad_vacunas, lote_id, desarrollador_id, enfermedad_id
     ):
         self.fecha_compra = datetime.today()
@@ -45,6 +47,7 @@ class Shopping(db.Model):
         self.stock_id= None 
         self.stock_nacional = 0
         self.estado_id = 1
+#        self.cantidad_vencida = 0
         
 
     def save(self):
