@@ -43,6 +43,15 @@
             <a  class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_new') }}">Registrar Vacunacion</a>
             <img SRC="static/carnet.png" width="900" height="500" alt="Nature" class="responsive">
                 <br>
+
+
+            <!--aqui va el proceso de transformacion de Datos dese la base transaccional a la db del datawarhouse -->
+
+            <a  class="dropdown-item home-text" href="{{ url_for('vacunattiones.vacunattion_etl') }}">ETL</a>
+            
+            (Extraccion, transformacion y carga)
+                   
+                              
             {% endif %}
             
           
