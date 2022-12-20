@@ -196,6 +196,38 @@ def save():
         if unicaDosis != '1' and unicaDosis != '2':
             flash("La vacuna Rotavirus corresponde a : Primera Dosis y  Segunda Dosis")
             return redirect(url_for("vacunattiones.vacunattion_index"))
+
+#----------------------------------------------------------------------------
+#VARICELA
+    dentro_15_meses = paciente.fecha_nacimiento + relativedelta(months=15)
+    dentro_5_year = paciente.fecha_nacimiento + relativedelta(years=5)
+    # EL USUARIO ELIGIO VARICELA y SON 2 DOSIS
+    if e == '6':
+        if  unicaDosis == '1':
+            if format(f) <= str(dentro_15_meses) :
+                new_vacunattion = request.form.copy()
+                new_vacunattion.pop("id", None) 
+                Vacunattion(**new_vacunattion).save()
+                flash("Se ha registrado la vacunacion exitosamente de VARICELA al paciente de 15 meses") 
+                return redirect(url_for("vacunattiones.vacunattion_index"))
+            elif unicaDosis == '1': 
+                    flash("el paciente no cumple la condicion de los 15 meses ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+        else:
+             if unicaDosis == '2':
+                if format(f) <= str(dentro_5_year) :
+                    new_vacunattion = request.form.copy()
+                    new_vacunattion.pop("id", None) 
+                    Vacunattion(**new_vacunattion).save()
+                    flash("Se ha registrado la vacunacion exitosamente de VARICELA al paciente de 5 años") 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+                elif unicaDosis == '2': 
+                    flash("el paciente no cumple la condicion de 5 años ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))     
+        if unicaDosis != '1' and unicaDosis != '2':
+            flash("La vacuna VARICELA corresponde a : Primera Dosis y  Segunda Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+
             
 #----------------------------------------------------------------------------
 #Neumococo Conjugada
