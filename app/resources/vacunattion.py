@@ -17,7 +17,10 @@ from app.models.distributtion import Distributtion
 from app.models.patient import Patient
 from app.models.rol import Rol
 import re
-
+from tkinter import *
+from tkinter import messagebox as MessageBox
+import psycopg2
+from datetime import date
 
 def index(enfermedad_id):
     if not authenticated(session):
@@ -166,3 +169,91 @@ def profile(vacunattion_id):
     vacunattion = Vacunattion.get_by_id(vacunattion_id)
    
     return render_template("vacunaciones/vacunattion_profile.html", vacunattion = vacunattion)
+
+
+
+
+#-------------------------------ETL--------------------------------------------
+
+def etl():
+    if not authenticated(session):
+        return redirect(url_for("auth.login"))
+    if not user_has_permission(session, "vacunattion_new"):  
+        abort(401)
+
+  
+
+    resultado = MessageBox.showinfo("ETL!", "Extraccion, transformacion y carga") # título, mensaje
+
+    
+    
+    if resultado == "ok":
+
+        connection = psycopg2.connect(
+        host= "localhost",
+        user="postgres",
+        password="123456",
+        database = "etapa 2",
+        port = "5432"   )
+
+        connection.autocommit= True
+            
+        cursor = connection.cursor()
+    
+
+       
+        
+        query = ( """SELECT vacunaciones.id_provincia, vacunaciones.id_laboratorio, vacunaciones.id_paciente, vacunaciones.id_vacuna
+         FROM public.vacunaciones  """)
+
+        cursor.execute(query)
+        
+        for fila in cursor:
+            lugar = fila[0]
+            vacunado = fila[3]
+            vacuna = fila[2] 
+            laboratorio = fila[1]           
+     
+        cursor.close() #CIERRO LA DB TRANSACCIONAL
+
+#-------------------------AHORA TRANSFORMO Y CARGO LOS DATOS EN EL DATAWAREHOUSE-------------------
+        connection = psycopg2.connect(
+        host= "localhost",
+        user="postgres",
+        password="123456",
+        database = "DW_vacunaciones",
+        port = "5432"   )
+
+        connection.autocommit= True    
+        cursor_DW = connection.cursor() #conexion al datawarehouse en postregresql
+
+            
+        
+       
+#Se inserta en el data warehouse de acuerdo a la base transaccional
+    for i in range(10):
+        insert_stmt = ("INSERT INTO h_vacunados (id_lugar, id_tiempo, id_vacunado, id_vacuna, id_laboratorio) VALUES (%s, %s, %s, %s, %s)")
+        data = (lugar,1,vacunado,1,laboratorio)
+        cursor_DW.execute(insert_stmt, data)
+        lugar= lugar -1 
+        vacunado= vacunado +1
+        cursor_DW.execute(insert_stmt, data)
+        
+     
+    cursor_DW.close()
+    return "ETL ejecutado"
+    
+    
+        
+
+     
+        
+
+root = Tk()
+
+Button(root, text = "ETL", command=etl).pack()
+
+root.mainloop()   
+    
+
+

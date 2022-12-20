@@ -19,3 +19,7 @@ def vacunattion_index():
 
 
 vacunattiones.add_url_rule("/vacunaciones/vacunacion/<int:vacunattion_id>", "vacunattion_profile", vacunattion.profile)
+
+
+
+vacunattiones.add_url_rule("/vacunaciones/vacunattion_etl", "vacunattion_etl", vacunattion.etl)

@@ -58,4 +58,3 @@ class Vacunattion(db.Model):
     @classmethod
     def get_vacunattiones_by_enfermedad(self, enfermedad_id):
         return Vacunattion.query.filter(self.enfermedad_id == enfermedad_id).all()
-
