@@ -131,6 +131,23 @@ def save():
             return redirect(url_for("vacunattiones.vacunattion_index"))
 
 #----------------------------------------------------------------------------
+#fiebre amarrilla
+    dentro_18_meses = paciente.fecha_nacimiento + relativedelta(months=18)
+    if e == "18" and unicaDosis == '1': # EL USUARIO ELIGIO fiebre amarrilla 
+        if format(f) < str(dentro_18_meses):
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("Se ha registrado la vacunacion exitosamente de fiebre amarrilla") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        elif unicaDosis == '1': 
+            flash("el paciente no cumple la condicion de los 18 meses")                 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+    elif e == "11": 
+            flash("La vacuna fiebre amarrilla corresponde a: Primera Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+
+#----------------------------------------------------------------------------
 #ROTAVIRUS
     dentro_dos_meses = paciente.fecha_nacimiento + relativedelta(months=2)
     dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
