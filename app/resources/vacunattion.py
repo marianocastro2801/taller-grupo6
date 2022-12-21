@@ -317,6 +317,48 @@ def save():
             flash("La vacuna pentavalente o quíntuple corresponde a : Primera Dosis , Segunda Dosis y Tercera Dosis")
             return redirect(url_for("vacunattiones.vacunattion_index"))
 
+#----------------------------------------------------------------------------
+#SALK
+    dentro_dos_meses = paciente.fecha_nacimiento + relativedelta(months=2)
+    dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
+    dentro_seis_meses = paciente.fecha_nacimiento + relativedelta(months=6)
+    # EL USUARIO ELIGIO SALK y SON 3 DOSIS
+    if e == '158':
+        if  unicaDosis == '1':
+            if format(f) <= str(dentro_dos_meses) :
+                new_vacunattion = request.form.copy()
+                new_vacunattion.pop("id", None) 
+                Vacunattion(**new_vacunattion).save()
+                flash("Se ha registrado la vacunacion exitosamente de SALK al paciente de 2 meses") 
+                return redirect(url_for("vacunattiones.vacunattion_index"))
+            elif unicaDosis == '1': 
+                    flash("el paciente no cumple la condicion de los 2 meses ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+        else:
+             if unicaDosis == '2':
+                if format(f) <= str(dentro_cuatro_meses) :
+                    new_vacunattion = request.form.copy()
+                    new_vacunattion.pop("id", None) 
+                    Vacunattion(**new_vacunattion).save()
+                    flash("Se ha registrado la vacunacion exitosamente de SALK al paciente de 4 meses") 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+                elif unicaDosis == '2': 
+                    flash("el paciente no cumple la condicion de los 4 meses ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+        if  unicaDosis == '3':
+            if format(f) <= str(dentro_seis_meses) :
+                    new_vacunattion = request.form.copy()
+                    new_vacunattion.pop("id", None) 
+                    Vacunattion(**new_vacunattion).save()
+                    flash("Se ha registrado la vacunacion exitosamente de SALK al paciente de 6 meses") 
+                    return redirect(url_for("vacunattiones.vacunattion_index"))
+            elif unicaDosis == '3': 
+                    flash("el paciente no cumple la condicion de los 6 meses ")                 
+                    return redirect(url_for("vacunattiones.vacunattion_index")) 
+        if unicaDosis != '1' and unicaDosis != '2' and unicaDosis != '3' :
+            flash("La vacuna SALK corresponde a : Primera Dosis , Segunda Dosis y Tercera Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+
 
 #----------------------------------------------------------------------------
     if e == "19": #pandemia 2010
