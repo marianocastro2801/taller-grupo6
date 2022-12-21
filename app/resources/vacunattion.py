@@ -147,7 +147,22 @@ def save():
     elif e == "3": 
             flash("La vacuna TRIPLE BACTERIANA corresponde: Unica Dosis")
             return redirect(url_for("vacunattiones.vacunattion_index"))
-
+#----------------------------------------------------------------------------
+#DOBLE BACTERIANA
+    dentro_18_year = paciente.fecha_nacimiento + relativedelta(years=18)
+    if e == "16" and unicaDosis == '1': # EL USUARIO ELIGIO TRIPLE BACTERIANA y ES UNA UNICA DOSIS
+        if format(f) < str(dentro_18_year):
+            new_vacunattion = request.form.copy()
+            new_vacunattion.pop("id", None) 
+            Vacunattion(**new_vacunattion).save()
+            flash("Se ha registrado la vacunacion exitosamente de DOBLE BACTERIANA") 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+        elif unicaDosis == '1': 
+            flash("el paciente no cumple la condicion de ser mayor a 18 años ")                 
+            return redirect(url_for("vacunattiones.vacunattion_index"))
+    elif e == "3": 
+            flash("La vacuna TRIPLE BACTERIANA corresponde: Primera Dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
 
 #----------------------------------------------------------------------------
 #fiebre amarrilla
