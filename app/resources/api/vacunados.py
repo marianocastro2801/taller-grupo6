@@ -6,7 +6,7 @@ from app.models.vaccine_enfermedad import VaccineEnfermedad
 from app.models.patient import Patient
 from app.models.provincias import Province
 from app.models.distributtion import Distributtion
-from dateutil.relativedelta import relativedelta
+import pymysql
 
 def mostrar_vacunaciones():
    try:
@@ -32,16 +32,17 @@ def mostrar_vacunaciones():
 
 def registrar_vacunacion(): 
   try:
-        # traer valores del  formulario
-        if request.method == "POST":
-            vacunacion = json.loads(request.data)
-            idPaciente = vacunacion.get('idPaciente')
-            idProvincia = vacunacion.get('idProvincia')
-            idVacuna = vacunacion.get('idVacuna')
-            fecha = vacunacion.get('fecha')
-            numero_dosis = vacunacion.get('numero_dosis')       
-            #registrar pago en la bd     
-        return "se registro la vacunacion con exito"
-  except:
-        return jsonify({"error": " al cargar datos"}), 404
-  
+      mydb =  pymysql.connect(
+      host= "localhost",
+      user="root",
+      password="",
+      database = "grupo6",
+      port = 3306 )         
+      cursor= mydb.cursor()
+      insert_stmt = ("INSERT INTO vacunaciones (fecha_vacunacion, paciente_id, enfermedad_id, provincia_id, numero_dosis, regla_id) VALUES (%s, %s, %s, %s, %s, %s)")
+      data = ( request.json['fecha_vacunacion'] , request.json['paciente_id'], request.json['enfermedad_id'],  request.json['provincia_id'], request.json['numero_dosis'], request.json['regla_id'])
+      cursor.execute(insert_stmt, data)
+      print(data)
+      return jsonify("vacunacion registrada")
+  except Exception as ex:
+        return "error"
