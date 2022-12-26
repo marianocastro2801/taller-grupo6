@@ -274,7 +274,7 @@ def etl():
             data = (fila[0],2,fila[1],fila[1],3)
             cursor_DW.execute(insert_stmt, data)                   
     
-        return "etl ejecutado: hay elementos para insertar"
+        return "etl ejecutado!"
     
 
         
