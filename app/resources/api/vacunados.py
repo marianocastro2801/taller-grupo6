@@ -1,6 +1,7 @@
 from flask import jsonify
 from flask import request
 import json
+from datetime import datetime
 from app.models.vacunattion import Vacunattion
 from app.models.vaccine_enfermedad import VaccineEnfermedad
 from app.models.patient import Patient
@@ -30,19 +31,19 @@ def mostrar_vacunaciones():
    resp= lista_vacunados 
    return jsonify(resp), 200
 
-def registrar_vacunacion(): 
-  try:
-      mydb =  pymysql.connect(
-      host= "localhost",
-      user="root",
-      password="",
-      database = "grupo6",
-      port = 3306 )         
-      cursor= mydb.cursor()
-      insert_stmt = ("INSERT INTO vacunaciones (fecha_vacunacion, paciente_id, enfermedad_id, provincia_id, numero_dosis, regla_id) VALUES (%s, %s, %s, %s, %s, %s)")
-      data = ( request.json['fecha_vacunacion'] , request.json['paciente_id'], request.json['enfermedad_id'],  request.json['provincia_id'], request.json['numero_dosis'], request.json['regla_id'])
-      cursor.execute(insert_stmt, data)
-      print(data)
-      return jsonify("vacunacion registrada")
-  except Exception as ex:
-        return "error"
+def registrar_vacunacion():
+    try:
+        if request.method == "POST":
+            vacunacion = json.loads(request.data)
+            fecha_vacunacion = vacunacion.get('fecha_vacunacion')
+            paciente_id = vacunacion.get('paciente_id')
+            enfermedad_id = vacunacion.get('enfermedad_id')
+            provincia_id = vacunacion.get('provincia_id')
+            numero_dosis = vacunacion.get('numero_dosis')
+            vacunacion= Vacunattion(fecha_vacunacion,paciente_id,enfermedad_id, provincia_id, numero_dosis)
+            vacunacion.save()
+            print(vacunacion) 
+        return "se realizo la vacunacion exitosamente"
+    except:
+      return jsonify({"error": " al cargar datos"}), 404
+
