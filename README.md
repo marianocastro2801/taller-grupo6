@@ -42,3 +42,10 @@ __init__.py       # Instancia de la aplicación y ruteo
 ## TODO
 
 - [ ] Usar una hoja de estilos simple para que quede de ejemplo.
+
+## Autores: 
+Mariano Castro
+Mayra Luengo.
+Maximiliano Francesconi. 
+
+

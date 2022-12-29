@@ -17,10 +17,7 @@ class Vacunattion(db.Model):
     provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
     provincia = relationship("Province")
 
-    numero_dosis= Column(Integer, unique=False, nullable=False)
-
-    regla_id = Column(Integer, ForeignKey("vacunacion_reglas.id"), nullable=False)
-    regla = relationship("VacunattionRegla")    
+    numero_dosis= Column(Integer, unique=False, nullable=False)  
 
     def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id, provincia_id, numero_dosis
     ):
@@ -29,15 +26,17 @@ class Vacunattion(db.Model):
         self.enfermedad_id = enfermedad_id
         self.provincia_id = provincia_id
         self.numero_dosis = numero_dosis
-        self.regla_id= None
 
     def __repr__(self):
-        return "<Vacunattion(fecha_vacunacion='%s', )>" % (
+        return "<Vacunattion(fecha_vacunacion='%s', paciente_id='%s', enfermedad_id='%s', provincia_id='%s', numero_dosis='%s' )>" % (
             
             self.fecha_vacunacion,
+            self.paciente_id,
+            self.enfermedad_id,
+            self.provincia_id,
+             self.numero_dosis,
 
         )
-
 
     def save(self):
         db.session.add(self)
@@ -58,4 +57,3 @@ class Vacunattion(db.Model):
     @classmethod
     def get_vacunattiones_by_enfermedad(self, enfermedad_id):
         return Vacunattion.query.filter(self.enfermedad_id == enfermedad_id).all()
-

@@ -19,21 +19,23 @@
         <input type="hidden" id="roles" name="roles" value="">
         <div class="container form">
           <!-- <div class="well"> -->
-
             <div class="form-group row">
-              <label for="nombre" class="col-sm-2 col-form-label text-black">Nombre:</label>
+              <label for="label" class="col-sm-4 col-form-label text-black izq">Los campos con * son obligatorios</label>
+            </div>        
+            <div class="form-group row">
+              <label for="nombre" class="col-sm-2 col-form-label text-black">*Nombre:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control required" id="nombre" name="nombre" placeholder="escriba un nombre" value="{{user.nombre}}" required>
               </div>
 
-              <label for="apellido" class="col-sm-2 col-form-label text-black">Apellido:</label>
+              <label for="apellido" class="col-sm-2 col-form-label text-black">*Apellido:</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control required" id="apellido" name="apellido" placeholder="escriba un apellido" value="{{user.apellido}}" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="email" class="col-sm-2 col-form-label text-black">E-mail:</label>
+              <label for="email" class="col-sm-2 col-form-label text-black">*E-mail:</label>
               <div class="col-sm-4">
                 <input type="email" class="form-control required email" id="email" placeholder="example@mail.com" name="email" value="{{user.email}}" required>
               </div>
@@ -46,12 +48,12 @@
 
             {% if mode == 'create' %}
             <div class="form-group row">
-              <label for="password" class="col-sm-2 col-form-label text-black">Contraseña:</label>
+              <label for="password" class="col-sm-2 col-form-label text-black">*Contraseña:</label>
               <div class="col-sm-4">
                 <input type="password" class="form-control required password" id="password" placeholder="escriba una contraseña" name="password" autocomplete="off" value="" required>
               </div>
 
-              <label for="passwordConfirm" class="col-sm-2 col-form-label text-black">Confirmar Contraseña:</label>
+              <label for="passwordConfirm" class="col-sm-2 col-form-label text-black">*Confirmar Contraseña:</label>
               <div class="col-sm-4">
                 <input type="password" class="form-control required password" name="passwordConfirm" id="passwordConfirm" placeholder="repita la contraseña" autocomplete="off" value="" required>
               </div>
@@ -66,7 +68,7 @@
           <!-- </div> -->
           <div class="botones botones-center">
             <a class="btn btn-danger" href="{{ url_for('users.user_index') }}">Cancelar</a>
-            <button type="reset" class="btn btn-warning">
+            <button type="reset" style="color: black;" class="btn btn-warning">
               {% if mode == 'create' %}
               Limpiar campos
               {% else %}

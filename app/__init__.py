@@ -16,7 +16,10 @@ from .routes.patology import patologys
 from .routes.vacunattiones import vacunattiones
 from .routes.auth import authentication
 from .routes.home import home
-from .api.persona import persona_api
+from app.resources.api import vacunados
+from app.resources.api import vacunados_por_vacuna_desarrollada
+from app.resources.api import vacunados_por_provincia
+# from .api.persona import persona_api
 
 
 def create_app(environment="production"):
@@ -66,8 +69,13 @@ def create_app(environment="production"):
     app.register_blueprint(home)
 
     # Rutas de API-REST   
-    api = Blueprint("api", __name__, url_prefix="/api")
-    api.register_blueprint(persona_api) 
+    app.add_url_rule('/api/vacunaciones', 'mostrar_vacunaciones',vacunados.mostrar_vacunaciones, methods=['GET'])
+    app.add_url_rule('/api/vacunaciones_por_vacuna_desarrolladora/<int:id>', 'mostrar_vacunaciones_por_vacuna_desarrolladora',vacunados_por_vacuna_desarrollada.mostrar_vacunacion_por_vd, methods=['GET'])
+    app.add_url_rule('/api/vacunaciones_por_provincia/<int:id>', 'mostrar_vacunaciones_por_provincia',vacunados_por_provincia.mostrar_vacunacion_por_provincia, methods=['GET'])
+    app.add_url_rule('/api/registrar_vacunacion/', 'registrar_vacunacion',vacunados.registrar_vacunacion, methods=['POST'])
+    # api = Blueprint("api", __name__, url_prefix="/api") 
+    # api.register_blueprint(persona_api) 
+
 
 
     # Handlers
