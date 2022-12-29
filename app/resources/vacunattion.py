@@ -455,36 +455,36 @@ def etl():
 
     resultado = MessageBox.showinfo("ETL!", "Extraccion, transformacion y carga") # título, mensaje
 
-    
+    #aca conectarlo a la transaccional
     
     if resultado == "ok":
-
-        connection = psycopg2.connect(
-        host= "localhost",
-        user="postgres",
-        password="123456",
-        database = "etapa 2",
-        port = "5432"   )
-
-        connection.autocommit= True
-            
-        cursor = connection.cursor()
     
+ #LEO LOS DATOS DE LA TRANSACCIONAL
 
+        mydb =  pymysql.connect(
+        host= "localhost",
+        user="root",
+        password="123456",
+        database = "grupo6",
+        port = 3306   )
+
+
+    
+        cursor= mydb.cursor()
        
+       #me quedo con las vacunas
+        #query = "SELECT provincias.nombre_provincia, vacuna_enfermedad.nombre FROM vacunaciones inner join vacuna_enfermedad on (vacunaciones.enfermedad_id=vacuna_enfermedad.id) inner join provincias on (vacunaciones.provincia_id = provincias.id)"
         
-        query = ( """SELECT vacunaciones.id_provincia, vacunaciones.id_laboratorio, vacunaciones.id_paciente, vacunaciones.id_vacuna
-         FROM public.vacunaciones  """)
+        query = "SELECT vacunaciones.provincia_id, vacunaciones.enfermedad_id, vacunaciones.id FROM vacunaciones inner join vacuna_enfermedad on (vacunaciones.enfermedad_id=vacuna_enfermedad.id) inner join provincias on (vacunaciones.provincia_id = provincias.id)"
+        
 
         cursor.execute(query)
         
-        for fila in cursor:
-            lugar = fila[0]
-            vacunado = fila[3]
-            vacuna = fila[2] 
-            laboratorio = fila[1]           
-     
-        cursor.close() #CIERRO LA DB TRANSACCIONAL
+        #VACUNACION: PROVINCIA, VACUNA, LABORATORIO, EDAD
+        #for e in cursor:
+        #    print(e)
+        #CIERRO LA DB TRANSACCIONAL y la info queda guardada en query. AHORA DEBO INSERTAR EN EL DATAWAREHOUSE
+        
 
 #-------------------------AHORA TRANSFORMO Y CARGO LOS DATOS EN EL DATAWAREHOUSE-------------------
         connection = psycopg2.connect(
@@ -497,24 +497,50 @@ def etl():
         connection.autocommit= True    
         cursor_DW = connection.cursor() #conexion al datawarehouse en postregresql
 
-            
-        
-       
-#Se inserta en el data warehouse de acuerdo a la base transaccional
-    for i in range(10):
-        insert_stmt = ("INSERT INTO h_vacunados (id_lugar, id_tiempo, id_vacunado, id_vacuna, id_laboratorio) VALUES (%s, %s, %s, %s, %s)")
-        data = (lugar,1,vacunado,1,laboratorio)
-        cursor_DW.execute(insert_stmt, data)
-        lugar= lugar -1 
-        vacunado= vacunado +1
-        cursor_DW.execute(insert_stmt, data)
+#-------Se inserta en el data warehouse de acuerdo a la base transaccional
+   
+    #PARA NO TENER ELEMENTOS REPETIDOS EN EL DATAWAREHOUSE)
+    #PRIMER CASO BASE:
+    #obtengo cantidad de elementos en la db transaccional
+    tuplas_db_transaccional = cursor.rowcount
+    print("ID de la ultima tupla:", tuplas_db_transaccional)
+
+    #obtengo cantidad de elementos en el DW
+    cursor_DW.execute("select * from h_vacunados")
+    tuplas_DW = cursor_DW.rowcount 
+    print("ID de la ultima tupla:", tuplas_DW)
+
+    if (tuplas_db_transaccional == tuplas_DW):
+        return "no hay nuevos elementos para insertar en el DATAWAREHOUSE"
+    if (tuplas_db_transaccional > tuplas_DW):
         
      
-    cursor_DW.close()
-    return "ETL ejecutado"
+
+    #cursor.fetchone() devuelve la primera tupla 
+    #id_tiempo y id_laboratorio NO IMPORTAN DEMSSIADO AHORA id:3: laboratorio Pfizer
+        for fila in cursor:
+            insert_stmt = ("INSERT INTO h_vacunados (id_lugar, id_tiempo, id_vacunado, id_vacuna, id_laboratorio) VALUES (%s, %s, %s, %s, %s)")
+            data = (fila[0],2,fila[1],fila[1],3)
+            cursor_DW.execute(insert_stmt, data)                   
     
+        return "etl ejecutado!"
     
+
         
+       
+    
+
+      
+      
+        
+        
+     
+    cursor_DW.close() #cierro dw
+    cursor.close() #cierro transaccional
+            
+        
+
+    return "ETL ejecutado"
 
      
         
@@ -523,7 +549,7 @@ root = Tk()
 
 Button(root, text = "ETL", command=etl).pack()
 
-root.mainloop()   
+root.mainloop()
     
 
 
