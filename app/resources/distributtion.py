@@ -9,6 +9,7 @@ from app.models.vaccine import Vaccine
 from app.models.distributtion import Distributtion
 from app.models.shopping import Shopping
 from app.models.provincias import Province
+from app.models.vaccine_lote import VaccineLote
 from app.models.rol import Rol
 import re
 
@@ -21,11 +22,13 @@ def index():
 
     vaccines = Vaccine.get_all_vaccines()
     distributtiones = Distributtion.get_all_distributtiones()
+    lotes = VaccineLote.get_all_lotes()
 
     return render_template(
         "distribuciones/distributtion_index.html",
         vaccines=vaccines,
         distributtiones= distributtiones,
+        lotes = lotes,
     )
 
 
@@ -38,7 +41,8 @@ def new():
     enfermedades = VaccineEnfermedad.get_all_enfermedades()
    #shoppings = Shopping.get_filtered(enfermedad_id)
     distributtiones = Distributtion.get_all_distributtiones()
-    provincias = Province.get_all_provincias()   
+    provincias = Province.get_all_provincias()
+    lotes = VaccineLote.get_all_lotes()   
 
     return render_template(
         "distribuciones/distributtion_new.html",  
@@ -48,6 +52,7 @@ def new():
         enfermedades= enfermedades,
         distributtiones= distributtiones,
         provincias = provincias,
+        lotes = lotes,
 
     )
 

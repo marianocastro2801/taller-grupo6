@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db import db
+from app.models.provincias import Province
 
 
 class Vacunattion(db.Model):
@@ -50,10 +51,20 @@ class Vacunattion(db.Model):
     def get_by_id(id):
         return Vacunattion.query.get(id)
 
-    @classmethod
-    def get_vacunattiones_by_provincia(self, provincia_id):
-        return Vacunattion.query.filter(self.provincia_id == provincia_id).all()
+#    @classmethod
+#    def get_vacunattiones_by_provincia(self, provincia_id):
+#        return Vacunattion.query.filter(self.provincia_id == provincia_id).all()
 
     @classmethod
     def get_vacunattiones_by_enfermedad(self, enfermedad_id):
         return Vacunattion.query.filter(self.enfermedad_id == enfermedad_id).all()
+
+
+
+    @classmethod
+    def get_vacunattiones_by_provincia(self, nombre_provincia):
+
+        provincia = Province.get_by_nombre(nombre_provincia)
+      
+
+        return Vacunattion.query.filter(self.provincia_id == provincia.id).all()

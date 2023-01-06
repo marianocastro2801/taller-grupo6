@@ -23,3 +23,11 @@ class Province(db.Model):
     @staticmethod
     def get_by_id(id):
         return Province.query.get(id)
+
+    @staticmethod
+    def get_by_nombre(nombre_provincia):
+        return Province.query.get(nombre_provincia)
+
+
+
+  

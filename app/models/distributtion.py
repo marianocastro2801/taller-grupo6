@@ -15,14 +15,18 @@ class Distributtion(db.Model):
     provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
     provincia = relationship("Province")
 
+    lote_id = Column(Integer, ForeignKey("vacuna_lotes.id"), nullable=False)
+    lote = relationship("VaccineLote")
+
     cantidad = Column(Integer, unique=False, nullable=False)
 
 
-    def __init__(self, provincia_id, enfermedad_id, cantidad
+    def __init__(self, provincia_id, enfermedad_id, lote_id, cantidad
     ):
         self.provincia_id = provincia_id
         self.cantidad = cantidad
         self.enfermedad_id = enfermedad_id
+        self.lote_id = lote_id
        
 
     def __repr__(self):
