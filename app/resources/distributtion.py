@@ -10,6 +10,7 @@ from app.models.distributtion import Distributtion
 from app.models.shopping import Shopping
 from app.models.provincias import Province
 from app.models.vaccine_lote import VaccineLote
+from app.models.vaccine_vencidas import VaccineVencida
 from app.models.rol import Rol
 import re
 
@@ -78,6 +79,25 @@ def save():
     
         flash("No hay Stock disponible para la distribucion en estos momentos.")
         return redirect(url_for("distributtiones.distributtion_index"))
+    
+    
+#AQUI HAY QUE GUARDAR LAS VENCIDAS EN SU TABLA
+#    distributtiones = Distributtion.get_filtered(d)
+#    p = new_distributtion.pop("provincia_id")
+#    distributtiones = Distributtion.get_filtered_provincia(p)
+#    sum = 0
+#    for d in distributtiones:
+#        if d.lote_id == 5:
+#            sum+= d.cantidad
+#        VaccineVencida.cantidad = sum 
+
+#    VaccineVencida.enfermedad = "una enfermedad" 
+#    VaccineVencida.provincia = "una provincia" 
+    
+   
+    
+    
+    
     
     new_distributtion = request.form.copy()
     new_distributtion.pop("id", None) 

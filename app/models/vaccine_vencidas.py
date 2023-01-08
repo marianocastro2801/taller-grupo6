@@ -3,13 +3,14 @@ from sqlalchemy.orm import relationship
 from app.db import db
 
 
-class VacunattionRegla(db.Model):
-    __tablename__ = "vacunacion_reglas"
+class VaccineVencida(db.Model):
+    __tablename__ = "vacunas_vencidas"
     id = Column(Integer, primary_key=True)
     
     enfermedad = Column(String(50), unique=True, nullable=False)
-    numero_dosis= Column(Integer, unique=False, nullable=False)
-    fecha_vacunacion = Column(Date, unique=True, nullable=False)
+    provincia = Column(String(50), unique=True, nullable=False)
+    cantidad= Column(Integer, unique=False, nullable=False)
+    
 
     def __repr__(self):
         return (
@@ -17,12 +18,12 @@ class VacunattionRegla(db.Model):
         )
 
     @classmethod
-    def get_all_types(self):
-        return VacunattionRegla.query.all()
+    def get_all_vencidas(self):
+        return VaccineVencida.query.all()
         
     @staticmethod
     def get_by_id(id):
-        return VacunattionRegla.query.get(id)
+        return VaccineVencida.query.get(id)
 
 
 #SON REGLAS PREDEFINIDAS POR CALENDARIO 

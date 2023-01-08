@@ -60,3 +60,7 @@ class Distributtion(db.Model):
    
         return Distributtion.query.filter(Distributtion.enfermedad_id == enfermedad_id) 
   
+    @staticmethod
+    def get_filtered_provincia(provincia_id):
+   
+        return Distributtion.query.filter(Distributtion.provincia_id == provincia_id) 
