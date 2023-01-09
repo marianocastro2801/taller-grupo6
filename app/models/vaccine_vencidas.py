@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date 
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db import db
 
@@ -7,14 +7,29 @@ class VaccineVencida(db.Model):
     __tablename__ = "vacunas_vencidas"
     id = Column(Integer, primary_key=True)
     
-    enfermedad = Column(String(50), unique=True, nullable=False)
-    provincia = Column(String(50), unique=True, nullable=False)
+    enfermedad_id = Column(Integer, ForeignKey("vacuna_enfermedad.id"), nullable=False)
+    enfermedad = relationship("VaccineEnfermedad")
+
+    provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
+    provincia = relationship("Province")
+
     cantidad= Column(Integer, unique=False, nullable=False)
     
 
+
+
+    def __init__(self, enfermedad_id, provincia_id, cantidad
+    ):
+        
+        self.enfermedad_id = enfermedad_id
+        self.provincia_id = provincia_id
+        self.cantidad = cantidad
+       
+
     def __repr__(self):
-        return (
-            self.enfermedad
+        return "<VaccineVencida(cantidad='%s', )>" % (
+            self.cantidad
+
         )
 
     @classmethod
