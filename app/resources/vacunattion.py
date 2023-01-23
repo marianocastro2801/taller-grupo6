@@ -17,6 +17,11 @@ from app.models.distributtion import Distributtion
 from app.models.patient import Patient
 from app.models.rol import Rol
 import re
+from tkinter import *
+from tkinter import messagebox as MessageBox
+from datetime import date
+import pymysql
+import psycopg2
 
 
 def index(enfermedad_id):
