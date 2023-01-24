@@ -52,13 +52,24 @@
             </div>
             <h1>
             {% if user_has_permission (session,"show_stock") %}    
-            <div class="botones botones-der">
+        
+            
+            <div class="botones botones-center">
+                
+            
+                    Dosis Vencidas: {{ dosisVencidas }},
+        
+        
                 {% if tot == None %}
                 Stock PROVINCIAL: 0
                 {%else %}
                 Stock Provincial: {{ tot }}
+
+            
                 {%endif %}
 
+               
+                 
             {% endif %}
 
 

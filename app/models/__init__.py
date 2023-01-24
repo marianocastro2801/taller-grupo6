@@ -13,5 +13,5 @@ import app.models.distributtion
 import app.models.vacunattion
 import app.models.shopping_state
 import app.models.patient
-import app.models.vacunattion_reglas
+import app.models.vaccine_vencidas
 

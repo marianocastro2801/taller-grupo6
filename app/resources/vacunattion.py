@@ -14,12 +14,16 @@ from app.models.vaccine_developer import VaccineDeveloper
 from app.models.vaccine_enfermedad import VaccineEnfermedad
 from app.models.vacunattion import Vacunattion
 from app.models.distributtion import Distributtion
+from app.models.vaccine_vencidas import VaccineVencida
 from app.models.patient import Patient
 from app.models.rol import Rol
 import re
 from tkinter import *
 from tkinter import messagebox as MessageBox
 from datetime import date
+import pymysql
+import psycopg2
+
 
 def index(enfermedad_id):
     if not authenticated(session):
@@ -31,8 +35,11 @@ def index(enfermedad_id):
     distributtiones = Distributtion.get_filtered(enfermedad_id) #de una enferemdad_id
     enfermedades = VaccineEnfermedad.get_all_enfermedades()
     tot = sumar_cantidades(distributtiones)
+
     #vacunattiones = Vacunattion.get_all_vacunaciones()
-    
+    dosisVencidas = sumar_dosis_vencidas(distributtiones)
+
+    tot = tot - dosisVencidas    
     vacuna = VaccineEnfermedad.get_by_id(enfermedad_id)
     vacuna = vacuna.nombre
     provincias = Province.get_all_provincias()
@@ -46,11 +53,12 @@ def index(enfermedad_id):
     return render_template(
         "vacunaciones/vacunattion_index.html",
         vacunattiones= vacunattiones,
-        tot = tot - cant,
+        tot = tot - cant,      #descuento las vacunaciones para obtener el total correcto
         distributtiones = distributtiones,
         enfermedades= enfermedades,
         vacuna= vacuna,
         provincias= provincias,
+        dosisVencidas = dosisVencidas,
     )
 
 
@@ -61,6 +69,15 @@ def sumar_cantidades (distributtiones):
             suma+= numero.cantidad
     return suma
 
+def sumar_dosis_vencidas(distributtiones):
+
+    suma = 0
+    for numero in distributtiones:
+        if numero.lote_id == 5:     #si el lote esta vencido o podria preguntar: si el lote. fechaVenc es mayor a la fecha actual
+            suma+= numero.cantidad
+
+
+    return suma
 
 def new():
     if not authenticated(session):
@@ -104,12 +121,15 @@ def save():
 #IMPEDIR VACUNACION SI NO HAY STOCK 
     distributtiones = Distributtion.get_filtered(e)
     vacunattiones = Vacunattion.get_vacunattiones_by_enfermedad(e)
-    tot = sumar_cantidades(distributtiones) - len(vacunattiones)
-    
+    tot = sumar_cantidades(distributtiones) - len(vacunattiones)  #tot= stock provincial
+    dv= sumar_dosis_vencidas (distributtiones) #CONTROLAR QUE NO VACUNE CON DOSIS VENCIDAS
     if (tot == 0):
         flash("No hay stock para realizar la vacunacion de esa vacuna")
         return redirect(url_for("vacunattiones.vacunattion_index"))
-
+    elif (dv > 0) and (tot == 0): 
+        flash("Dosis vencidas. No pueden ser usadas")
+        return redirect(url_for("vacunattiones.vacunattion_index"))
+    
 #----------------------------------------------------------------------------
 #BCG
     unicaDosis = new_vacunattion.pop("numero_dosis")
@@ -441,8 +461,6 @@ def profile(vacunattion_id):
     return render_template("vacunaciones/vacunattion_profile.html", vacunattion = vacunattion)
 
 
-
-
 #-------------------------------ETL--------------------------------------------
 
 def etl():
@@ -549,7 +567,4 @@ root = Tk()
 
 Button(root, text = "ETL", command=etl).pack()
 
-root.mainloop()
-    
-
-
+root.mainloop()   
