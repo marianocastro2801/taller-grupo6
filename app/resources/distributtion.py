@@ -84,15 +84,15 @@ def save():
     
         flash("No hay Stock disponible para la distribucion en estos momentos.")
         return redirect(url_for("distributtiones.distributtion_index"))
+    
 
-
-
-
-
+    
+    
+    
     new_distributtion = request.form.copy()
     new_distributtion.pop("id", None) 
     Distributtion(**new_distributtion).save()
-#------------- VENCIDAS-------------------------------------------  
+ #------------- VENCIDAS-------------------------------------------  
     #distribuciones = Distributtion.get_filtered(d)
     #distribuciones = Distributtion.get_filtered_provincia(provi)
     #sum = 0
@@ -117,16 +117,16 @@ def sumar_cantidades (shoppings):
     return suma 
 
 def cargar_vencidas(enfermedad,provincia,cantidad):
-
-         #AQUI HAY QUE GUARDAR LAS VENCIDAS EN SU TABLA
-
+                
+        #AQUI HAY QUE GUARDAR LAS VENCIDAS EN SU TABLA
+                
     mydb =  pymysql.connect(
     host= "localhost",
-    user = "root",
-    password = "123456",
+    user="root",
+    password="123456",
     database = "grupo6",
-    port = 3306,   )
-
+    port = 3306   )
+            
     cursor= mydb.cursor()
 
     #query = f"INSERT INTO vacunas_vencidas VALUES ({enfermedad},{provincia},{cantidad}) "
@@ -138,8 +138,8 @@ def cargar_vencidas(enfermedad,provincia,cantidad):
         "INSERT INTO vacunas_vencidas VALUES (%s,%s,%s,%s)",(ultimoId+1,enfermedad,provincia,cantidad)
     )
     cursor.connection.commit()
-        
+    
     cursor.close()
 
-       
-    #-------------------------- FUNCIONAAAAA!! AHORA DEBO MANDAR LOS DATOS CORRECTOS LEER PROVINCIA Y ENFERMEDAD DE LA DISTRIBUCION
+    
+        #-------------------------- FUNCIONAAAAA!! AHORA DEBO MANDAR LOS DATOS CORRECTOS LEER PROVINCIA Y ENFERMEDAD DE LA DISTRIBUCION

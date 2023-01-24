@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db import db
+from app.models.provincias import Province
 
 
 class Vacunattion(db.Model):
@@ -17,8 +18,7 @@ class Vacunattion(db.Model):
     provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
     provincia = relationship("Province")
 
-    numero_dosis= Column(Integer, unique=False, nullable=False)
-   
+    numero_dosis= Column(Integer, unique=False, nullable=False)  
 
     def __init__(self, fecha_vacunacion, paciente_id, enfermedad_id, provincia_id, numero_dosis
     ):
@@ -27,7 +27,6 @@ class Vacunattion(db.Model):
         self.enfermedad_id = enfermedad_id
         self.provincia_id = provincia_id
         self.numero_dosis = numero_dosis
-    
 
     def __repr__(self):
         return "<Vacunattion(fecha_vacunacion='%s', paciente_id='%s', enfermedad_id='%s', provincia_id='%s', numero_dosis='%s' )>" % (
@@ -39,7 +38,6 @@ class Vacunattion(db.Model):
              self.numero_dosis,
 
         )
-
 
     def save(self):
         db.session.add(self)
@@ -53,11 +51,20 @@ class Vacunattion(db.Model):
     def get_by_id(id):
         return Vacunattion.query.get(id)
 
-    @classmethod
-    def get_vacunattiones_by_provincia(self, provincia_id):
-        return Vacunattion.query.filter(self.provincia_id == provincia_id).all()
+#    @classmethod
+#    def get_vacunattiones_by_provincia(self, provincia_id):
+#        return Vacunattion.query.filter(self.provincia_id == provincia_id).all()
 
     @classmethod
     def get_vacunattiones_by_enfermedad(self, enfermedad_id):
         return Vacunattion.query.filter(self.enfermedad_id == enfermedad_id).all()
 
+
+
+    @classmethod
+    def get_vacunattiones_by_provincia(self, nombre_provincia):
+
+        provincia = Province.get_by_nombre(nombre_provincia)
+      
+
+        return Vacunattion.query.filter(self.provincia_id == provincia.id).all()

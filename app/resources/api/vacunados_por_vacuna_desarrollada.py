@@ -11,7 +11,8 @@ def mostrar_vacunacion_por_vd(id):
                     "fecha_vacunacion" : vacuna.fecha_vacunacion,
                     "enfermedad" : vacuna.enfermedad.nombre,
                     "numero_dosis" : vacuna.numero_dosis,
-                    "paciente" : vacuna.paciente.nombre,
+                    "nombre del paciente" : vacuna.paciente.nombre,
+                    "apellido del paciente" : vacuna.paciente.apellido,
                     "provincia" : vacuna.provincia.nombre_provincia
                 }
                 lista.append(v)

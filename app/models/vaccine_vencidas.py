@@ -3,14 +3,14 @@ from sqlalchemy.orm import relationship
 from app.db import db
 
 
-class VaccineVencida(db. Model):
+class VaccineVencida(db.Model):
    __tablename__ = "vacunas_vencidas"
-   id = Column(Integer, prymary_key = True)
+   id = Column(Integer, primary_key=True)
 
    enfermedad_id = Column(Integer, ForeignKey("vacuna_enfermedad.id"), nullable=False)
    enfermedad = relationship("VaccineEnfermedad")
 
-   provinci_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
+   provincia_id = Column(Integer, ForeignKey("provincias.id"), nullable=False)
    provincia = relationship("Province")
 
    cantidad= Column(Integer, unique=False, nullable=False)

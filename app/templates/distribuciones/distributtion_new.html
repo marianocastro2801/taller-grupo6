@@ -33,7 +33,7 @@
           </select>
           </div>
           
-        <label for="enfermedad" class="col-sm-2 col-form-label text-black">Cantidad:</label>
+        <label for="enfermedad" class="col-sm-2 col-form-label text-black">Cantidad Dosis:</label>
         <div class="col-sm-4">
           <input type="number" class="form-control" id="cantidad" name="cantidad"
             value="{{distributtion.cantidad}}" placeholder="Cantidad" required>
@@ -50,6 +50,19 @@
 
             <option value='{{provincia.id}}'> {{ provincia.nombre_provincia }} </option>
    
+            {% endfor %}
+          </select>
+        </div>
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Lote:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="lote_id"> <!--ver si es id o lote_id-->
+            {% for lote in lotes %}
+            {% if (mode == "edit" and lote.id == lote_id) %}
+            <option value='{{lote.id}}' selected> {{ lote.nombre_lote }} </option>
+            {% else %}
+            <option value='{{lote.id}}'> {{ lote.nombre_lote }} </option>
+            {% endif %}
             {% endfor %}
           </select>
         </div>
