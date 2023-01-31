@@ -1,6 +1,7 @@
 from app.models.provincias import Province
 from app.models.shopping import Shopping
 from flask import redirect, render_template, request, url_for, abort, session, flash
+import random
 from datetime import date, time, datetime
 from dateutil.relativedelta import relativedelta
 from sqlalchemy.sql.expression import true
@@ -17,12 +18,16 @@ from app.models.distributtion import Distributtion
 from app.models.vaccine_vencidas import VaccineVencida
 from app.models.patient import Patient
 from app.models.rol import Rol
+from app.models.vacunaciones_api import VacunattionApi
 import re
 from tkinter import *
 from tkinter import messagebox as MessageBox
 from datetime import date
 import pymysql
 import psycopg2
+import requests
+
+
 
 
 def index(enfermedad_id):
@@ -534,11 +539,53 @@ def etl():
         
      
 
+
+
+
     #cursor.fetchone() devuelve la primera tupla 
     #id_tiempo y id_laboratorio NO IMPORTAN DEMSSIADO AHORA id:3: laboratorio Pfizer
+        
+        #traigo solo las novedades
+        #ultimoID = "SELECT id FROM vacunaciones ORDER BY id DESC LIMIT 1 "
+        #ultimoFecha = "SELECT fecha_vacunacion FROM vacunaciones ORDER BY id DESC LIMIT 1 "
+        #cursor_DW.execute(ultimoID)
+        #print (ultimoID)
+        #cursor.execute(ultimoFecha)
+        
+        
+        #for fila in cursor_DW:
+        #    ultimoID =fila[0]
+        #print(ultimoID)
+        #int(ultimoID) #ultimo id de la transaccional
+        
+        #queryNovedades = """SELECT vacunaciones.provincia_id, vacunaciones.enfermedad_id, vacunaciones.id, vacunaciones.fecha_vacunacion 
+        #                    FROM vacunaciones 
+        #    
+        #                    where vacunaciones.id > ("[ultimoID]")"""
+                            #corregir que solo traiga las novedades o sea los mayores al ultimo ID 
+         
+        #cursor.execute(queryNovedades)
+
+       
+       
         for fila in cursor:
+            
             insert_stmt = ("INSERT INTO h_vacunados (id_lugar, id_tiempo, id_vacunado, id_vacuna, id_laboratorio) VALUES (%s, %s, %s, %s, %s)")
-            data = (fila[0],2,fila[1],fila[1],3)
+            p= random.randint(1, 700)
+            fecha = random.randint(1,4)
+            data = (fila[0],fecha,p,fila[1],3)
+            cursor_DW.execute(insert_stmt, data)
+
+#----------query vencidasss
+# leer cursor de una query y luego insertar
+        queryVencidas = "select * from vacunas_vencidas"
+        cursor.execute(queryVencidas)
+
+        for fila in cursor:
+            insert_stmt = ("INSERT INTO h_vencidas (vacuna_id, lugar_id, cantidad) VALUES (%s, %s, %s)")
+            
+        
+            data = (fila[0],fila[1],fila[2])
             cursor_DW.execute(insert_stmt, data)                   
     
         return "etl ejecutado!"
@@ -568,3 +615,18 @@ root = Tk()
 Button(root, text = "ETL", command=etl).pack()
 
 root.mainloop()   
+
+
+
+#-----------CONSUMO API NUEVA VACUNACION
+
+def nueva_vacunacion():
+  
+    if not authenticated(session):
+        return redirect(url_for("auth.login"))
+    if not user_has_permission(session, "vacunattion_index"):  
+        abort(401)
+    return render_template(
+    
+        "vacunaciones/index.html"
+    )
