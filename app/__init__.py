@@ -19,6 +19,7 @@ from .routes.home import home
 from app.resources.api import vacunados
 from app.resources.api import vacunados_por_vacuna_desarrollada
 from app.resources.api import vacunados_por_provincia
+from app.routes.vacunattionesApi import vacunattionesApi
 # from .api.persona import persona_api
 
 
@@ -65,6 +66,9 @@ def create_app(environment="production"):
     # Vacunaciones
     app.register_blueprint(vacunattiones)
 
+    # VacunacionesApi (mayra)
+    app.register_blueprint(vacunattionesApi)
+    
     # Ruta para el Home
     app.register_blueprint(home)
 

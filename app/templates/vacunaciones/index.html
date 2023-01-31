@@ -1,0 +1,467 @@
+{% extends "layout.html" %}
+{% from 'macros/macros_otros.html' import notifications %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+ 
+{{notifications()}}
+
+<div class="">
+  <div class="container text-center">
+    <h1 class="display-4">Consumir pacientes desde API</h1>
+    <p>{{message}}</p>
+  </div>
+  <form method="POST"
+    action="{{ url_for('vacunattionesApi.vacunattion_save_api')}}"
+    id="form-new-point" autocomplete="on">
+    <input type="hidden" id="vacunattionApi_id" name="id" value="{{vacunattionApi.id}}">
+
+    <div class="container form">
+      <!-- <div class="well"> -->
+        
+      <div class="form-group row">
+
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Vacuna contra:</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="enfermedad_id">
+            {% for enfermedad in enfermedades %}
+
+            <option value='{{enfermedad.id}}'> {{ enfermedad.nombre }} </option>
+           
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+            
+        <label for="fecha_inicio" class="col-sm-2 col-form-label text-black">Fecha Vacunación:</label> 
+        <div class="col-sm-4">
+          <input type="date" class="form-control" id="fecha_vacunacion" name="fecha_vacunacion" required>
+        </div>
+
+        <label for="stateSelect" class="col-sm-2 col-form-label text-black">Provincia</label>
+        <div class="col-sm-3">
+          <select class="form-select w-100 bg-light" id="stateSelect" name="provincia_id">
+            {% for provincia in provincias %}
+
+            <option value='{{provincia.id}}'> {{ provincia.nombre_provincia }} </option>
+           
+            {% endfor %}
+          </select>
+        </div>
+
+
+        <label for="cantidad" class="col-sm-2 col-form-label text-black">Datos paciente API Claudio</label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control" id="dni" name="dni"
+            value="vacunattionApi.dni " placeholder="Ej: 30333000" min="30000000" max="69999999" autocomplete="on" required> 
+                <!--vacunattion.paciente_id -->
+          </div>
+
+(api ejemplo)
+<br>
+  DNI: {{ dniPaciente }} 
+  <br>
+  Nombre: {{ nombre }}
+  <br>
+  Apellido: {{ apellido }}
+<br>
+  Ciudad: {{ ciudad }}
+<br>
+  FECHA NAC: {{ fechaNac }}
+  <br>
+</div>
+
+
+
+        </div>
+
+    </div>
+  
+        <h1>
+      
+        <!-- </div> -->
+        <div class="botones botones-center">
+          <a class="btn btn-danger" href="/vacunaciones/vacunattion_index">Cancelar</a>
+      
+          <button type="reset" class="btn btn-warning" mode="create"> Limpiar campos </button>
+    
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </h1>
+
+        </div>
+      </div>
+  </form>
+</div>
+
+
+
+
+
+<BR>
+  <BR>
+    
+<h1>Paises </h1>
+<br>
+      <!--autocompletar desde la API CLAUDIO-->
+
+      <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Autocompletar desde un array de valores</title>
+
+<style>
+body {
+    font-family:Arial;
+    font-size:14px;
+}
+
+.autocompletar input {
+    padding:5px;
+    font-size: 14px;
+}
+.autocompletar ul {
+    background-color:white;
+    border:1px solid #ccc;
+    display:none;
+    margin:0px;
+    padding:0px;
+    position:absolute;
+    width:300px;
+}
+.autocompletar ul li {
+    border-bottom:1px solid #ccc;
+    list-style:none;
+    padding:3px;
+    cursor:pointer;
+}
+.autocompletar ul li:last-child {
+    border-bottom:none;
+}
+.autocompletar ul li:hover {
+    background-color:#ccc;
+}
+#tags {
+    margin-top:20px;
+}
+#tags>div {
+    background-color:#f0f0f0;
+    border:1px solid #ccc;
+    display:inline-block;
+    margin-right:5px;
+    padding:3px 5px;
+}
+#tags>div>span {
+    background-color:#ccc;
+    border-radius:10px;
+    cursor:pointer;
+    display:inline-block;
+    font-size:12px;
+    margin-left:7px;
+    padding:3px;
+    text-align:center;
+    width:15px;
+}
+#tags>div>span::after {
+    content:"X";
+}
+</style>
+</head>
+
+<body>
+
+<div class="autocompletar">
+    <input type="text" value="">
+    <ul></ul>
+</div>
+
+<div id="tags"></div>
+</body>
+
+</html>
+
+<script>
+const arrayValores=Array("Afghanistan", "Albania", "Argelia", "Alemania", "American Samoa", "Andorra", "Angola", "Anguilla", "Antartida", "Antigua y Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia-Herzegovina", "Botswana", "Bouvet Island", "Brasil", "Brit Ind Ocean Territory", "Brunei Darussalm", "Bulgaria", "Burkina Faso", "Burma", "Burundi", "Cambodia", "Cameroon", "Canada", "Canary Islands", "Cape Verde", "Caymen Islands", "Central African Rep", "Chad", "Chile", "China", "Christmas Islands", "Cocos Islands", "Colombia", "Comoros", "Congo", "Cook Islands", "Costa Rica", "Croatia", "Cuba", "Chipre", "Dem Rep. of Korea", "Dinamarca", "Djibouti", "Dominica", "East Timor", "Ecuador", "Egipto", "El Salvador", "Eritrea", "España", "Estados Unidos de America", "Estonia", "Etiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "Francia", "Guiana Francesa", "Polynesia Francesa", "French So. Territories", "Gabon", "Gambia", "Georgia", "Ghana", "Gibraltar", "Guinea Equatorial", "Grecia", "Greenland", "Grenada", "Guadalupe", "Guatemala", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Heard, McDonald Island", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Inglaterra", "Iran", "Iraq", "Ireland", "Islas Filipinas", "Israel", "Italia", "Ivory Coast", "Jamaica", "Japon", "Jordan", "Kazakhistan", "Kenia", "Kiribati", "Korea del Norte", "Kuwait", "Kyrqyzstan", "Laos", "Lativa", "Libano", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Madagascar", "Malawi", "Malaysia", "Maldivas", "Mali", "Malta", "Mariana Islands", "Marruecos", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montserrat", "Mozambique", "Myanmar", "Nambia", "Nauru", "Nepal", "Netherland Antilles", "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue Island", "Norfolk Island", "Northern Mariana Island", "Norway", "OCE", "Oman", "Pacific Islands", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reino Unido", "Republica de Corea", "Republica Dominicana", "Reunion", "Romania", "Russian Federation", "Rwanda", "South Georgia Sandwich", "Saint Pierre Miguelon", "Samoa", "San Marino", "Sao Tomee and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierre Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somali Republic", "South Africa", "South Korea", "Sri Lanka", "St. Helena", "St. Kits-Nevis", "St. Lucia", "St. Vincent/Grenadines", "Sudan", "Suriname", "Svalbard Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tokeelau", "Tonga", "Trinidad Tobago", "Tunisia", "Turquia", "Turkmenistan", "Turks Caicos Islands", "Tuvalu", "Uganda", "Ukrania", "United Arab Emirates", "Uruguay", "US Minor Outlying Is.", "Uzbekistan", "Vanuatu", "Vatican City State", "Venezuela", "Vietnam", "Virgin Islands: British", "Virgin Islands: US", "Wallis Futuna Islands", "Western Sahara", "Western Samoa", "Yemen", "Yugoslavia", "Zaire", "Zambia", "Zimbabwe");
+
+(function() {
+// variable que contendra el valor del input cuando se pulse una tecla
+let valueAutocompletar="";
+
+// array que contendra los valores seleccionados por el usuario
+let valoresSeleccionados=new Array();
+
+// Ordenamos el array para mostrar los datos ordenados
+const sorted=arrayValores.sort();
+
+const input=document.querySelector(".autocompletar input[type=text]");
+
+// En cada pulsacion de una tecla, buscamos las posibles coincidencias
+input.onkeyup=function(e){
+
+    // Si se ha pulsado la tecla enter buscamos la palabra exacta
+    if (e.which==13) {
+
+        // Comprovamos que el valor escrito en el formulario exista en el array
+        // de valores, y que no este ya en el array de valores seleccionados.
+        if (sorted.indexOf(this.value)!=-1 && valoresSeleccionados.indexOf(this.value)==-1) {
+            valoresSeleccionados.push(this.value);
+            input.nextElementSibling.style.display="none";
+            showTags();
+        }
+    } else {
+        buscar();
+    }
+}
+
+/**
+ * Funcion que busca el texto introducido en el array de valores
+ */
+function buscar()
+{
+    input.style.color="Black";
+
+    valueAutocompletar=input.value;
+    document.querySelector(".autocompletar ul").innerHTML="";
+
+    if (valueAutocompletar) {
+
+        // Buscamos el indice del primer elemento del array
+        var positionStart=sorted.findIndex(findMyWord);
+        if (positionStart>=0) {
+            var re=new RegExp("^"+valueAutocompletar+"+", "i");
+
+            // Recorremos el array de valores desde la primera posición del
+            // array que tiene una coincidencia
+            for (var i=positionStart;i<sorted.length;i++) {
+
+                // Si el texto coincide con el inicio del valor del array
+                // lo mostraremos
+                if(re.test(sorted[i])) {
+                    input.nextElementSibling.style.display="block";
+                    var li=document.createElement("li");
+                    li.addEventListener("click", seleccion);
+                    li.innerText=sorted[i];
+                    input.nextElementSibling.appendChild(li);
+                } else {
+                    break;
+                }
+            }
+        } else {
+            input.nextElementSibling.style.display="none";
+            input.style.color="Red";
+        }
+    } else {
+        input.nextElementSibling.style.display="none";
+    }
+}
+
+/**
+ * Evento que se ejecuta cuando el cuadro de texto obtiene el foco
+ * para mostrar la lista de opciones si las hay
+ */
+input.onfocus = () => {
+    if (input.value!="") {
+        buscar();
+
+        // Seleccionamos todo el texto del cuadro de texto
+        input.select();
+    }
+}
+
+/**
+ * Evento que se ejecuta cuando se pulsa en el documento para esconder la
+ * lista de opciones
+ */
+document.addEventListener("click", () => {
+
+    // Se esconde la lista si el foco no esta en el cuadro de texto
+    if (input!=document.activeElement) {
+        input.nextElementSibling.style.display="none";
+    }
+});
+
+/**
+ * Función llamada desde el findIndex para buscar la primera coincidencia del
+ * texto escrito con el array de valores.
+ * Si se ha escrito "pa", devolvera el primer elemento que empiece por "pa", por
+ * ejemplo: "pagina"
+ *
+ * @param string valor del elemento iterado
+ *
+ * @return boolean
+ */
+function findMyWord(element)
+{
+    // revisamos si se encuentra la cadena escrita en el input dentro del
+    // array de valores
+    var re=new RegExp("^"+valueAutocompletar+"+","i");
+    return re.test(element);
+}
+
+/**
+ * Funcion que se ejecuta en el evento cuando se pulsa con el raton un elemento
+ * de la lista
+ */
+function seleccion()
+{
+    // obtenemos el texto del elemento seleccionado
+    const element=this.textContent;
+
+    // Comprovamos que el elemento seleccionado se encuentre ya
+    // en el array de valores seleccionados
+    if (valoresSeleccionados.indexOf(element)==-1) {
+        // Añadimos el elemento al array
+        valoresSeleccionados.push(element);
+
+        // mostramos los tags
+        showTags();
+    }
+}
+
+/**
+ * Función para mostrar los tags
+ */
+function showTags()
+{
+    const tags=document.getElementById("tags");
+
+    // Eliminamos los tags que se muestran en la web
+    tags.innerHTML="";
+
+    // Ordenamos los tags seleccionados
+    const valoresSeleccionadosSorted=valoresSeleccionados.sort();
+
+    for (let i=0;i<valoresSeleccionadosSorted.length;i++) {
+
+        // Añadimos cada uno de los tags en la web
+
+        let span=document.createElement("span");
+        span.id=valoresSeleccionadosSorted[i];
+        span.addEventListener("click", removeTag);
+
+        let div=document.createElement("div");
+        div.innerHTML=valoresSeleccionadosSorted[i];
+        div.appendChild(span);
+        tags.appendChild(div);
+    }
+}
+
+/**
+ * Funcion para eliminar un tag
+ */
+function removeTag()
+{
+    valoresSeleccionados.splice( valoresSeleccionados.indexOf(this.id), 1 );
+    this.parentElement.remove();
+}
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--CONSUMO API CLAUDIO-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Api fetch</title>
+  </head>
+  <body>
+    <h1>Consumir datos de API </h1>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">DNI</th>
+          <th scope="col">nombre</th>
+          <th scope="col">apellido</th>
+        </tr>
+      </thead>
+      <tbody id="data">
+        
+      </tbody>
+    </table>
+  
+    <script>
+        //let url = "https://reqres.in/api/users?delay=3"
+        //let url = "https://randomuser.me/api/"
+        let url = "https://jsonplaceholder.typicode.com/albums"
+        //let url = "https://jsonplaceholder.typicode.com/comments" //{albumId}
+        //let url = "https://api.claudioraverta.com/personas/33333331/" 
+        fetch(url)
+            .then(response => response.json())
+            .then (data => mostrarData(data))
+            .catch(error => console.log(error))
+
+        const mostrarData = (data) => {
+          console.log (data)
+
+        
+
+          let body = ''
+          for (let i = 0; i< data.length;i++){
+              body+= `<tr> <td>  ${data[i].userId} </td> <td>  ${data[i].id} </td> <td>  ${data[i].title} </td></tr>`
+           
+            }
+          document.getElementById('data').innerHTML = body
+        }
+       
+ 
+      </script>
+
+  </body>
+</html>
+
+
+{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
