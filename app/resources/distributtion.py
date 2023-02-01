@@ -118,12 +118,12 @@ def sumar_cantidades (shoppings):
 
 def cargar_vencidas(enfermedad,provincia,cantidad):
                 
-        #AQUI HAY QUE GUARDAR LAS VENCIDAS EN SU TABLA
+        #ACA HAY QUE GUARDAR LAS VENCIDAS EN SU TABLA
                 
     mydb =  pymysql.connect(
     host= "localhost",
     user="root",
-    password="123456",
+    password="",
     database = "grupo6",
     port = 3306   )
             
