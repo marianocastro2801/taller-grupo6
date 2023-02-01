@@ -122,7 +122,7 @@ def save_con_api():
         mydb =  pymysql.connect(
         host= "localhost",
         user="root",
-        password="123456",
+        password="",
         database = "grupo6",
         port = 3306   )
             

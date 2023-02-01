@@ -487,7 +487,7 @@ def etl():
         mydb =  pymysql.connect(
         host= "localhost",
         user="root",
-        password="123456",
+        password="",
         database = "grupo6",
         port = 3306   )
 
@@ -513,7 +513,7 @@ def etl():
         connection = psycopg2.connect(
         host= "localhost",
         user="postgres",
-        password="123456",
+        password="root",
         database = "DW_vacunaciones",
         port = "5432"   )
 
@@ -576,7 +576,7 @@ def etl():
             data = (fila[0],fecha,p,fila[1],3)
             cursor_DW.execute(insert_stmt, data)
 
-#----------query vencidasss
+#---------- Inserto en el DW query vencidasss
 # leer cursor de una query y luego insertar
         queryVencidas = "select * from vacunas_vencidas"
         cursor.execute(queryVencidas)
@@ -586,7 +586,7 @@ def etl():
             
         
             data = (fila[0],fila[1],fila[2])
-            cursor_DW.execute(insert_stmt, data)                   
+            cursor_DW.execute(insert_stmt, data)                    
     
         return "etl ejecutado!"
     
@@ -618,7 +618,7 @@ root.mainloop()
 
 
 
-#-----------CONSUMO API NUEVA VACUNACION
+#-----------CONSUMO API PARA NUEVA VACUNACION
 
 def nueva_vacunacion():
   
