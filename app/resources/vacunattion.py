@@ -211,16 +211,19 @@ def save():
     dentro_dos_meses = paciente.fecha_nacimiento + relativedelta(months=2)
     dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
     # EL USUARIO ELIGIO ROTAVIRUS y SON 2 DOSIS
-    if e == '156':
+    if e == '20':
+        if not (unicaDosis == '1') :
+            flash("No se puede realizar la vacunacion porque no tiene la primera dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
         if  unicaDosis == '1':
             if format(f) <= str(dentro_dos_meses) :
                 new_vacunattion = request.form.copy()
                 new_vacunattion.pop("id", None) 
                 Vacunattion(**new_vacunattion).save()
-                flash("Se ha registrado la vacunacion exitosamente de ROTAVIRUS al paciente de 2 meses") 
+                flash("Se ha registrado la vacunacion exitosamente de ROTAVIRUS. El paciente esta dentro de los 2 meses de vida") 
                 return redirect(url_for("vacunattiones.vacunattion_index"))
             elif unicaDosis == '1': 
-                    flash("el paciente no cumple la condicion de los 2 meses ")                 
+                    flash("el paciente no cumple condicion. Tiene que tener 2 meses de vida para poder vacunarse")                 
                     return redirect(url_for("vacunattiones.vacunattion_index"))
         else:
              if unicaDosis == '2':
@@ -231,10 +234,10 @@ def save():
                     flash("Se ha registrado la vacunacion exitosamente de ROTAVIRUS al paciente de 4 meses") 
                     return redirect(url_for("vacunattiones.vacunattion_index"))
                 elif unicaDosis == '2': 
-                    flash("el paciente no cumple la condicion de los 4 meses ")                 
+                    flash("el paciente no tiene aplicada la primera dosis o no cumple la condicion de los 4 meses ")                 
                     return redirect(url_for("vacunattiones.vacunattion_index"))     
         if unicaDosis != '1' and unicaDosis != '2':
-            flash("La vacuna Rotavirus corresponde a : Primera Dosis y  Segunda Dosis")
+            flash("No se registra la vacunacion. La vacuna Rotavirus corresponde a : Primera Dosis y  Segunda Dosis")
             return redirect(url_for("vacunattiones.vacunattion_index"))
 
 #----------------------------------------------------------------------------
@@ -306,7 +309,7 @@ def save():
     dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
     dentro_seis_meses = paciente.fecha_nacimiento + relativedelta(months=6)
     # EL USUARIO ELIGIO pentavalente o quíntuple y SON 3 DOSIS
-    if e == '157':
+    if e == '21':
         if  unicaDosis == '1':
             if format(f) <= str(dentro_dos_meses) :
                 new_vacunattion = request.form.copy()
@@ -348,7 +351,7 @@ def save():
     dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
     dentro_seis_meses = paciente.fecha_nacimiento + relativedelta(months=6)
     # EL USUARIO ELIGIO SALK y SON 3 DOSIS
-    if e == '158':
+    if e == '22':
         if  unicaDosis == '1':
             if format(f) <= str(dentro_dos_meses) :
                 new_vacunattion = request.form.copy()
