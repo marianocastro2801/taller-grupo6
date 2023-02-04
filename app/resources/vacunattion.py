@@ -278,6 +278,9 @@ def save():
     dentro_cuatro_meses = paciente.fecha_nacimiento + relativedelta(months=4)
     # EL USUARIO ELIGIO Neumococo Conjugada y SON 2 DOSIS
     if e == '7':
+        if not (unicaDosis == '1') :
+            flash("No se puede realizar la vacunacion porque no tiene la primera dosis")
+            return redirect(url_for("vacunattiones.vacunattion_index"))
         if  unicaDosis == '1':
             if format(f) <= str(dentro_dos_meses) :
                 new_vacunattion = request.form.copy()
